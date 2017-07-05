@@ -1,13 +1,6 @@
-<table width="100%">
-  <tr>
-    <td align="left" width="70%">
-      <strong>Infinum WordPress Coding Standards</strong>
-    </td>
-    <td align="center" width="30%">
-      <img src="https://avatars0.githubusercontent.com/u/97652?v=3&s=200" alt="Infinum logo">
-    </td>
-  </tr>
-</table>
+# Infinum WordPress Coding Standards
+
+<img src="https://avatars0.githubusercontent.com/u/97652?v=3&s=200" alt="Infinum logo">
 
 This is a version of [Infinum WordPress Coding Standards](https://handbook.infinum.co/books/wordpress) for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/).
 
