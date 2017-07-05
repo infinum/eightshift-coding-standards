@@ -1,0 +1,9 @@
+{
+  "name": "infinum/wp-coding-standards",
+  "description": "Infinum WordPress Coding Standards",
+  "type": "project",
+  "license": "GPL-2.0",
+  "require": {
+    "wp-coding-standards/wpcs": "^0.11.0",
+  }
+}
