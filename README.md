@@ -1,7 +1,5 @@
 # Infinum WordPress Coding Standards
 
-<img src="https://avatars0.githubusercontent.com/u/97652?v=3&s=200" alt="Infinum logo">
-
 This is a version of [Infinum WordPress Coding Standards](https://handbook.infinum.co/books/wordpress) for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/).
 
 ## Setup
