@@ -1,7 +1,73 @@
 <?xml version="1.0"?>
 <ruleset name="Infinum">
-  <description>Loader for the main Infinum sniffer.</description>
+  <description>Infinum custom coding standards</description>
 
-  <config name="installed_paths" value="vendor/wp-coding-standards/wpcs" />
-  <rule ref="vendor/infinum/wp-coding-standards/Infinum/ruleset.xml" />
+  <!-- Load WordPress Coding standards - these include Extra, Core and VIP -->
+  <rule ref="WordPress"/>
+
+  <!-- Exclude node and composer folders -->
+  <exclude-pattern>vendor/*</exclude-pattern>
+  <exclude-pattern>node_modules/*</exclude-pattern>
+  <exclude-pattern>*/data/*</exclude-pattern>
+
+  <!-- Only check php code, linters are checking js and css -->
+  <arg name="extensions" value="php"/>
+
+  <!-- Define default report type -->
+  <arg name="report" value="summary"/>
+
+  <!-- Enable colors in report -->
+  <arg name="colors"/>
+
+  <!-- We work with modified VIP standard -->
+  <rule ref="WordPress-VIP">
+    <exclude name="WordPress.VIP.FileSystemWritesDisallow" />
+    <exclude name="WordPress.VIP.RestrictedFunctions" />
+    <exclude name="WordPress.VIP.RestrictedVariables" />
+    <exclude name="WordPress.VIP.SuperGlobalInputUsage" />
+    <exclude name="WordPress.VIP.DirectDatabaseQuery" />
+    <exclude name="WordPress.PHP.YodaConditions" />
+  </rule>
+
+  <!-- Disable check for translators comments -->
+  <rule ref="WordPress">
+    <exclude name="WordPress.WP.I18n.TranslatorsCommentWrongStyle" />
+    <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+  </rule>
+
+  <!-- Add check for default prefix, not working in 0.11. version, only in 0.12. Comment out for now -->
+<!--   <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+    <properties>
+      <property name="prefixes" type="array" value="inf" />
+    </properties>
+  </rule> -->
+
+  <!-- Set minimum supported version for deprecated functions -->
+  <rule ref="WordPress.WP.DeprecatedFunctions">
+    <properties>
+      <property name="minimum_supported_version" value="4.4" />
+    </properties>
+  </rule>
+
+  <!-- Allow theme hierarchy specific file name exceptions -->
+  <rule ref="WordPress.Files.FileName">
+    <properties>
+      <property name="is_theme" value="true" />
+    </properties>
+  </rule>
+
+  <!-- Forbidden space after function keyword and open parenthesis -->
+  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+    <properties>
+      <property name="spaces_before_closure_open_paren" value="0" />
+      <property name="blank_line_check" value="true" />
+    </properties>
+  </rule>
+
+  <!-- File Layout: Classes in own file. -->
+    <!-- Handled in Classes/OnlyClassInFileSniff -->
+    <!-- Also handled in PSR1.Classes.ClassDeclaration below. -->
+
+  <rule ref="PSR1.Classes.ClassDeclaration" />
+
 </ruleset>
