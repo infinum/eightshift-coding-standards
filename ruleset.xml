@@ -14,7 +14,7 @@
   <arg name="extensions" value="php"/>
 
   <!-- Define default report type -->
-  <arg name="report" value="summary"/>
+  <arg name="report" value="full"/>
 
   <!-- Enable colors in report -->
   <arg name="colors"/>
@@ -60,7 +60,7 @@
   <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
     <properties>
       <property name="spaces_before_closure_open_paren" value="0" />
-      <property name="blank_line_check" value="true" />
+      <property name="blank_line_check" value="false" />
     </properties>
   </rule>
 
