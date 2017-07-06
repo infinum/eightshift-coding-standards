@@ -8,6 +8,15 @@
   <exclude-pattern>*/data/*</exclude-pattern>
   <exclude-pattern>*.min.js</exclude-pattern>
 
+  <!-- Only check php code, linters are checking js and css -->
+  <arg name="extensions" value="php"/>
+
+  <!-- Define default report type -->
+  <arg name="report" value="summary"/>
+
+  <!-- Enable colors in report -->
+  <arg name="colors"/>
+
   <!-- We work with modified VIP standard -->
   <rule ref="WordPress-VIP">
     <exclude name="WordPress.VIP.FileSystemWritesDisallow" />
