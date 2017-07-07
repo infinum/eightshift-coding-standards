@@ -10,13 +10,18 @@ use PHP_CodeSniffer_Tokens;
  * Ensures do_shortcode() function is not being used.
  */
 class DisallowDoShortcodeSniff implements PHP_CodeSniffer_Sniff {
-
   /**
-   * Check for do_shortcode regex
+   * Returns an array of tokens this test wants to listen for.
    *
-   * @var string
+   * @return array
    */
-  const DO_SHORTCODE_REGEX = '`do_shortcode\( ?[\'\"]\[`g';
+  public function register() {
+
+    $tokens = PHP_CodeSniffer_Tokens::$functionNameTokens;
+
+    return $tokens;
+  }
+
 
   /**
    * Processes this sniff, when one of its tokens is encountered.
@@ -32,8 +37,9 @@ class DisallowDoShortcodeSniff implements PHP_CodeSniffer_Sniff {
     $tokens = $phpcsFile->getTokens();
     $token  = $tokens[ $stackPtr ];
 
-    if ( preg_match( $this->do_shortcode_regex, $token['content'] ) > 0 ) {
+    if ( preg_match( '`do_shortcode`im', $token['content'] ) > 0 ) {
       $phpcsFile->addError( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.' , $stackPtr, 'do_shortcodeDetected' );
     }
   }
+
 }
