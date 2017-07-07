@@ -19,6 +19,9 @@
   <!-- Enable colors in report -->
   <arg name="colors"/>
 
+  <!-- Add source codes in the report -->
+  <arg value="s"/>
+
   <!-- We work with modified VIP standard -->
   <rule ref="WordPress-VIP">
     <exclude name="WordPress.VIP.FileSystemWritesDisallow" />
@@ -33,6 +36,7 @@
   <rule ref="WordPress">
     <exclude name="WordPress.WP.I18n.TranslatorsCommentWrongStyle" />
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+    <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
   </rule>
 
   <!-- Add check for default prefix, not working in 0.11. version, only in 0.12. Comment out for now -->
@@ -68,6 +72,8 @@
     <!-- Handled in Classes/OnlyClassInFileSniff -->
     <!-- Also handled in PSR1.Classes.ClassDeclaration below. -->
 
-  <rule ref="PSR1.Classes.ClassDeclaration" />
+  <rule ref="PSR1.Classes.ClassDeclaration">
+    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
+  </rule>
 
 </ruleset>
