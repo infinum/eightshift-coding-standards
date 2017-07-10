@@ -38,7 +38,7 @@ class DisallowDoShortcodeSniff implements PHP_CodeSniffer_Sniff {
     $token  = $tokens[ $stackPtr ];
 
     if ( preg_match( '`do_shortcode`im', $token['content'] ) > 0 ) {
-      $phpcsFile->addError( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.' , $stackPtr, 'do_shortcodeDetected' );
+      $phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.' , $stackPtr, 'do_shortcodeDetected' );
     }
   }
 
