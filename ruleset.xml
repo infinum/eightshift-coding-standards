@@ -36,7 +36,6 @@
   <rule ref="WordPress">
     <exclude name="WordPress.WP.I18n.TranslatorsCommentWrongStyle" />
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
-    <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
   </rule>
 
   <!-- Add check for default prefix, not working in 0.11. version, only in 0.12. Comment out for now -->
@@ -58,6 +57,11 @@
     <properties>
       <property name="is_theme" value="true" />
     </properties>
+  </rule>
+
+  <!-- Disallow _ in file names, except in a certain files -->
+  <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+    <exclude-pattern>*/sections/*</exclude-pattern>
   </rule>
 
   <!-- Forbidden space after function keyword and open parenthesis -->
