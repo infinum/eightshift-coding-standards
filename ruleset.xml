@@ -80,4 +80,9 @@
     <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
   </rule>
 
+  <!-- Don't worry about files that don't contain any code -->
+  <rule ref="Internal.NoCodeFound">
+    <severity>0</severity>
+  </rule>
+
 </ruleset>
