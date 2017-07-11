@@ -1,22 +1,22 @@
 {
-    "name": "infinum/wp-coding-standards",
+    "name": "infinum/coding-standards-wp",
     "type": "phpcodesniffer-standard",
     "description": "Infinum WordPress Coding Standards",
     "keywords": ["phpcs", "standards", "WordPress"],
-    "homepage": "https://github.com/infinum/wp-coding-standards",
+    "homepage": "https://github.com/infinum/coding-standards-wp",
     "license": "GPL-2.0",
     "authors": [
       {
         "name"    : "Contributors",
-        "homepage": "https://github.com/infinum/wp-coding-standards/graphs/contributors"
+        "homepage": "https://github.com/infinum/coding-standards-wp/graphs/contributors"
       }
     ],
     "require": {
-        "wp-coding-standards/wpcs": "0.11.0"
+        "coding-standards-wp/wpcs": "0.11.0"
     },
     "support"    : {
-      "issues": "https://github.com/infinum/wp-coding-standards/issues",
-      "wiki"  : "https://github.com/infinum/wp-coding-standards/wiki",
-      "source": "https://github.com/infinum/wp-coding-standards"
+      "issues": "https://github.com/infinum/coding-standards-wp/issues",
+      "wiki"  : "https://github.com/infinum/coding-standards-wp/wiki",
+      "source": "https://github.com/infinum/coding-standards-wp"
     }
 }
