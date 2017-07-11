@@ -1,5 +1,8 @@
 # Infinum WordPress Coding Standards
 
+[![Latest Stable Version](https://poser.pugx.org/infinum/coding-standards-wp/v/stable)](https://packagist.org/packages/infinum/coding-standards-wp)
+[![License](https://poser.pugx.org/infinum/coding-standards-wp/license)](https://packagist.org/packages/infinum/coding-standards-wp)
+
 This package is a version of [Infinum WordPress Coding Standards](https://handbook.infinum.co/books/wordpress) for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/). The intention is to have a unified code across the WordPress projects, and to help with the code review.
 
 ## Installation
