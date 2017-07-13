@@ -2,7 +2,7 @@
 <ruleset name="Infinum">
   <description>Infinum internal coding standards for WordPress</description>
 
-  <config name="installed_paths" value="vendor/coding-standards-wp/wpcs"/>
+  <config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>
 
   <!-- Exclude node and composer folders -->
   <exclude-pattern>vendor/*</exclude-pattern>
