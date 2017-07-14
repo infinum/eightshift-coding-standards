@@ -1,6 +1,6 @@
 <?php
 
-namespace Infinum\Sniffs\Classes;
+namespace Sniffs\Classes;
 
 use PHP_CodeSniffer_File;
 use PHP_CodeSniffer_Sniff;

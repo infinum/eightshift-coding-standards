@@ -1,6 +1,6 @@
 <?php
 
-namespace Infinum\Sniffs\Shortcodes;
+namespace Sniffs\Shortcodes;
 
 use PHP_CodeSniffer_File;
 use PHP_CodeSniffer_Sniff;
