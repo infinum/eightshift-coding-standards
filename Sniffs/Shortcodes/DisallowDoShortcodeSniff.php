@@ -1,6 +1,6 @@
 <?php
 
-namespace Sniffs\Shortcodes;
+namespace coding_standards_wp\Sniffs\Shortcodes;
 
 use PHP_CodeSniffer_File;
 use PHP_CodeSniffer_Sniff;
@@ -9,7 +9,7 @@ use PHP_CodeSniffer_Tokens;
 /**
  * Ensures do_shortcode() function is not being used.
  */
-class DisallowDoShortcodeSniff implements PHP_CodeSniffer_Sniff {
+class Infinum_Sniffs_Shortcodes_DisallowDoShortcodeSniff implements PHP_CodeSniffer_Sniff {
   /**
    * Returns an array of tokens this test wants to listen for.
    *
