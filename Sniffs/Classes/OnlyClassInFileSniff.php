@@ -1,8 +1,15 @@
 <?php
+
+namespace Infinum\Sniffs\Classes;
+
+use PHP_CodeSniffer_File;
+use PHP_CodeSniffer_Sniff;
+use PHP_CodeSniffer_Tokens;
+
 /**
  * Sniff to check classes are by themselves.
  */
-class Infinum_Sniffs_Classes_OnlyClassInFileSniff implements PHP_CodeSniffer_Sniff {
+class OnlyClassInFileSniff implements PHP_CodeSniffer_Sniff {
   /**
    * Returns an array of tokens this test wants to listen for.
    *

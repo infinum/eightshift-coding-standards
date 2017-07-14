@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Infinum">
+<ruleset name="Infinum" namespace="Infinum">
   <description>Infinum internal coding standards for WordPress</description>
 
   <config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>
