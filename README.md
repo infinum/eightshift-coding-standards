@@ -16,7 +16,7 @@ Then you can install the additional coding standards using Composer:
 Run the following command to run the standards checks:
 
 ```
-vendor/bin/phpcs --standard=vendor/infinum/coding-standards-wp .
+vendor/bin/phpcs --standard=vendor/infinum/coding-standards-wp/Infinum .
 ```
 
 The final `.` here specifies the files you want to test; this is typically the current directory (`.`), but you can also selectively check files or directories by specifying them instead.
