@@ -20,3 +20,34 @@ vendor/bin/phpcs --standard=vendor/infinum/coding-standards-wp/Infinum .
 ```
 
 The final `.` here specifies the files you want to test; this is typically the current directory (`.`), but you can also selectively check files or directories by specifying them instead.
+
+## Working in IDE
+
+### Sublime Text 3
+
+To make the sniff work in Sublime Text 3, you need to have sublime linter set up, and add [phpcs linter](https://github.com/SublimeLinter/SublimeLinter-phpcs).
+
+Then in your settings you need to reference the path to the coding standards. It should look something like this
+
+```json
+"paths": {
+    "linux": [],
+    "osx": [
+        "/Users/<user name>/wpcs/vendor/bin"
+    ],
+    "windows": []
+},
+```
+
+The path depends on where you've installed your standards. Then in the linters user settings you'll need to add in the `linters` key
+
+```json
+"phpcs": {
+    "@disable": false,
+    "args": [],
+    "excludes": [],
+    "standard": "Infinum"
+},
+```
+
+In your `wpcs` folder, add Infinum folder. You can clone this repository there, and then just use `Infinum` folder (the one containing the sniffs and the ruleset.xml), and be sure to comment out the `<config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>` part, so that your sniffer won't go looking for that folder (since you are in it already).
