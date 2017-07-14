@@ -18,5 +18,9 @@
       "issues": "https://github.com/infinum/coding-standards-wp/issues",
       "wiki"  : "https://github.com/infinum/coding-standards-wp/wiki",
       "source": "https://github.com/infinum/coding-standards-wp"
+    },
+    "scripts"    : {
+      "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths ../../..",
+      "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths ../../.."
     }
 }
