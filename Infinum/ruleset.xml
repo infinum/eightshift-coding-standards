@@ -43,8 +43,8 @@
   <!-- Set the default indent value and force spaces instead of tabs -->
   <rule ref="Generic.WhiteSpace.ScopeIndent">
       <properties>
-          <property name="indent" value="2"/>
-          <property name="tabIndent" value="false"/>
+          <property name="indent" value="2" />
+          <property name="tabIndent" value="false" />
       </properties>
   </rule>
 
