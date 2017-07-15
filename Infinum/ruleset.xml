@@ -40,6 +40,14 @@
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
   </rule>
 
+  <!-- Set the default indent value and force spaces instead of tabs -->
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+      <properties>
+          <property name="indent" value="2"/>
+          <property name="tabIndent" value="false"/>
+      </properties>
+  </rule>
+
   <!-- Add check for default prefix, not working in 0.11. version, only in 0.12. Comment out for now -->
 <!--   <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
     <properties>
