@@ -55,6 +55,12 @@
   </rule>
   <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 
+  <rule ref="PEAR.Functions.FunctionCallSignature">
+    <properties>
+      <property name="indent" value="2"/>
+    </properties>
+  </rule>
+
   <!-- Set minimum supported version for deprecated functions -->
   <rule ref="WordPress.WP.DeprecatedFunctions">
     <properties>
