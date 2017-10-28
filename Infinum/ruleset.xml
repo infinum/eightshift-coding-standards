@@ -12,9 +12,6 @@
   <!-- Only check php code, linters are checking js and css -->
   <arg name="extensions" value="php"/>
 
-  <!-- Define default report type -->
-  <arg name="report" value="full"/>
-
   <!-- Enable colors in report -->
   <arg name="colors"/>
 
@@ -99,6 +96,13 @@
   <!-- Don't worry about files that don't contain any code -->
   <rule ref="Internal.NoCodeFound">
     <severity>0</severity>
+  </rule>
+
+  <!-- Allow certain DOMDocument methods as safe camelCase words -->
+  <rule ref="WordPress.NamingConventions.ValidVariableName">
+    <properties>
+        <property name="customPropertiesWhitelist" type="array" value="nodeType,tagName,childNodes,wholeText,nodeValue,nodeName,documentElement,DOMDocument"/>
+    </properties>
   </rule>
 
 </ruleset>
