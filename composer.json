@@ -20,7 +20,11 @@
       "source": "https://github.com/infinum/coding-standards-wp"
     },
     "scripts"    : {
-      "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths ../../..",
-      "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths ../../.."
+      "post-install-cmd": [
+      "\"vendor/bin/phpcs\" --config-set installed_paths vendor/infinum/coding-standards-wp"
+      ],
+      "post-update-cmd": [
+        "\"vendor/bin/phpcs\" --config-set installed_paths vendor/infinum/coding-standards-wp"
+      ]
     }
 }
