@@ -21,10 +21,10 @@
     },
     "scripts"    : {
       "post-install-cmd": [
-      "\"vendor/bin/phpcs\" --config-set installed_paths vendor/infinum/coding-standards-wp"
+      "\"vendor/bin/phpcs\" --config-set installed_paths vendor/infinum"
       ],
       "post-update-cmd": [
-        "\"vendor/bin/phpcs\" --config-set installed_paths vendor/infinum/coding-standards-wp"
+        "\"vendor/bin/phpcs\" --config-set installed_paths vendor/infinum"
       ]
     }
 }
