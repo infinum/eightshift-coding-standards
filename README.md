@@ -66,3 +66,14 @@ To set up phpcs in your VSCode, use [vscode-phpcs](https://github.com/ikappas/vs
 ```
 
 This will look in your project's vendor folder for the Infinum's WordPress Coding Standards, and run the sniffs on every save. You can see the issues in the Problems tab at the bottom.
+
+## Credits
+
+Infinum WordPress Coding Standards are maintained and sponsored by
+[Infinum](https://www.infinum.co).
+
+<img src="https://infinum.co/infinum.png" width="264">
+
+## License
+
+Infinum WordPress Coding Standards are Copyright © 2017 Infinum. This is free software, and may be redistributed under the terms specified in the LICENSE file.
