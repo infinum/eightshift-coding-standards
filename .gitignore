@@ -1,5 +1,14 @@
 composer.phar
-/vendor/
+/vendor
+
+# Mac OS custom attribute store and thumbnails
+*.DS_Store
+._*
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
 
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file

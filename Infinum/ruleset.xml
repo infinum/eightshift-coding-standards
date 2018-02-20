@@ -31,10 +31,19 @@
     <exclude name="WordPress.PHP.YodaConditions" />
   </rule>
 
-  <!-- Disable check for translators comments -->
+  <!-- Modify post per page limit -->
+  <rule ref="WordPress.VIP.PostsPerPage">
+    <properties>
+      <property name="posts_per_page" value="1000"/>
+    </properties>
+  </rule>
+
+  <!-- Disable check for translators comments, precision alignment and multiple statement alignment -->
   <rule ref="WordPress">
     <exclude name="WordPress.WP.I18n.TranslatorsCommentWrongStyle" />
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+    <exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
+    <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
   </rule>
 
   <!-- Tabs should represent 2 spaces. -->
@@ -83,14 +92,6 @@
       <property name="spaces_before_closure_open_paren" value="0" />
       <property name="blank_line_check" value="false" />
     </properties>
-  </rule>
-
-  <!-- File Layout: Classes in own file. -->
-    <!-- Handled in Classes/OnlyClassInFileSniff -->
-    <!-- Also handled in PSR1.Classes.ClassDeclaration below. -->
-
-  <rule ref="PSR1.Classes.ClassDeclaration">
-    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
   </rule>
 
   <!-- Don't worry about files that don't contain any code -->

@@ -1,7 +1,8 @@
 # Infinum WordPress Coding Standards
 
-[![Latest Stable Version](https://poser.pugx.org/infinum/coding-standards-wp/v/stable)](https://packagist.org/packages/infinum/coding-standards-wp)
-[![License](https://poser.pugx.org/infinum/coding-standards-wp/license)](https://packagist.org/packages/infinum/coding-standards-wp)
+[![Packagist downloads](https://img.shields.io/packagist/dt/infinum/coding-standards-wp.svg)](https://packagist.org/packages/infinum/coding-standards-wp)
+[![Version](https://img.shields.io/github/tag/infinum/coding-standards-wp.svg)](https://github.com/infinum/coding-standards-wp)
+[![License](https://img.shields.io/github/license/infinum/coding-standards-wp.svg)](https://github.com/infinum/coding-standards-wp)
 
 This package is a version of [Infinum WordPress Coding Standards](https://handbook.infinum.co/books/wordpress) for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/). The intention is to have a unified code across the WordPress projects, and to help with the code review.
 
@@ -33,7 +34,7 @@ Then in your settings you need to reference the path to the coding standards. It
 "paths": {
     "linux": [],
     "osx": [
-        "/Users/<user name>/wpcs/vendor/bin"
+        "/Users/user_name/wpcs/vendor/bin"
     ],
     "windows": []
 },
