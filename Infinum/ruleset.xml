@@ -46,19 +46,24 @@
     <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
   </rule>
 
-  <!-- Tabs should represent 2 spaces. -->
-  <arg name="tab-width" value="2"/>
-
   <!-- Set the default indent value and force spaces instead of tabs -->
   <rule ref="WordPress">
     <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
   </rule>
+
+  <rule ref="WordPress.Arrays.ArrayIndentation">
+    <properties>
+      <property name="tabIndent" value="false"/>
+    </properties>
+  </rule>
+
   <rule ref="Generic.WhiteSpace.ScopeIndent">
     <properties>
       <property name="indent" value="2"/>
       <property name="tabIndent" value="false"/>
     </properties>
   </rule>
+
   <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 
   <rule ref="PEAR.Functions.FunctionCallSignature">
@@ -105,5 +110,8 @@
         <property name="customPropertiesWhitelist" type="array" value="nodeType,tagName,childNodes,wholeText,nodeValue,nodeName,documentElement,DOMDocument"/>
     </properties>
   </rule>
+
+  <!-- Tabs should represent 2 spaces. -->
+  <arg name="tab-width" value="2"/>
 
 </ruleset>
