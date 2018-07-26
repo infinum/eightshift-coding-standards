@@ -1,44 +1,53 @@
 <?php
+/**
+ * Infinum coding standards for WordPress
+ *
+ * @package Infinum\Sniffs\Shortcodes
+ *
+ * @author  Infinum <info@infinum.co>
+ * @license MIT https://github.com/infinum/coding-standards-wp/blob/master/LICENSE
+ * @link    https://github.com/infinum/coding-standards-wp
+ *
+ * @since 0.3.0 Updated sniff to be compatible with latest PHPCS and WPCS
+ * @since 1.0.0
+ */
 
 namespace Infinum\Sniffs\Shortcodes;
 
-use PHP_CodeSniffer_File;
-use PHP_CodeSniffer_Sniff;
-use PHP_CodeSniffer_Tokens;
+use WordPress\Sniff;
+use PHP_CodeSniffer_Tokens as Tokens;
 
 /**
  * Ensures do_shortcode() function is not being used.
+ *
+ * Don’t use do_shortcode when you can use your callback function directly,
+ * which is much more efficient.
+ *
+ * @link https://konstantin.blog/2013/dont-do_shortcode/
  */
-class DisallowDoShortcodeSniff implements PHP_CodeSniffer_Sniff {
+class DisallowDoShortcodeSniff extends Sniff {
   /**
    * Returns an array of tokens this test wants to listen for.
    *
    * @return array
    */
   public function register() {
-
-    $tokens = PHP_CodeSniffer_Tokens::$functionNameTokens;
-
-    return $tokens;
+    return Tokens::$functionNameTokens;
   }
 
-
   /**
-   * Processes this sniff, when one of its tokens is encountered.
+   * Processes this test, when one of its tokens is encountered.
    *
-   * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-   * @param int                  $stackPtr  The position of the current token in
-   *                                        the token stack.
+   * @param int $stackPtr The position of the current token in the token stack.
    *
-   * @return void
+   * @return void|int
    */
-  public function process( PHP_CodeSniffer_File $phpcsFile, $stackPtr ) {
+  public function process_token( $stackPtr ) {
 
-    $tokens = $phpcsFile->getTokens();
-    $token  = $tokens[ $stackPtr ];
+    $token = $this->tokens[ $stackPtr ];
 
     if ( preg_match( '`^do_shortcode`i', $token['content'] ) > 0 ) {
-      $phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.' , $stackPtr, 'do_shortcodeDetected' );
+      $this->phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.' , $stackPtr, 'do_shortcodeDetected' );
     }
   }
 
