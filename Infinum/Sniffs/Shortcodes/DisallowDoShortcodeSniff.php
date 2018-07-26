@@ -42,7 +42,7 @@ class DisallowDoShortcodeSniff extends Sniff {
    *
    * @return void|int
    */
-  public function process_tokens( $stackPtr ) {
+  public function process_token( $stackPtr ) {
 
     $token = $this->tokens[ $stackPtr ];
 

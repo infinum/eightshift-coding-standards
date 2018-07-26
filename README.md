@@ -47,7 +47,6 @@ Then in your settings you need to reference the path to the coding standards. It
 "paths": {
     "linux": [],
     "osx": [
-        "osx": [
         "${project}/vendor/bin/",
         "/Users/user_name/wpcs/vendor/bin"
     ],

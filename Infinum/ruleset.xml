@@ -9,6 +9,8 @@
   <exclude-pattern>/node_modules/*</exclude-pattern>
   <exclude-pattern>*/data/*</exclude-pattern>
   <exclude-pattern>*/tests/*</exclude-pattern>
+  <exclude-pattern>*.js</exclude-pattern>
+  <exclude-pattern>*.css</exclude-pattern>
 
   <!-- Only check php code, linters are used for checking js and css -->
   <arg name="extensions" value="php"/>
@@ -26,10 +28,6 @@
 
   <!-- Add checking for unused function parameters. -->
   <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-
-  <!-- Check for PHP cross-version compatibility. -->
-  <config name="testVersion" value="7.0-"/>
-  <rule ref="PHPCompatibility"/>
 
   <!-- Check against minimum WP version. -->
   <config name="minimum_supported_wp_version" value="4.7"/>
@@ -81,7 +79,7 @@
   <!-- Set minimum supported version for deprecated functions -->
   <rule ref="WordPress.WP.DeprecatedFunctions">
     <properties>
-      <property name="minimum_supported_version" value="4.8" />
+      <property name="minimum_supported_version" value="4.7" />
     </properties>
   </rule>
 
@@ -110,6 +108,5 @@
   </rule>
 
   <!-- Tabs should represent 2 spaces. -->
-  <arg name="tab-width" value="2"/>
-
+  <arg name="tab-width" value="2" />
 </ruleset>

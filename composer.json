@@ -13,7 +13,6 @@
     ],
     "require": {
         "dealerdirect/phpcodesniffer-composer-installer": "*",
-        "wimg/php-compatibility": "*",
         "wp-coding-standards/wpcs": "*"
     },
     "support"    : {
