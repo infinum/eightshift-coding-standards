@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 <ruleset name="Infinum" namespace="Infinum">
-  <description>Infinum internal coding standards for WordPress</description>
+  <description>Infinum coding standards for WordPress</description>
 
   <config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>
 
-  <!-- Exclude node and composer folders -->
-  <exclude-pattern>vendor/*</exclude-pattern>
-  <exclude-pattern>node_modules/*</exclude-pattern>
+  <!-- Exclude certain patterns -->
+  <exclude-pattern>/vendor/*</exclude-pattern>
+  <exclude-pattern>/node_modules/*</exclude-pattern>
   <exclude-pattern>*/data/*</exclude-pattern>
+  <exclude-pattern>*/tests/*</exclude-pattern>
 
-  <!-- Only check php code, linters are checking js and css -->
+  <!-- Only check php code, linters are used for checking js and css -->
   <arg name="extensions" value="php"/>
 
   <!-- Enable colors in report -->
@@ -18,21 +19,29 @@
   <!-- Add source codes in the report -->
   <arg value="s"/>
 
-  <!-- Load WordPress Coding standards - these include Extra, Core and VIP -->
-  <rule ref="WordPress"/>
+  <!-- Load WordPress Coding standards -->
+  <rule ref="WordPress-Core"/>
+  <rule ref="WordPress-Docs"/>
+  <rule ref="WordPress-Extra"/>
 
-  <!-- We work with modified VIP standard -->
-  <rule ref="WordPress-VIP">
-    <exclude name="WordPress.VIP.FileSystemWritesDisallow" />
-    <exclude name="WordPress.VIP.RestrictedFunctions" />
-    <exclude name="WordPress.VIP.RestrictedVariables" />
-    <exclude name="WordPress.VIP.SuperGlobalInputUsage" />
-    <exclude name="WordPress.VIP.DirectDatabaseQuery" />
+  <!-- Add checking for unused function parameters. -->
+  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+  <!-- Check for PHP cross-version compatibility. -->
+  <config name="testVersion" value="7.0-"/>
+  <rule ref="PHPCompatibility"/>
+
+  <!-- Check against minimum WP version. -->
+  <config name="minimum_supported_wp_version" value="4.7"/>
+
+  <!-- Exclude certain rules -->
+  <rule ref="WordPress">
+    <exclude name="WordPress.DB.DirectDatabaseQuery" />
     <exclude name="WordPress.PHP.YodaConditions" />
   </rule>
 
   <!-- Modify post per page limit -->
-  <rule ref="WordPress.VIP.PostsPerPage">
+  <rule ref="WordPress.WP.PostsPerPage">
     <properties>
       <property name="posts_per_page" value="1000"/>
     </properties>
@@ -44,13 +53,10 @@
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
     <exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
     <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
-  </rule>
-
-  <!-- Set the default indent value and force spaces instead of tabs -->
-  <rule ref="WordPress">
     <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
   </rule>
 
+  <!-- Set the default indent value and force spaces instead of tabs -->
   <rule ref="WordPress.Arrays.ArrayIndentation">
     <properties>
       <property name="tabIndent" value="false"/>
@@ -75,7 +81,7 @@
   <!-- Set minimum supported version for deprecated functions -->
   <rule ref="WordPress.WP.DeprecatedFunctions">
     <properties>
-      <property name="minimum_supported_version" value="4.4" />
+      <property name="minimum_supported_version" value="4.8" />
     </properties>
   </rule>
 
@@ -95,20 +101,12 @@
   <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
     <properties>
       <property name="spaces_before_closure_open_paren" value="0" />
-      <property name="blank_line_check" value="false" />
     </properties>
   </rule>
 
   <!-- Don't worry about files that don't contain any code -->
   <rule ref="Internal.NoCodeFound">
     <severity>0</severity>
-  </rule>
-
-  <!-- Allow certain DOMDocument methods as safe camelCase words -->
-  <rule ref="WordPress.NamingConventions.ValidVariableName">
-    <properties>
-        <property name="customPropertiesWhitelist" type="array" value="nodeType,tagName,childNodes,wholeText,nodeValue,nodeName,documentElement,DOMDocument"/>
-    </properties>
   </rule>
 
   <!-- Tabs should represent 2 spaces. -->
