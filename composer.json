@@ -13,7 +13,7 @@
     ],
     "require": {
         "dealerdirect/phpcodesniffer-composer-installer": "*",
-        "wp-coding-standards/wpcs": "*"
+        "wp-coding-standards/wpcs": ">=1.0.0"
     },
     "support"    : {
       "issues": "https://github.com/infinum/coding-standards-wp/issues",
