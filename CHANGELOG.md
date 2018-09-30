@@ -30,6 +30,10 @@ _No documentation available about unreleased changes as of yet._
   - added unit test packages
   - moved phpcodesniffer-composer-installer to suggested package
   - updated scripts
+- Added .travis.yml for automatic checks on new sniff addition
+
+### Removed
+- Removed ruleset.xml from the root of the standards
 
 ### Fixed
 - Minor coding standard fix in the DisallowDoShortcode sniff
