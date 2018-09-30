@@ -2,7 +2,7 @@
 /**
  * WPThemeReview Coding Standard autoload file.
  *
- * Taken from WPThemeReview
+ * Taken from WPThemeReview. Needed because our custom sniffs are extending WPCS sniffs.
  *
  * @see https://github.com/WPTRT/WPThemeReview/blob/develop/autoload.php
  *

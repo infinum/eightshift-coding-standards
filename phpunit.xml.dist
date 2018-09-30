@@ -5,10 +5,7 @@
   backupGlobals="true"
   bootstrap="./Test/bootstrap.php"
   beStrictAboutTestsThatDoNotTestAnything="false"
-  colors="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true">
+  colors="true">
 
   <testsuites>
     <testsuite name="Infinum">

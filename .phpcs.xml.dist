@@ -7,6 +7,7 @@
   <arg value="sp"/>
   <arg name="extensions" value="php"/>
   <arg name="basepath" value="./"/>
+  <arg name="tab-width" value="2" />
 
   <!-- Exclude Composer vendor directory. -->
   <exclude-pattern>*/vendor/*</exclude-pattern>
@@ -56,5 +57,4 @@
   <config name="testVersion" value="5.4-"/>
   <rule ref="PHPCompatibility"/>
 
-  <arg name="tab-width" value="2" />
 </ruleset>
