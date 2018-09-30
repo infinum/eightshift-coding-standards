@@ -1,6 +1,7 @@
 # Infinum WordPress Coding Standards
 
 [![Packagist downloads](https://img.shields.io/packagist/dt/infinum/coding-standards-wp.svg?style=for-the-badge)](https://packagist.org/packages/infinum/coding-standards-wp)
+[![Travis Build Status](https://img.shields.io/travis/:user/:repo.svg?style=for-the-badge)](https://travis-ci.org/infinum/coding-standards-wp)
 [![GitHub tag](https://img.shields.io/github/tag/infinum/coding-standards-wp.svg?style=for-the-badge)](https://github.com/infinum/coding-standards-wp)
 [![GitHub stars](https://img.shields.io/github/stars/infinum/coding-standards-wp.svg?style=for-the-badge&label=Stars)](https://github.com/infinum/coding-standards-wp/)
 [![License](https://img.shields.io/github/license/infinum/coding-standards-wp.svg?style=for-the-badge)](https://github.com/infinum/coding-standards-wp)
