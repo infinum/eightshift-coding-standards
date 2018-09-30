@@ -71,7 +71,7 @@ script:
   # @link http://xmlsoft.org/xmllint.html
   - if [[ "$SNIFF" == "1" ]]; then xmllint --noout ./*/ruleset.xml; fi
   # Check the code-style consistency of the xml files.
-  - if [[ "$SNIFF" == "1" ]]; then diff -B --tabsize=4 ./Infinum/ruleset.xml <(xmllint --format "./Infinum/ruleset.xml"); fi
+  - if [[ "$SNIFF" == "1" ]]; then diff -B --tabsize=2 ./Infinum/ruleset.xml <(xmllint --format "./Infinum/ruleset.xml"); fi
   # Validate the composer.json file.
   # @link https://getcomposer.org/doc/03-cli.md#validate
   - if [[ "$LINT" == "1" ]]; then composer validate --no-check-all --strict; fi
