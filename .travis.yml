@@ -72,4 +72,4 @@ script:
   - if [[ "$SNIFF" == "1" ]]; then xmllint --noout ./*/ruleset.xml; fi
   # Validate the composer.json file.
   # @link https://getcomposer.org/doc/03-cli.md#validate
-  - if [[ "$LINT" == "1" ]]; then composer validate --no-check-all --strict; fi
+  - if [[ "$LINT" == "1" ]]; then composer validate --no-check-all --no-check-lock --strict; fi
