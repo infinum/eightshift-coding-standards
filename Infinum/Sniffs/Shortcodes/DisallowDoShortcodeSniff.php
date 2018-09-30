@@ -47,8 +47,7 @@ class DisallowDoShortcodeSniff extends Sniff {
     $token = $this->tokens[ $stackPtr ];
 
     if ( preg_match( '`^do_shortcode`i', $token['content'] ) > 0 ) {
-      $this->phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.' , $stackPtr, 'do_shortcodeDetected' );
+      $this->phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.', $stackPtr, 'do_shortcodeDetected' );
     }
   }
-
 }

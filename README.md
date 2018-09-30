@@ -25,8 +25,14 @@ or add to your `composer.json`
 
 Then, run the following command to run the standards checks in your project:
 
-```
+```bash
 vendor/bin/phpcs --standard=Infinum .
+```
+
+Or use Composer
+
+```bash
+composer check-cs .
 ```
 
 The final `.` here specifies the files/folders you want to test - this is typically the current directory (`.`), but you can also selectively check files or directories by specifying them instead.
@@ -65,7 +71,7 @@ The path depends on where you've installed your standards. Then in the linters u
 },
 ```
 
-Or set the `standard` to point to the phpcs.xml.dist in your root folder
+Or set the `standard` to point to the phpcs.xml.dist in your root folder (**preferred method**)
 
 ```json
 "phpcs": {

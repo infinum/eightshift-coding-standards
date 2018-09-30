@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruleset name="Infinum Coding Standards">
+  <description>Infinum coding standards for WordPress</description>
+
+  <file>.</file>
+
+  <arg value="sp"/>
+  <arg name="extensions" value="php"/>
+  <arg name="basepath" value="./"/>
+
+  <!-- Exclude Composer vendor directory. -->
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+
+  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
+    <severity>0</severity>
+  </rule>
+
+  <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
+    <severity>0</severity>
+  </rule>
+
+  <rule ref="WordPress.PHP.YodaConditions">
+    <severity>0</severity>
+  </rule>
+
+  <rule ref="WordPress-Extra">
+    <exclude name="WordPress.Files.FileName"/>
+    <exclude name="WordPress.NamingConventions.ValidVariableName"/>
+    <exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
+    <exclude name="WordPress.WP.AlternativeFunctions"/>
+  </rule>
+
+  <rule ref="WordPress-Docs"/>
+
+  <!-- Enforce PSR1 compatible namespaces. -->
+  <rule ref="PSR1.Classes.ClassDeclaration"/>
+
+  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
+    <properties>
+      <property name="alignMultilineItems" value="!=100"/>
+    </properties>
+  </rule>
+
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2"/>
+      <property name="tabIndent" value="false"/>
+    </properties>
+  </rule>
+
+  <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
+
+  <rule ref="PSR2.Methods.FunctionClosingBrace"/>
+
+  <!-- Check code for cross-version PHP compatibility. -->
+  <config name="testVersion" value="5.4-"/>
+  <rule ref="PHPCompatibility"/>
+
+  <arg name="tab-width" value="2" />
+</ruleset>

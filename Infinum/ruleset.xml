@@ -2,7 +2,9 @@
 <ruleset name="Infinum" namespace="Infinum">
   <description>Infinum coding standards for WordPress</description>
 
-  <config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>
+  <autoload>../autoload.php</autoload>
+
+  <config name="encoding" value="utf-8"/>
 
   <!-- Exclude certain patterns -->
   <exclude-pattern>/vendor/*</exclude-pattern>
@@ -38,6 +40,11 @@
     <exclude name="WordPress.PHP.YodaConditions" />
   </rule>
 
+  <!-- Ignore rule about enqueueing scripts in the footer -->
+  <rule ref="WordPress.WP.EnqueuedResourceParameters.NotInFooter">
+    <severity>0</severity>
+  </rule>
+
   <!-- Modify post per page limit -->
   <rule ref="WordPress.WP.PostsPerPage">
     <properties>
@@ -61,6 +68,12 @@
     </properties>
   </rule>
 
+  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
+    <properties>
+      <property name="alignMultilineItems" value="!=100"/>
+    </properties>
+  </rule>
+
   <rule ref="Generic.WhiteSpace.ScopeIndent">
     <properties>
       <property name="indent" value="2"/>
@@ -68,11 +81,21 @@
     </properties>
   </rule>
 
+  <rule ref="Generic.Arrays.ArrayIndent">
+    <properties>
+      <property name="indent" value="2" />
+    </properties>
+  </rule>
+
   <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 
+  <!-- Function parameters have to have a space before opening
+  and after closing braces. Also the default indentaion of properties is 2 spaces -->
   <rule ref="PEAR.Functions.FunctionCallSignature">
     <properties>
       <property name="indent" value="2"/>
+      <property name="requiredSpacesAfterOpen" value="1" />
+      <property name="requiredSpacesBeforeClose" value="1" />
     </properties>
   </rule>
 
@@ -102,10 +125,35 @@
     </properties>
   </rule>
 
+  <!-- Ignore unused parameters in functions on account on hooks -->
+  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.Found">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Private methods MUST not be prefixed with an underscore -->
+  <rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
+      <severity>0</severity>
+  </rule>
+  <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+      <type>error</type>
+  </rule>
+
+  <!-- Private properties MUST not be prefixed with an underscore -->
+  <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+      <severity>0</severity>
+  </rule>
+  <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+      <type>error</type>
+  </rule>
+
   <!-- Don't worry about files that don't contain any code -->
   <rule ref="Internal.NoCodeFound">
     <severity>0</severity>
   </rule>
+
+  <!-- Check code for cross-version PHP compatibility. -->
+  <config name="testVersion" value="5.6-"/>
+  <rule ref="PHPCompatibility"/>
 
   <!-- Tabs should represent 2 spaces. -->
   <arg name="tab-width" value="2" />
