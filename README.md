@@ -91,6 +91,36 @@ To set up phpcs in your VSCode, use [vscode-phpcs](https://github.com/ikappas/vs
 
 This will look in your project's vendor folder for the Infinum's WordPress Coding Standards, and run the sniffs on every save. You can see the issues in the Problems tab at the bottom.
 
+### Atom
+
+To set up phpcs in your Atom, you need to install a couple of packages. First install the base linter package for Atom: [linter](https://atom.io/packages/linter). Upon completion you will be prompted to install its dependency [linter-ui-default](https://atom.io/packages/linter-ui-default). After that install [linter-phpcs](https://atom.io/packages/linter-phpcs)
+
+In `linter-phpcs` package settings you can set the path to previously installed `phpcs` or allow the package to search for `phpcs` executable inside your project. Also you must set the name of the standard: `"Infinum"` or path to the `ruleset.xml` of Infinum's WordPress Coding Standards. We recommend you disable searching for configuration files, because that can lead to using some other, unwanted standards.
+
+In config.cson linter-phpcs settings can look like this:
+
+```coffee
+# If you want to use phpcs executable available in project
+"linter-phpcs":
+  autoConfigSearch: false
+  codeStandardOrConfigFile: "Infinum"
+  disableWhenNoConfigFile: true
+
+# If you want to use specific phpcs executable
+"linter-phpcs":
+  autoConfigSearch: false
+  autoExecutableSearch: false
+  codeStandardOrConfigFile: "Infinum"
+  disableWhenNoConfigFile: true
+  executablePath: "/Users/user_name/wpcs/vendor/bin/phpcs"
+
+# If you want to use specific standard
+"linter-phpcs":
+  autoConfigSearch: false
+  codeStandardOrConfigFile: "vendor/infinum/coding-standards-wp/Infinum/ruleset.xml"
+  disableWhenNoConfigFile: true
+```
+
 ## Credits
 
 Infinum WordPress Coding Standards are maintained and sponsored by
