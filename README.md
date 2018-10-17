@@ -93,7 +93,7 @@ This will look in your project's vendor folder for the Infinum's WordPress Codin
 
 ### Atom
 
-To set up phpcs in your Atom, you need to install a couple of packages. First install the base linter package for Atom: [linter](https://atom.io/packages/linter). Upon completion you will be prompted to install its dependency [linter-ui-default](https://atom.io/packages/linter-ui-default). After that install [linter-phpcs](https://atom.io/packages/linter-phpcs)
+To set up phpcs in the Atom editor, you need to install a couple of packages. First install the base linter package for Atom: [linter](https://atom.io/packages/linter). Upon completion you will be prompted to install its dependency [linter-ui-default](https://atom.io/packages/linter-ui-default). After that install [linter-phpcs](https://atom.io/packages/linter-phpcs).
 
 In `linter-phpcs` package settings you can set the path to previously installed `phpcs` or allow the package to search for `phpcs` executable inside your project. Also you must set the name of the standard: `"Infinum"` or path to the `ruleset.xml` of Infinum's WordPress Coding Standards. We recommend you disable searching for configuration files, because that can lead to using some other, unwanted standards.
 
