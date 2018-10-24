@@ -1,6 +1,7 @@
 # Infinum WordPress Coding Standards
 
 [![Packagist downloads](https://img.shields.io/packagist/dt/infinum/coding-standards-wp.svg?style=for-the-badge)](https://packagist.org/packages/infinum/coding-standards-wp)
+[![Travis Build Status](https://img.shields.io/travis/:user/:repo.svg?style=for-the-badge)](https://travis-ci.org/infinum/coding-standards-wp)
 [![GitHub tag](https://img.shields.io/github/tag/infinum/coding-standards-wp.svg?style=for-the-badge)](https://github.com/infinum/coding-standards-wp)
 [![GitHub stars](https://img.shields.io/github/stars/infinum/coding-standards-wp.svg?style=for-the-badge&label=Stars)](https://github.com/infinum/coding-standards-wp/)
 [![License](https://img.shields.io/github/license/infinum/coding-standards-wp.svg?style=for-the-badge)](https://github.com/infinum/coding-standards-wp)
@@ -25,8 +26,14 @@ or add to your `composer.json`
 
 Then, run the following command to run the standards checks in your project:
 
-```
+```bash
 vendor/bin/phpcs --standard=Infinum .
+```
+
+Or use Composer
+
+```bash
+composer check-cs .
 ```
 
 The final `.` here specifies the files/folders you want to test - this is typically the current directory (`.`), but you can also selectively check files or directories by specifying them instead.
@@ -65,7 +72,7 @@ The path depends on where you've installed your standards. Then in the linters u
 },
 ```
 
-Or set the `standard` to point to the phpcs.xml.dist in your root folder
+Or set the `standard` to point to the phpcs.xml.dist in your root folder (**preferred method**)
 
 ```json
 "phpcs": {
