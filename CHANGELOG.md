@@ -37,6 +37,7 @@ _No documentation available about unreleased changes as of yet._
 
 ### Fixed
 - Minor coding standard fix in the DisallowDoShortcode sniff
+- Fix the array indentation issue
 
 ## [0.3.1](https://github.com/infinum/coding-standards-wp/compare/0.3.0...0.3.1) - 2018-07-27
 
