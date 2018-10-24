@@ -21,7 +21,7 @@ _No documentation available about unreleased changes as of yet._
 - Added a rule about function parameters and indentation
 - Ignore unused parameters in functions on account on hooks
 - Added a rule about private methods and properties - they MUST NOT be prefixed with an underscore
-- Added PHPCompatibility ruleset for checking a cross-version PHP compatibility (from PHP 5.6 onwards)
+- Added PHPCompatibilityWP ruleset for checking a cross-version PHP compatibility (from PHP 7.0 onwards)
 - Added detailed CHANGELOG
 - Updated readme
 - Added autoload for loading the standards
@@ -34,6 +34,7 @@ _No documentation available about unreleased changes as of yet._
 
 ### Removed
 - Removed ruleset.xml from the root of the standards
+- Removed WordPress.Arrays.MultipleStatementAlignment exclusion rule
 
 ### Fixed
 - Minor coding standard fix in the DisallowDoShortcode sniff
