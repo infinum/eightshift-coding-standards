@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Infinum Coding Standards">
-  <description>Infinum coding standards for WordPress</description>
+  <description>The coding standards used when writing Infinum Coding Standards itself</description>
 
   <file>.</file>
 

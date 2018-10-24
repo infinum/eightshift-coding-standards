@@ -72,7 +72,9 @@
     </properties>
   </rule>
 
+  <!-- Exclude WordPress array indentation because it forced 4 space indentation -->
   <rule ref="WordPress.Arrays.MultipleStatementAlignment">
+    <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
     <properties>
       <property name="alignMultilineItems" value="!=100"/>
     </properties>
@@ -85,6 +87,7 @@
     </properties>
   </rule>
 
+  <!-- Rule that will correctly indent arrays -->
   <rule ref="Generic.Arrays.ArrayIndent">
     <properties>
       <property name="indent" value="2" />
