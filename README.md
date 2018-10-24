@@ -119,7 +119,8 @@ In config.cson linter-phpcs settings can look like this:
   autoExecutableSearch: false
   codeStandardOrConfigFile: "Infinum"
   disableWhenNoConfigFile: true
-  executablePath: "/Users/user_name/wpcs/vendor/bin/phpcs"
+  executablePath: "/Users/user_name/wpcs/vendor/bin/phpcs" #For Mac users
+  executablePath: "path_to_composer/vendor/bin/phpcs.bat" # For Windows users
 
 # If you want to use specific standard
 "linter-phpcs":
