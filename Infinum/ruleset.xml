@@ -6,6 +6,10 @@
 
   <config name="encoding" value="utf-8"/>
 
+  <!-- Check code for cross-version PHP compatibility. -->
+  <config name="testVersion" value="5.6-"/>
+  <rule ref="PHPCompatibilityWP"/>
+
   <!-- Exclude certain patterns -->
   <exclude-pattern>/vendor/*</exclude-pattern>
   <exclude-pattern>/node_modules/*</exclude-pattern>
@@ -150,10 +154,6 @@
   <rule ref="Internal.NoCodeFound">
     <severity>0</severity>
   </rule>
-
-  <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="5.6-"/>
-  <rule ref="PHPCompatibility"/>
 
   <!-- Tabs should represent 2 spaces. -->
   <arg name="tab-width" value="2" />
