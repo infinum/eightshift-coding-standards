@@ -23,13 +23,16 @@ $project_root = __DIR__ . $ds;
  * Load the WPCS autoload file.
  */
 // Get the WPCS dir from an environment variable.
-$wpcs_dir           = getenv( 'WPCS_DIR' );
-$composer_wpcs_path = $project_root . 'vendor' . $ds . 'wp-coding-standards' . $ds . 'wpcs';
-
-if ( $wpcs_dir === false && is_dir( $composer_wpcs_path ) ) {
+$wpcs_dir                   = getenv( 'WPCS_DIR' );
+$composer_wpcs_path         = $project_root . 'vendor' . $ds . 'wp-coding-standards' . $ds . 'wpcs';
+$composer_wpcs_path_project = $project_root . '..' . $ds . '..' . $ds . 'wp-coding-standards' . $ds . 'wpcs';
+if ( false === $wpcs_dir && is_dir( $composer_wpcs_path ) ) {
   // WPCS installed via Composer.
   $wpcs_dir = $composer_wpcs_path;
-} elseif ( $wpcs_dir !== false ) {
+} elseif ( false === $wpcs_dir && is_dir( $composer_wpcs_path_project ) ) {
+  // TRTCS + WPCS installed via Composer.
+  $wpcs_dir = $composer_wpcs_path_project;
+} elseif ( false !== $wpcs_dir ) {
   /*
    * WPCS in a custom directory [1].
    * For this to work, the `WPCS_DIR` needs to be set as an environment variable.
@@ -43,27 +46,24 @@ if ( $wpcs_dir === false && is_dir( $composer_wpcs_path ) ) {
    * the developers WPCS install.
    */
   $wpcs_path = file_get_contents( $project_root . '.pathtowpcs' );
-  if ( $wpcs_path !== false ) {
+  if ( false !== $wpcs_path ) {
     $wpcs_path = trim( $wpcs_path );
     if ( file_exists( $wpcs_path ) ) {
       $wpcs_dir = realpath( $wpcs_path );
     }
   }
 }
-
 // Try and load the WPCS class aliases file.
 if ( false !== $wpcs_dir && file_exists( $wpcs_dir . $ds . 'WordPress' . $ds . 'PHPCSAliases.php' ) ) {
   require_once $wpcs_dir . $ds . 'WordPress' . $ds . 'PHPCSAliases.php';
 } else {
   echo 'Uh oh... can\'t find WPCS.
-
 If you use Composer, please run `composer install`.
 Otherwise, make sure you set a `WPCS_DIR` environment variable
 pointing to the WPCS directory.
 ';
-
   die( 1 );
 }
-
 // Clean up.
-unset( $ds, $project_root, $wpcs_dir, $composer_wpcs_path, $wpcs_path );
+unset( $ds, $project_root, $wpcs_dir, $composer_wpcs_path, $composer_wpcs_path_project, $wpcs_path );
+
