@@ -7,7 +7,7 @@
   <config name="encoding" value="utf-8"/>
 
   <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="7.0-"/>
+  <config name="testVersion" value="7.1-"/>
   <rule ref="PHPCompatibilityWP"/>
 
   <!-- Exclude certain patterns -->
@@ -27,6 +27,12 @@
   <!-- Add source codes in the report -->
   <arg value="s"/>
 
+  <!-- Tabs should represent 2 spaces. -->
+  <arg name="tab-width" value="2" />
+
+  <!-- Check against minimum WP version. -->
+  <config name="minimum_supported_wp_version" value="4.7"/>
+
   <!-- Load WordPress Coding standards -->
   <rule ref="WordPress-Core"/>
   <rule ref="WordPress-Docs"/>
@@ -35,13 +41,39 @@
   <!-- Add checking for unused function parameters. -->
   <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 
-  <!-- Check against minimum WP version. -->
-  <config name="minimum_supported_wp_version" value="4.7"/>
+  <!-- Ignore direct DB queries rule -->
+  <rule ref="WordPress.DB.DirectDatabaseQuery">
+    <severity>0</severity>
+  </rule>
 
-  <!-- Exclude certain rules -->
-  <rule ref="WordPress">
-    <exclude name="WordPress.DB.DirectDatabaseQuery" />
-    <exclude name="WordPress.PHP.YodaConditions" />
+  <!-- Don't use Yoda conditions -->
+  <rule ref="WordPress.PHP.YodaConditions">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Ignore translators style warning  -->
+  <rule ref="WordPress.WP.I18n.TranslatorsCommentWrongStyle">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Ignore translators comment missing  -->
+  <rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Ignore whitespace precision alignment  -->
+  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Ignore multiple statement alignment  -->
+  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
+    <severity>0</severity>
+  </rule>
+
+  <!-- Ignore space indent error  -->
+  <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
+    <severity>0</severity>
   </rule>
 
   <!-- Ignore rule about enqueueing scripts in the footer -->
@@ -56,15 +88,6 @@
     </properties>
   </rule>
 
-  <!-- Disable check for translators comments, precision alignment and multiple statement alignment -->
-  <rule ref="WordPress">
-    <exclude name="WordPress.WP.I18n.TranslatorsCommentWrongStyle" />
-    <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
-    <exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
-    <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
-    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
-  </rule>
-
   <!-- Set the default indent value and force spaces instead of tabs -->
   <rule ref="WordPress.Arrays.ArrayIndentation">
     <properties>
@@ -74,10 +97,15 @@
 
   <!-- Exclude WordPress array indentation because it forced 4 space indentation -->
   <rule ref="WordPress.Arrays.MultipleStatementAlignment">
-    <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
     <properties>
       <property name="alignMultilineItems" value="!=100"/>
     </properties>
+  </rule>
+
+  <!-- Exclude the multiline array indentation sniff,
+  because it clashes with Generic indentation sniff -->
+  <rule ref="WordPress.Arrays.ArrayIndentation">
+    <severity>0</severity>
   </rule>
 
   <rule ref="Generic.WhiteSpace.ScopeIndent">
@@ -157,7 +185,4 @@
   <rule ref="Internal.NoCodeFound">
     <severity>0</severity>
   </rule>
-
-  <!-- Tabs should represent 2 spaces. -->
-  <arg name="tab-width" value="2" />
 </ruleset>

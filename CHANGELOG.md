@@ -10,7 +10,20 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
-## [0.4.0](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.0) - 2018-09-30
+## [0.4.1](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
+
+### Added
+- Silenced previously excluded sniffs to avoid loading the entire `WordPress` ruleset
+- Silenced `WordPress.Arrays.ArrayIndentation` to avoid it clashing with Generic indentation sniff
+
+### Removed
+- Fixed multiple alignment sniff issue
+
+### Changed
+- Reorganized sniff rules
+- Raised the minimum supported PHP version to PHP 7.1
+
+## [0.4.0](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.0) - 2018-10-24
 
 ### Added
 - Unit tests - the basic setup is taken from https://github.com/WPTRT/WPThemeReview/
