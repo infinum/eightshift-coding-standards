@@ -38,6 +38,15 @@ composer check-cs .
 
 The final `.` here specifies the files/folders you want to test - this is typically the current directory (`.`), but you can also selectively check files or directories by specifying them instead.
 
+### Recommendation
+
+It's recommended that you install a Composer plugin that will handle the registration of standards with PHP_CodeSniffer. The two actively maintained are
+
+* [composer-phpcodesniffer-standards-plugin](https://github.com/higidi/composer-phpcodesniffer-standards-plugin)
+* [phpcodesniffer-composer-installer](https://github.com/DealerDirect/phpcodesniffer-composer-installer)
+
+We suggest using the `dealerdirect/phpcodesniffer-composer-installer` when including our standards, so that you avoid any possible issues.
+
 ### Standalone installation
 
 Install the WPCS following the instructions [here](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards#standalone). Then download the Infinum's coding standards and put the `Infinum` folder in the `wpcs` folder.
