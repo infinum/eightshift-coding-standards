@@ -10,6 +10,7 @@
  * @link    https://github.com/infinum/coding-standards-wp
  * @license https://opensource.org/licenses/MIT MIT
  *
+ * @since   Infinum 0.4.2 removed the autoload.php since it's not needed on WPCS 2.0.0
  * @since   WPCS 0.13.0
  * @since   TRTCS 0.1.0 Adjusted for use in the WPThemeReview standard.
  * @since   Infinum 0.4.0 Added to the Infinum Coding standards for WordPress.
@@ -60,11 +61,6 @@ https://is.gd/contributing2WPCS
 
   die( 1 );
 }
-
-/*
- * Load the autoload file.
- */
-require_once $root_dir . 'autoload.php';
 
 // Clean up.
 unset( $ds, $root_dir, $phpcs_dir, $composer_phpcs_path );

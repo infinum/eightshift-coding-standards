@@ -2,8 +2,6 @@
 <ruleset name="Infinum" namespace="Infinum">
   <description>Infinum coding standards for WordPress</description>
 
-  <autoload>../autoload.php</autoload>
-
   <config name="encoding" value="utf-8"/>
 
   <!-- Check code for cross-version PHP compatibility. -->

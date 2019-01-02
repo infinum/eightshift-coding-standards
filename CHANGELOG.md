@@ -10,6 +10,15 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
+## [0.4.2](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
+
+### Added
+- Updated the WPCS to 2.0.0
+- Changed the namespace of the WPCS
+
+### Removed
+- Removed the autoloader for unit tests
+
 ## [0.4.1](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
 
 ### Added

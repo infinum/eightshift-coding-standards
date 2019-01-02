@@ -8,13 +8,14 @@
  * @license MIT https://github.com/infinum/coding-standards-wp/blob/master/LICENSE
  * @link    https://github.com/infinum/coding-standards-wp
  *
+ * @since 0.4.2 Renamed the WPCS namespace - changed in v2.0.0 of WPCS
  * @since 0.3.0 Updated sniff to be compatible with latest PHPCS and WPCS
  * @since 1.0.0
  */
 
 namespace Infinum\Sniffs\Shortcodes;
 
-use WordPress\Sniff;
+use WordPressCS\WordPress\Sniff;
 use PHP_CodeSniffer_Tokens as Tokens;
 
 /**
