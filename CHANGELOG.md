@@ -10,14 +10,15 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
-## [0.4.2](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
+## [0.5.0](https://github.com/infinum/coding-standards-wp/compare/0.4.1...0.5.0) - 2019-01-16
 
 ### Added
 - Updated the WPCS to 2.0.0
-- Changed the namespace of the WPCS
+- Updated the minimum PHPCS version to 3.3.1
+- Changed the namespace of the WPCS core classess
 
 ### Removed
-- Removed the autoloader for unit tests
+- Removed the Test bootstrap
 
 ## [0.4.1](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
 

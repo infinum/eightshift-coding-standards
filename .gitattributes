@@ -8,7 +8,7 @@
 /phpunit.xml.dist export-ignore
 /.github export-ignore
 /bin export-ignore
-/Test export-ignore
+
 /Infinum/Tests export-ignore
 
 # Auto detect text files and perform LF normalization
