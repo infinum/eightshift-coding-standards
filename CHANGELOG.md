@@ -10,16 +10,27 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
-## [0.5.0](https://github.com/infinum/coding-standards-wp/compare/0.4.1...0.5.0) - 2019-01-16
+## [1.0.0](https://github.com/infinum/coding-standards-wp/compare/0.4.1...1.0.0) - 2019-04-10
+
+### Official release of the Infinum coding standards for WordPress projects
+
+This is the official release of the Infinum coding standards for WordPress. It contains breaking changes, mostly in regard of the naming scheme. 
+To equate the way we write our PHP and JS we opted to follow a modified PSR standards.
+What this means is that we will remove liberal spacing, add some PSR12 modifications regarding arguments placing in closures, change snake_case with CamelCase for classes (for autoload puropses) and some other minor changes that will be documented below.
+If you wish to use the old standards, be sure to modify your projects `composer.json` file with the appropriate version.
 
 ### Added
-- Updated the WPCS to 2.0.0
-- Updated the minimum PHPCS version to 3.3.1
+- Updated the WPCS to 2.1.0
+- Updated the minimum PHPCS version to 3.4.1
 - Changed the namespace of the WPCS core classess
 
 ### Removed
 - Removed the Test bootstrap
-- Removed PHP 5.6 support
+- Removed PHP 5.6 support and raised the recommended PHP version to 7.2 or higher
+- Removed WordPress-Core standards
+
+### Changed
+- Replaced WordPress naming standards to modified PSR standards
 
 ## [0.4.1](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
 
