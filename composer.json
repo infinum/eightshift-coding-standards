@@ -39,13 +39,13 @@
         "@php ./vendor/phpunit/phpunit/phpunit --filter Infinum ./vendor/squizlabs/php_codesniffer/tests/AllTests.php"
       ],
       "phpcs-i": [
-        "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -i"
+        "@php ./vendor/bin/phpcs -i"
       ],
       "check-cs": [
-        "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+        "@php ./vendor/bin/phpcs"
       ],
       "fix-cs": [
-        "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+        "@php ./vendor/bin/phpcbf"
       ]
     },
     "support": {
