@@ -2,118 +2,119 @@
 <ruleset name="Infinum" namespace="Infinum">
   <description>Infinum coding standards for WordPress projects</description>
 
-  <config name="encoding" value="utf-8"/>
+  <config name="encoding" value="utf-8" />
 
   <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="7.2-"/>
-  <rule ref="PHPCompatibilityWP"/>
+  <config name="testVersion" value="7.2-" />
+  <rule ref="PHPCompatibilityWP" />
 
-  <!-- Exclude certain patterns -->
+  <!-- Exclude certain patterns. -->
   <exclude-pattern>/vendor/*</exclude-pattern>
   <exclude-pattern>/node_modules/*</exclude-pattern>
   <exclude-pattern>*/data/*</exclude-pattern>
-  <exclude-pattern>*/tests/*</exclude-pattern>
   <exclude-pattern>*.js</exclude-pattern>
   <exclude-pattern>*.css</exclude-pattern>
 
-  <!-- Only check php code, linters are used for checking js and css -->
-  <arg name="extensions" value="php"/>
+  <!-- Only check php code, linters are used for checking js and css. -->
+  <arg name="extensions" value="php" />
 
-  <!-- Enable colors in report -->
-  <arg name="colors"/>
+  <!-- Enable colors in report. -->
+  <arg name="colors" />
 
-  <!-- Add source codes in the report -->
-  <arg value="s"/>
+  <!-- Add source codes in the report. -->
+  <arg value="s" />
 
   <!-- Tabs should represent 2 spaces. -->
   <arg name="tab-width" value="2" />
 
   <!-- Check against minimum WP version. -->
-  <config name="minimum_supported_wp_version" value="4.7"/>
+  <config name="minimum_supported_wp_version" value="4.7" />
 
-  <!-- Load WordPress Coding standards -->
-  <rule ref="WordPress-Docs"/>
-  <rule ref="WordPress-Extra"/>
-
-  <!-- Add checking for unused function parameters. -->
-  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-
-  <!-- Ignore direct DB queries rule -->
-  <rule ref="WordPress.DB.DirectDatabaseQuery">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Don't use Yoda conditions -->
-  <rule ref="WordPress.PHP.YodaConditions">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore translators style warning  -->
-  <rule ref="WordPress.WP.I18n.TranslatorsCommentWrongStyle">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore translators comment missing  -->
-  <rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore whitespace precision alignment  -->
-  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore multiple statement alignment  -->
-  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore space indent error  -->
-  <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore rule about enqueueing scripts in the footer -->
-  <rule ref="WordPress.WP.EnqueuedResourceParameters.NotInFooter">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Modify post per page limit -->
-  <rule ref="WordPress.WP.PostsPerPage">
+  <!-- Set minimum supported version for deprecated functions. -->
+  <rule ref="WordPress.WP.DeprecatedFunctions">
     <properties>
-      <property name="posts_per_page" value="1000"/>
+      <property name="minimum_supported_version" value="4.7" />
     </properties>
   </rule>
 
-  <!-- Set the default indent value and force spaces instead of tabs -->
-  <rule ref="WordPress.Arrays.ArrayIndentation">
-    <properties>
-      <property name="tabIndent" value="false"/>
-    </properties>
+  <!-- Use PSR-12 ruleset: https://github.com/php-fig/fig-standards/blob/master/proposed/extended-coding-style-guide.md
+       Use PSR-2 ruleset for spacing and naming.
+       Use WordPress-Docs for documentation checks. -->
+  <rule ref="PSR1" />
+  <rule ref="PSR12" />
+  <rule ref="WordPress-Docs" />
+  <rule ref="WordPress-Extra" />
+
+  <!-- RULES EXCLUSION -->
+
+  <rule ref="PSR2">
+    <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
+    <exclude name="PSR2.Namespaces.UseDeclaration.MultipleDeclarations" />
   </rule>
 
-  <!-- Exclude WordPress array indentation because it forced 4 space indentation -->
-  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
-    <properties>
-      <property name="alignMultilineItems" value="!=100"/>
-    </properties>
+  <rule ref="WordPress">
+    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+    <exclude name="WordPress.Arrays.ArrayIndentation" />
+    <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
+    <exclude name="WordPress.DB.DirectDatabaseQuery" />
+    <exclude name="WordPress.Files.FileName" />
+    <exclude name="WordPress.NamingConventions.ValidFunctionName" />
+    <exclude name="WordPress.NamingConventions.ValidVariableName" />
+    <exclude name="WordPress.PHP.YodaConditions" />
+    <exclude name="WordPress.WP.EnqueuedResourceParameters" />
+    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
+    <exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
   </rule>
 
-  <!-- Exclude the multiline array indentation sniff,
-  because it clashes with Generic indentation sniff -->
-  <rule ref="WordPress.Arrays.ArrayIndentation">
-    <severity>0</severity>
+  <rule ref="Generic">
+    <exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+    <exclude name="Generic.Debug.ClosureLinter" />
+    <exclude name="Generic.Debug.ESLint" />
+    <exclude name="Generic.Debug.CSSLint" />
+    <exclude name="Generic.Debug.JSHint" />
+    <exclude name="Generic.Files.EndFileNoNewline.Found" />
+    <exclude name="Generic.Files.LowercasedFilename" />
+    <exclude name="Generic.Functions.FunctionCallArgumentSpacing" />
+    <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+    <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
+    <exclude name="Generic.PHP.ClosingPHPTag" />
+    <exclude name="Generic.PHP.UpperCaseConstant" />
+    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
   </rule>
 
+  <rule ref="PEAR">
+    <exclude name="PEAR.Classes.ClassDeclaration" />
+    <exclude name="PEAR.Commenting.ClassComment" />
+    <exclude name="PEAR.Commenting.FileComment" />
+    <exclude name="PEAR.Commenting.FunctionComment" />
+    <exclude name="PEAR.Functions.FunctionCallSignature" />
+    <exclude name="PEAR.Functions.FunctionDeclaration.BraceOnSameLine" />
+    <exclude name="PEAR.Functions.FunctionDeclaration.SpaceAfterFunction" />
+    <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore" />
+    <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.BreakIndent" />
+    <exclude name="PEAR.WhiteSpace.ScopeIndent.IncorrectExact" />
+  </rule>
+
+  <!-- NAMING STANDARDS -->
+
+  <!-- Class file names don't need to start with class- prefix.
+       We want to enforce PSR-4 standards for autoloader.
+       Check examples: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md -->
+  <rule ref="Squiz.NamingConventions" />
+  <rule ref="Squiz.Classes.ClassFileName" />
+
+  <!-- SPACING AND BRACES -->
+
+  <!-- Spaces instead tabs. -->
   <rule ref="Generic.WhiteSpace.ScopeIndent">
     <properties>
-      <property name="indent" value="2"/>
-      <property name="tabIndent" value="false"/>
+      <property name="indent" value="2" />
+      <property name="tabIndent" value="false" />
+      <property name="exact" value="true" />
     </properties>
   </rule>
 
-  <!-- Rule that will correctly indent arrays -->
-  <rule ref="Generic.Arrays.ArrayIndent">
+  <rule ref="PEAR.WhiteSpace.ScopeIndent">
     <properties>
       <property name="indent" value="2" />
     </properties>
@@ -121,69 +122,63 @@
 
   <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 
-  <!-- Function parameters have to have a space before opening
-  and after closing braces. Also the default indentaion of properties is 2 spaces -->
-  <rule ref="PEAR.Functions.FunctionCallSignature">
-    <properties>
-      <property name="indent" value="2"/>
-      <property name="requiredSpacesAfterOpen" value="1" />
-      <property name="requiredSpacesBeforeClose" value="1" />
-    </properties>
-  </rule>
-
-  <!-- Set minimum supported version for deprecated functions -->
-  <rule ref="WordPress.WP.DeprecatedFunctions">
-    <properties>
-      <property name="minimum_supported_version" value="4.7" />
-    </properties>
-  </rule>
-
-  <!-- Allow theme hierarchy specific file name exceptions -->
-  <rule ref="WordPress.Files.FileName">
-    <properties>
-      <property name="is_theme" value="true" />
-    </properties>
-  </rule>
-
-  <!-- Disallow _ in file names, except in a certain files -->
-  <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
-    <exclude-pattern>*/sections/*</exclude-pattern>
-  </rule>
-
-  <!-- Forbidden space after function keyword and open parenthesis -->
-  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
-    <properties>
-      <property name="spaces_before_closure_open_paren" value="0" />
-    </properties>
-  </rule>
-
-  <!-- Ignore unused parameters in functions on account on hooks -->
-  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.Found">
+  <!-- Ignore open braces on a new line rule. -->
+  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
     <severity>0</severity>
   </rule>
 
-  <!-- Private methods MUST not be prefixed with an underscore -->
+  <!-- Ignore 'liberal spacing rule'
+       The following few standards will keep the spacing in check. -->
+
+  <!-- Spacing around arguments in function declarations. -->
+  <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+    <properties>
+      <property name="equalsSpacing" value="1" />
+      <property name="requiredSpacesAfterOpen" value="0" />
+      <property name="requiredSpacesBeforeClose" value="0" />
+    </properties>
+  </rule>
+
+  <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+    <properties>
+      <property name="spacing" value="0" />
+    </properties>
+  </rule>
+
+  <!-- Rule that will correctly indent arrays. -->
+  <rule ref="Generic.Arrays.ArrayIndent">
+    <properties>
+      <property name="indent" value="2" />
+    </properties>
+  </rule>
+
+  <!-- Indentation of the multi-line function calls.  -->
+  <rule ref="PEAR.Formatting.MultiLineAssignment">
+    <properties>
+      <property name="indent" value="2" />
+    </properties>
+  </rule>
+
+  <!-- MISCELANEOUS IMPROVEMENTS -->
+
+  <!-- Remove underscore requirement for private methods. -->
   <rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
-      <severity>0</severity>
-  </rule>
-  <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-      <type>error</type>
-  </rule>
-
-  <!-- Private properties MUST not be prefixed with an underscore -->
-  <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
-      <severity>0</severity>
-  </rule>
-  <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
-      <type>error</type>
-  </rule>
-
-  <!-- Don't worry about files that don't contain any code -->
-  <rule ref="Internal.NoCodeFound">
     <severity>0</severity>
   </rule>
 
-  <rule ref="PSR2">
-      <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+  <!-- Make this sniff more sensitive to commented out code blocks. -->
+  <rule ref="Squiz.PHP.CommentedOutCode">
+    <properties>
+      <property name="maxPercentage" value="55" />
+    </properties>
   </rule>
+
+  <!-- Warn about lines longer than 135 chars, and never error. -->
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="120" />
+      <property name="absoluteLineLimit" value="0" />
+    </properties>
+  </rule>
+
 </ruleset>
