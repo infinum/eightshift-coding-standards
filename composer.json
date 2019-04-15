@@ -36,7 +36,7 @@
     },
     "scripts": {
       "run-tests": [
-        "@php ./vendor/phpunit/phpunit/phpunit --filter Infinum ./vendor/squizlabs/php_codesniffer/tests/AllTests.php"
+        "@php ./vendor/phpunit/phpunit/phpunit --filter Infinum --bootstrap=\"./vendor/squizlabs/php_codesniffer/tests/bootstrap.php\" ./vendor/squizlabs/php_codesniffer/tests/AllTests.php"
       ],
       "phpcs-i": [
         "@php ./vendor/bin/phpcs -i"

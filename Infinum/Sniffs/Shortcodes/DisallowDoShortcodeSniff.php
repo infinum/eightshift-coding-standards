@@ -34,7 +34,11 @@ class DisallowDoShortcodeSniff extends Sniff {
    * @return array
    */
   public function register() {
-    return Tokens::$functionNameTokens;
+    return array(
+        \T_STRING,
+        \T_CONSTANT_ENCAPSED_STRING,
+        \T_DOUBLE_QUOTED_STRING,
+    );
   }
 
   /**
@@ -45,10 +49,9 @@ class DisallowDoShortcodeSniff extends Sniff {
    * @return void|int
    */
   public function process_token( $stackPtr ) {
-
     $token = $this->tokens[ $stackPtr ];
 
-    if ( preg_match( '`^do_shortcode`i', $token['content'] ) > 0 ) {
+    if ( preg_match( '`do_shortcode`i', $token['content'] ) > 0 ) {
       $this->phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.', $stackPtr, 'shortcodeUsageDetected' );
     }
   }

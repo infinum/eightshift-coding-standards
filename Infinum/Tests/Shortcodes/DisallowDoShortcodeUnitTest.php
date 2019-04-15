@@ -22,10 +22,9 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest {
   /**
    * Returns the lines where errors should occur.
    *
-   * @param string $testFile The name of the file being tested.
    * @return array <int line number> => <int number of errors>
    */
-  public function getErrorList( $testFile = '' ) {
+  public function getErrorList() {
     return array();
   }
 
