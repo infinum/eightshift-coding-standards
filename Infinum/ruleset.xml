@@ -11,9 +11,6 @@
   <!-- Exclude certain patterns. -->
   <exclude-pattern>/vendor/*</exclude-pattern>
   <exclude-pattern>/node_modules/*</exclude-pattern>
-  <exclude-pattern>*/data/*</exclude-pattern>
-  <exclude-pattern>*.js</exclude-pattern>
-  <exclude-pattern>*.css</exclude-pattern>
 
   <!-- Only check php code, linters are used for checking js and css. -->
   <arg name="extensions" value="php" />
@@ -22,10 +19,16 @@
   <arg name="colors" />
 
   <!-- Add source codes in the report. -->
-  <arg value="s" />
+  <arg value="sp" />
 
   <!-- Tabs should represent 2 spaces. -->
   <arg name="tab-width" value="2" />
+
+  <!-- Run sniffs in parallel for faster results. -->
+  <arg name="parallel" value="8" />
+
+  <!-- Cache results between two calls. -->
+  <arg name="cache" />
 
   <!-- Check against minimum WP version. -->
   <config name="minimum_supported_wp_version" value="4.7" />
@@ -37,133 +40,24 @@
     </properties>
   </rule>
 
-  <!-- Use PSR-12 ruleset: https://github.com/php-fig/fig-standards/blob/master/proposed/extended-coding-style-guide.md
+  <!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
        Use PSR-2 ruleset for spacing and naming.
        Use WordPress-Docs for documentation checks. -->
-  <rule ref="PSR1" />
   <rule ref="PSR12" />
   <rule ref="WordPress-Docs" />
   <rule ref="WordPress-Extra" />
 
-  <!-- RULES EXCLUSION -->
-
-  <rule ref="PSR2">
-    <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
-    <exclude name="PSR2.Namespaces.UseDeclaration.MultipleDeclarations" />
-  </rule>
-
-  <rule ref="WordPress">
-    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
-    <exclude name="WordPress.Arrays.ArrayIndentation" />
-    <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
-    <exclude name="WordPress.DB.DirectDatabaseQuery" />
-    <exclude name="WordPress.Files.FileName" />
-    <exclude name="WordPress.NamingConventions.ValidFunctionName" />
-    <exclude name="WordPress.NamingConventions.ValidVariableName" />
-    <exclude name="WordPress.PHP.YodaConditions" />
-    <exclude name="WordPress.WP.EnqueuedResourceParameters" />
-    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
-    <exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
-  </rule>
-
-  <rule ref="Generic">
-    <exclude name="Generic.Arrays.DisallowShortArraySyntax" />
-    <exclude name="Generic.Debug.ClosureLinter" />
-    <exclude name="Generic.Debug.ESLint" />
-    <exclude name="Generic.Debug.CSSLint" />
-    <exclude name="Generic.Debug.JSHint" />
-    <exclude name="Generic.Files.EndFileNoNewline.Found" />
-    <exclude name="Generic.Files.LowercasedFilename" />
-    <exclude name="Generic.Functions.FunctionCallArgumentSpacing" />
-    <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
-    <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
-    <exclude name="Generic.PHP.ClosingPHPTag" />
-    <exclude name="Generic.PHP.UpperCaseConstant" />
-    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
-  </rule>
-
-  <rule ref="PEAR">
-    <exclude name="PEAR.Classes.ClassDeclaration" />
-    <exclude name="PEAR.Commenting.ClassComment" />
-    <exclude name="PEAR.Commenting.FileComment" />
-    <exclude name="PEAR.Commenting.FunctionComment" />
-    <exclude name="PEAR.Functions.FunctionCallSignature" />
-    <exclude name="PEAR.Functions.FunctionDeclaration.BraceOnSameLine" />
-    <exclude name="PEAR.Functions.FunctionDeclaration.SpaceAfterFunction" />
-    <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore" />
-    <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.BreakIndent" />
-    <exclude name="PEAR.WhiteSpace.ScopeIndent.IncorrectExact" />
-  </rule>
-
-  <!-- NAMING STANDARDS -->
-
-  <!-- Class file names don't need to start with class- prefix.
-       We want to enforce PSR-4 standards for autoloader.
-       Check examples: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md -->
-  <rule ref="Squiz.NamingConventions" />
-  <rule ref="Squiz.Classes.ClassFileName" />
-
-  <!-- SPACING AND BRACES -->
-
-  <!-- Spaces instead tabs. -->
-  <rule ref="Generic.WhiteSpace.ScopeIndent">
+  <!-- Allow multiple parameters on one line for multi-line function calls. -->
+  <rule ref="PEAR.Functions.FunctionCallSignature">
     <properties>
-      <property name="indent" value="2" />
-      <property name="tabIndent" value="false" />
-      <property name="exact" value="true" />
+       <property name="allowMultipleArguments" value="true" />
     </properties>
   </rule>
 
-  <rule ref="PEAR.WhiteSpace.ScopeIndent">
-    <properties>
-      <property name="indent" value="2" />
-    </properties>
-  </rule>
-
-  <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
-
-  <!-- Ignore open braces on a new line rule. -->
-  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Ignore 'liberal spacing rule'
-       The following few standards will keep the spacing in check. -->
-
-  <!-- Spacing around arguments in function declarations. -->
-  <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
-    <properties>
-      <property name="equalsSpacing" value="1" />
-      <property name="requiredSpacesAfterOpen" value="0" />
-      <property name="requiredSpacesBeforeClose" value="0" />
-    </properties>
-  </rule>
-
-  <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
-    <properties>
-      <property name="spacing" value="0" />
-    </properties>
-  </rule>
-
-  <!-- Rule that will correctly indent arrays. -->
-  <rule ref="Generic.Arrays.ArrayIndent">
-    <properties>
-      <property name="indent" value="2" />
-    </properties>
-  </rule>
-
-  <!-- Indentation of the multi-line function calls.  -->
-  <rule ref="PEAR.Formatting.MultiLineAssignment">
-    <properties>
-      <property name="indent" value="2" />
-    </properties>
-  </rule>
-
-  <!-- MISCELANEOUS IMPROVEMENTS -->
-
-  <!-- Remove underscore requirement for private methods. -->
-  <rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
-    <severity>0</severity>
+  <!-- Improve code readablilty by allowing the artguments after function call. -->
+  <rule ref="PEAR.Functions.FunctionCallSignature">
+    <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+    <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
   </rule>
 
   <!-- Make this sniff more sensitive to commented out code blocks. -->
@@ -180,5 +74,83 @@
       <property name="absoluteLineLimit" value="0" />
     </properties>
   </rule>
+
+  <!-- Rule that will correctly indent arrays. -->
+  <rule ref="Generic.Arrays.ArrayIndent">
+    <properties>
+      <property name="indent" value="2" />
+    </properties>
+  </rule>
+
+  <!-- Spaces instead tabs. -->
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2" />
+      <property name="tabIndent" value="false" />
+      <property name="exact" value="true" />
+    </properties>
+  </rule>
+
+  <!-- Remove requring extra spaces in arrays. -->
+  <rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
+    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener" />
+    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser" />
+  </rule>
+
+  <!-- Forcing 4 tabs instead of 2 should be disallowed. -->
+  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
+    <exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found" />
+  </rule>
+
+  <rule ref="WordPress.Arrays.ArrayIndentation">
+    <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
+  </rule>
+
+  <rule ref="Generic.WhiteSpace">
+    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
+  </rule>
+
+  <!-- Space between the function keyword and the open parenthesis for closures. -->
+  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+    <properties>
+      <property name="spaces_before_closure_open_paren" value="0" />
+    </properties>
+  </rule>
+
+  <!-- Remove requring extra spaces in control structures (conditionals, loops etc.). -->
+  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis" />
+    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis" />
+  </rule>
+
+  <!-- Brace on a separate line. -->
+  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
+    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
+  </rule>
+
+  <rule ref="PSR2.Classes.ClassDeclaration">
+    <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
+  </rule>
+
+  <!-- Remove extra spacing inside function declaration and call signature -->
+  <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+    <properties>
+      <property name="equalsSpacing" value="1" />
+      <property name="requiredSpacesAfterOpen" value="0" />
+      <property name="requiredSpacesBeforeClose" value="0" />
+    </properties>
+  </rule>
+
+  <rule ref="PEAR.Functions.FunctionCallSignature">
+    <properties>
+      <property name="requiredSpacesAfterOpen" value="0" />
+      <property name="requiredSpacesBeforeClose" value="0" />
+    </properties>
+  </rule>
+
+  <rule ref="WordPress.PHP.YodaConditions">
+    <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+  </rule>
+
 
 </ruleset>

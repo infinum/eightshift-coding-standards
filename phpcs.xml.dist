@@ -4,10 +4,13 @@
 
   <file>.</file>
 
+  <!-- Additional arguments. -->
   <arg value="sp"/>
-  <arg name="extensions" value="php"/>
   <arg name="basepath" value="./"/>
-  <arg name="tab-width" value="2" />
+  <arg name="tab-width" value="2"/>
+  <arg name="parallel" value="8"/>
+  <arg name="cache"/>
+  <arg name="extensions" value="php"/>
 
   <!-- Exclude Composer vendor directory. -->
   <exclude-pattern>*/vendor/*</exclude-pattern>
