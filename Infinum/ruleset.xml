@@ -2,19 +2,18 @@
 <ruleset name="Infinum" namespace="Infinum">
   <description>Infinum coding standards for WordPress</description>
 
-  <autoload>../autoload.php</autoload>
-
   <config name="encoding" value="utf-8"/>
 
   <!-- Check code for cross-version PHP compatibility. -->
   <config name="testVersion" value="7.1-"/>
-  <rule ref="PHPCompatibilityWP"/>
+  <rule ref="PHPCompatibilityWP">
+    <include-pattern>*\.(php|inc)$</include-pattern>
+  </rule>
 
   <!-- Exclude certain patterns -->
   <exclude-pattern>/vendor/*</exclude-pattern>
   <exclude-pattern>/node_modules/*</exclude-pattern>
   <exclude-pattern>*/data/*</exclude-pattern>
-  <exclude-pattern>*/tests/*</exclude-pattern>
   <exclude-pattern>*.js</exclude-pattern>
   <exclude-pattern>*.css</exclude-pattern>
 
@@ -31,7 +30,7 @@
   <arg name="tab-width" value="2" />
 
   <!-- Check against minimum WP version. -->
-  <config name="minimum_supported_wp_version" value="4.7"/>
+  <config name="minimum_supported_wp_version" value="5.0"/>
 
   <!-- Load WordPress Coding standards -->
   <rule ref="WordPress-Core"/>
@@ -40,6 +39,26 @@
 
   <!-- Add checking for unused function parameters. -->
   <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+  <!-- No minification of scripts or files -->
+  <rule ref="Internal.Tokenizer.Exception">
+    <message>File appears to be minified and cannot be processed.</message>
+  </rule>
+
+  <!-- No ByteOrderMark allowed - important to prevent issues with content being sent before headers. -->
+  <rule ref="Generic.Files.ByteOrderMark"/>
+
+  <!-- Prohibit the use of the eval() PHP language construct. -->
+  <rule ref="Squiz.PHP.Eval.Discouraged">
+    <type>error</type>
+    <message>eval() is a security risk so not allowed.</message>
+  </rule>
+
+  <!-- Prohibit the use of the `goto` PHP language construct. -->
+  <rule ref="Generic.PHP.DiscourageGoto.Found">
+    <type>error</type>
+	<message>The "goto" language construct should not be used.</message>
+  </rule>
 
   <!-- Ignore direct DB queries rule -->
   <rule ref="WordPress.DB.DirectDatabaseQuery">
@@ -125,7 +144,7 @@
   <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 
   <!-- Function parameters have to have a space before opening
-  and after closing braces. Also the default indentaion of properties is 2 spaces -->
+  and after closing braces. Also the default indentation of properties is 2 spaces -->
   <rule ref="PEAR.Functions.FunctionCallSignature">
     <properties>
       <property name="indent" value="2"/>
@@ -137,7 +156,7 @@
   <!-- Set minimum supported version for deprecated functions -->
   <rule ref="WordPress.WP.DeprecatedFunctions">
     <properties>
-      <property name="minimum_supported_version" value="4.7" />
+      <property name="minimum_supported_version" value="5.0" />
     </properties>
   </rule>
 
@@ -146,11 +165,6 @@
     <properties>
       <property name="is_theme" value="true" />
     </properties>
-  </rule>
-
-  <!-- Disallow _ in file names, except in a certain files -->
-  <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
-    <exclude-pattern>*/sections/*</exclude-pattern>
   </rule>
 
   <!-- Forbidden space after function keyword and open parenthesis -->
