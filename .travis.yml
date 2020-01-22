@@ -51,7 +51,7 @@ jobs:
         - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./phpcs.xml.dist.sample
 
         # Check the code-style consistency of the xml files.
-        - diff -B --tabsize=4 ./Infinum/ruleset.xml <(xmllint --format "./Infinum/ruleset.xml")
+        - diff -B --tabsize=2 ./Infinum/ruleset.xml <(xmllint --format "./Infinum/ruleset.xml")
 
     # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
     - stage: test
