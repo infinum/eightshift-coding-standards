@@ -27,7 +27,7 @@
   <arg value="s"/>
 
   <!-- Tabs should represent 2 spaces. -->
-  <arg name="tab-width" value="2" />
+  <arg name="tab-width" value="2"/>
 
   <!-- Check against minimum WP version. -->
   <config name="minimum_supported_wp_version" value="5.0"/>
@@ -57,7 +57,7 @@
   <!-- Prohibit the use of the `goto` PHP language construct. -->
   <rule ref="Generic.PHP.DiscourageGoto.Found">
     <type>error</type>
-	<message>The "goto" language construct should not be used.</message>
+    <message>The "goto" language construct should not be used.</message>
   </rule>
 
   <!-- Ignore direct DB queries rule -->
@@ -137,40 +137,40 @@
   <!-- Rule that will correctly indent arrays -->
   <rule ref="Generic.Arrays.ArrayIndent">
     <properties>
-      <property name="indent" value="2" />
+      <property name="indent" value="2"/>
     </properties>
   </rule>
 
-  <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
+  <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
 
   <!-- Function parameters have to have a space before opening
   and after closing braces. Also the default indentation of properties is 2 spaces -->
   <rule ref="PEAR.Functions.FunctionCallSignature">
     <properties>
       <property name="indent" value="2"/>
-      <property name="requiredSpacesAfterOpen" value="1" />
-      <property name="requiredSpacesBeforeClose" value="1" />
+      <property name="requiredSpacesAfterOpen" value="1"/>
+      <property name="requiredSpacesBeforeClose" value="1"/>
     </properties>
   </rule>
 
   <!-- Set minimum supported version for deprecated functions -->
   <rule ref="WordPress.WP.DeprecatedFunctions">
     <properties>
-      <property name="minimum_supported_version" value="5.0" />
+      <property name="minimum_supported_version" value="5.0"/>
     </properties>
   </rule>
 
   <!-- Allow theme hierarchy specific file name exceptions -->
   <rule ref="WordPress.Files.FileName">
     <properties>
-      <property name="is_theme" value="true" />
+      <property name="is_theme" value="true"/>
     </properties>
   </rule>
 
   <!-- Forbidden space after function keyword and open parenthesis -->
   <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
     <properties>
-      <property name="spaces_before_closure_open_paren" value="0" />
+      <property name="spaces_before_closure_open_paren" value="0"/>
     </properties>
   </rule>
 
@@ -181,18 +181,18 @@
 
   <!-- Private methods MUST not be prefixed with an underscore -->
   <rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
-      <severity>0</severity>
+    <severity>0</severity>
   </rule>
   <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-      <type>error</type>
+    <type>error</type>
   </rule>
 
   <!-- Private properties MUST not be prefixed with an underscore -->
   <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
-      <severity>0</severity>
+    <severity>0</severity>
   </rule>
   <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
-      <type>error</type>
+    <type>error</type>
   </rule>
 
   <!-- Don't worry about files that don't contain any code -->
