@@ -43,10 +43,6 @@ jobs:
           packages:
             - libxml2-utils
       script:
-        # Validate the composer.json file.
-        # @link https://getcomposer.org/doc/03-cli.md#validate
-        - composer validate --no-check-all --strict
-
         # Check the codestyle of the Infinum codebase.
         - composer check-cs
 
@@ -73,9 +69,6 @@ before_install:
   # Speed up build time by disabling Xdebug.
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
 
-  - composer self-update
-  - composer update
-
   # On stable PHPCS versions, allow for PHP deprecation notices.
   # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
   - |
@@ -97,10 +90,6 @@ before_install:
 script:
   # Lint the PHP files against parse errors.
   - if [[ "$LINT" == "1" ]]; then if find . -path ./vendor -prune -o -name "*.php" -exec php -l {} \; | grep "^[Parse error|Fatal error]"; then exit 1; fi; fi
-
-  # Validate the composer.json file.
-  # @link https://getcomposer.org/doc/03-cli.md#validate
-  - if [[ "$LINT" == "1" ]]; then composer validate --no-check-all --strict; fi
 
   # Run the unit tests.
   - |
