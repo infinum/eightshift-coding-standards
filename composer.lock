@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d3176162321d6a99d4d43e3598b9314",
+    "content-hash": "a10e5298ea0a18fee8b0882e2536bd83",
     "packages": [
         {
             "name": "phpcompatibility/php-compatibility",
