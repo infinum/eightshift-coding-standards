@@ -28,8 +28,9 @@ env:
   - PHPCS_BRANCH="3.3.1" WPCS_BRANCH="2.2.0"
 
 stages:
-  - sniff
-  - test
+  - name: sniff
+  - name: test
+    if: branch IN (master, develop)
 
 jobs:
   fast_finish: true
@@ -42,13 +43,20 @@ jobs:
           packages:
             - libxml2-utils
       script:
+        # Validate the composer.json file.
+        # @link https://getcomposer.org/doc/03-cli.md#validate
+        - composer validate --no-check-all --strict
+
         # Check the codestyle of the Infinum codebase.
-        - $(pwd)/vendor/bin/phpcs
+        - composer check-cs
 
         # Validate the xml files.
         # @link http://xmlsoft.org/xmllint.html
         - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
         - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./phpcs.xml.dist.sample
+
+        # Check the code-style consistency of the xml files.
+        - diff -B ./Infinum/ruleset.xml <(xmllint --format "./Infinum/ruleset.xml")
 
     # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
     - stage: test
@@ -71,7 +79,7 @@ before_install:
     if [[ "$TRAVIS_BUILD_STAGE_NAME" != "Sniff" && $PHPCS_BRANCH != "dev-master" && $WPCS_BRANCH != "dev-develop" ]]; then
       echo 'error_reporting = E_ALL & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     fi
-  - export XMLLINT_INDENT="	"
+  - export XMLLINT_INDENT="  "
   - composer require squizlabs/php_codesniffer:${PHPCS_BRANCH} wp-coding-standards/wpcs:${WPCS_BRANCH} --no-update --no-suggest --no-scripts
   - |
     if [[ "$TRAVIS_BUILD_STAGE_NAME" == "Sniff" ]]; then
@@ -82,6 +90,7 @@ before_install:
       composer install --no-dev --no-suggest --no-scripts
       composer install-standards
     fi
+
 script:
   # Lint the PHP files against parse errors.
   - if [[ "$LINT" == "1" ]]; then if find . -path ./vendor -prune -o -name "*.php" -exec php -l {} \; | grep "^[Parse error|Fatal error]"; then exit 1; fi; fi

@@ -52,12 +52,6 @@
     ],
     "fix-cs": [
       "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
-    ],
-    "post-install-cmd": [
-      "@install-standards"
-    ],
-    "post-update-cmd": [
-      "@install-standards"
     ]
   },
   "support": {
