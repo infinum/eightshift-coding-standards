@@ -10,7 +10,7 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
-## [0.4.2](https://github.com/infinum/coding-standards-wp/compare/0.4.1...0.4.2) - 2020-01-22
+## [0.4.2](https://github.com/infinum/coding-standards-wp/compare/0.4.1...0.4.2) - 2020-01-24
 
 ### Added
 - Add check for minification of scripts or files
