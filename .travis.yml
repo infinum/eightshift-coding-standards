@@ -28,9 +28,11 @@ matrix:
     - php: nightly
 
 before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libxml2-utils
+
   # Speed up build time by disabling Xdebug.
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
-  - export XMLLINT_INDENT="  "
   - composer install --dev --no-suggest
 
 script:
