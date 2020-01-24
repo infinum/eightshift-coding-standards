@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
-<ruleset name="Infinum Coding Standards">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum Coding Standards for WordPress" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+
   <description>The coding standards used when writing Infinum Coding Standards itself</description>
 
   <file>.</file>
 
   <arg value="sp"/>
   <arg name="extensions" value="php"/>
-  <arg name="basepath" value="./"/>
-  <arg name="tab-width" value="2" />
+  <arg name="basepath" value="."/>
+  <arg name="parallel" value="8"/>
+
 
   <!-- Exclude Composer vendor directory. -->
   <exclude-pattern>*/vendor/*</exclude-pattern>
@@ -54,7 +56,7 @@
   <rule ref="PSR2.Methods.FunctionClosingBrace"/>
 
   <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="7.0-"/>
+  <config name="testVersion" value="7.1-"/>
   <rule ref="PHPCompatibility"/>
 
 </ruleset>
