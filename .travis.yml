@@ -33,16 +33,24 @@ before_install:
 
   # Speed up build time by disabling Xdebug.
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:3} > "7.1" ]]; then composer require phpunit/phpunit:^7.0 --no-update --no-suggest --no-scripts;fi
   - composer install --dev --no-suggest
 
 script:
   # Lint the PHP files against parse errors.
   - composer lint
-  # Run the unit tests.
-  - phpunit --filter Infinum $(pwd)/vendor/squizlabs/php_codesniffer/tests/AllTests.php
   # Check the codestyle of the Infinum codebase.
   - composer check-cs
   # Validate the xml files.
   # @link http://xmlsoft.org/xmllint.html
   - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
   - xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./phpcs.xml.dist.sample
+
+  # Run the unit tests.
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:3} > "7.1" ]]; then
+      vendor/bin/phpunit --filter WPThemeReview $(pwd)/vendor/squizlabs/php_codesniffer/tests/AllTests.php
+    else
+      phpunit --filter WPThemeReview $(pwd)/vendor/squizlabs/php_codesniffer/tests/AllTests.php
+    fi
