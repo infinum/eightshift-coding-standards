@@ -14,7 +14,7 @@
 
 namespace Infinum\Sniffs\Shortcodes;
 
-use WordPress\Sniff;
+use WordPressCS\WordPress\Sniff;
 use PHP_CodeSniffer_Tokens as Tokens;
 
 /**
