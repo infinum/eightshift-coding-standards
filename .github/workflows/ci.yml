@@ -96,6 +96,9 @@ jobs:
         - name: Check coding standards using PHPCS
           run: composer standards:check -- --runtime-set testVersion ${{ matrix.php }}-
 
+        - name: Check Infinum standards on example code
+          run: composer tests:checkcs -- --runtime-set testVersion ${{ matrix.php }}-
+
   tests:
     name: Tests on PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
@@ -132,4 +135,3 @@ jobs:
 
         - name: Run unit tests on the project
           run: composer tests:run
-
