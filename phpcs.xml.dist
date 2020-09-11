@@ -1,65 +1,36 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum Coding Standards for WordPress" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum Coding Standards for WordPress"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
-  <description>The coding standards used when writing Infinum Coding Standards itself</description>
+    <description>The coding standards used when writing Infinum Coding Standards itself</description>
 
-  <file>.</file>
+    <file>.</file>
 
-  <!-- Additional arguments. -->
-  <arg value="sp"/>
+    <!-- Additional arguments. -->
+    <arg value="sp"/>
 
-  <arg name="basepath" value="./"/>
-  <arg name="tab-width" value="2"/>
-  <arg name="parallel" value="8"/>
-  <arg name="cache"/>
-  <arg name="extensions" value="php"/>
+    <arg name="basepath" value="./"/>
+    <arg name="tab-width" value="2"/>
+    <arg name="parallel" value="8"/>
+    <arg name="cache"/>
+    <arg name="extensions" value="php"/>
 
-  <!-- Exclude Composer vendor directory. -->
-  <exclude-pattern>*/vendor/*</exclude-pattern>
+    <!-- Exclude Composer vendor directory. -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
 
-  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
-    <severity>0</severity>
-  </rule>
+    <rule ref="Infinum"/>
 
-  <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
-    <severity>0</severity>
-  </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <severity>0</severity>
+    </rule>
 
-  <rule ref="WordPress.PHP.YodaConditions">
-    <severity>0</severity>
-  </rule>
+    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis">
+        <severity>0</severity>
+    </rule>
 
-  <rule ref="WordPress-Extra">
-    <exclude name="WordPress.Files.FileName"/>
-    <exclude name="WordPress.NamingConventions.ValidVariableName"/>
-    <exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
-    <exclude name="WordPress.WP.AlternativeFunctions"/>
-  </rule>
-
-  <rule ref="WordPress-Docs"/>
-
-  <!-- Enforce PSR1 compatible namespaces. -->
-  <rule ref="PSR1.Classes.ClassDeclaration"/>
-
-  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
-    <properties>
-      <property name="alignMultilineItems" value="!=100"/>
-    </properties>
-  </rule>
-
-  <rule ref="Generic.WhiteSpace.ScopeIndent">
-    <properties>
-      <property name="indent" value="2"/>
-      <property name="tabIndent" value="false"/>
-    </properties>
-  </rule>
-
-  <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
-
-  <rule ref="PSR2.Methods.FunctionClosingBrace"/>
-
-  <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="7.2-"/>
-  <rule ref="PHPCompatibility"/>
+    <!-- Hack to prevent errors. -->
+    <rule ref="Infinum.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected">
+        <severity>0</severity>
+    </rule>
 
 </ruleset>

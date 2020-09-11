@@ -36,10 +36,10 @@
     },
     "scripts": {
       "tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Infinum --bootstrap=\"./vendor/squizlabs/php_codesniffer/tests/bootstrap.php\" ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
-      "tests:checkcs": "@standards:check --standard=./Infinum ./tests/",
+      "tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./Infinum ./tests/",
       "lint": "@php ./vendor/bin/parallel-lint --exclude .git --exclude .github --exclude vendor .",
       "standards:list": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -i",
-      "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+      "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs ./Infinum/Sniffs",
       "standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
     },
     "support": {

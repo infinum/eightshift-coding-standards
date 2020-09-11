@@ -54,6 +54,7 @@
     <!-- File naming should follow PSR-12, not WPCS. -->
     <rule ref="WordPress.Files.FileName">
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
     </rule>
 
     <!-- File comment should follow PSR-12, not WPCS. -->
@@ -69,6 +70,7 @@
     <!-- Exclude the array alignment enforcing. -->
     <rule ref="WordPress.Arrays.ArrayIndentation">
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
+        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys"/>
     </rule>
 
     <!-- Use tabs, not spaces. -->
@@ -86,6 +88,12 @@
     <!-- Allow short array syntax. -->
     <rule ref="Generic.Arrays">
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+    </rule>
+
+    <!-- Don't enforce snake case. -->
+    <rule ref="WordPress.NamingConventions">
+        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
     </rule>
 
     <!-- Remove aligning the array arrows. -->
