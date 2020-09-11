@@ -17,6 +17,6 @@
     <!-- This line prevents issues with PHPCS trying to load sniff files for
        standards which we aren't testing.
        Ref: https://github.com/squizlabs/PHP_CodeSniffer/pull/1146 -->
-    <env name="PHPCS_IGNORE_TESTS" value="Generic,MySource,PEAR,PSR1,PSR2,PSR12,Squiz,Zend,PHPCompatibility,PHPCompatibilityWP,WordPress"/>
+    <env name="PHPCS_IGNORE_TESTS" value="PEAR,Zend,PSR2,MySource,Squiz,PSR1,PSR12,PHPCompatibility,PHPCompatibilityParagonieRandomCompat,PHPCompatibilityParagonieSodiumCompat,PHPCompatibilityWP,WordPress,WordPress-Extra,WordPress-Docs,WordPress-Core"/>
   </php>
 </phpunit>

@@ -8,7 +8,7 @@
  * @license MIT https://github.com/infinum/coding-standards-wp/blob/master/LICENSE
  * @link    https://github.com/infinum/coding-standards-wp
  *
- * @since 1.0.0 Modified the Tokens util. Modified the warning code
+ * @since 1.0.0 Removed the Tokens util. Modified the warning code
  * @since 0.4.2 Renamed the WPCS namespace - changed in v2.0.0 of WPCS
  * @since 0.3.0 Updated sniff to be compatible with latest PHPCS and WPCS
  * @since 0.1.0
@@ -17,7 +17,6 @@
 namespace Infinum\Sniffs\Shortcodes;
 
 use WordPressCS\WordPress\Sniff;
-use PHP_CodeSniffer\Util\Tokens;
 
 /**
  * Ensures do_shortcode() function is not being used.
@@ -41,14 +40,14 @@ class DisallowDoShortcodeSniff extends Sniff {
     );
   }
 
-  /**
-   * Processes this test, when one of its tokens is encountered.
-   *
-   * @param int $stackPtr The position of the current token in the token stack.
-   *
-   * @return void|int
-   */
-  public function process_token( $stackPtr ) {
+	/**
+	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @param int $stackPtr The position of the current token in the token stack.
+	 *
+	 * @return void|int
+	 */
+  public function process_token($stackPtr) {
     $token = $this->tokens[ $stackPtr ];
 
     if ( preg_match( '`do_shortcode`i', $token['content'] ) > 0 ) {

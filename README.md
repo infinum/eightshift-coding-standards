@@ -1,4 +1,4 @@
-# Infinum WordPress Coding Standards
+# Infinum PHPCS Coding Standards for WordPress
 
 [![Packagist downloads](https://img.shields.io/packagist/dt/infinum/coding-standards-wp.svg?style=for-the-badge)](https://packagist.org/packages/infinum/coding-standards-wp)
 [![Travis Build Status](https://img.shields.io/travis/:user/:repo.svg?style=for-the-badge)](https://travis-ci.org/infinum/coding-standards-wp)
@@ -6,7 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/infinum/coding-standards-wp.svg?style=for-the-badge&label=Stars)](https://github.com/infinum/coding-standards-wp/)
 [![License](https://img.shields.io/github/license/infinum/coding-standards-wp.svg?style=for-the-badge)](https://github.com/infinum/coding-standards-wp)
 
-This package contains [Infinum WordPress Coding Standards](https://handbook.infinum.co/books/wordpress) for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/). The intention of this package is to have a unified code across the WordPress projects we do at Infinum, and to help with the code review.
+This package contains [Infinum Coding Standards for WordPress](https://handbook.infinum.co/books/wordpress) for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/). The intention of this package is to have a unified code across the WordPress projects we do at Infinum, and to help with the code review.
 
 ## Installation
 
@@ -20,27 +20,32 @@ or add to your `composer.json`
 
 ```json
 "require-dev": {
-  "infinum/coding-standards-wp": "*"
+  "infinum/coding-standards-wp": "^0.4.2"
 }
 ```
+
+Copy and modify the configuration file into your project
+
+```bash
+cp phpcs.xml.dist.sample phpcs.xml.dist 
+``` 
 
 Then, run the following command to run the standards checks in your project:
 
 ```bash
-vendor/bin/phpcs --standard=Infinum .
+/vendor/squizlabs/php_codesniffer/bin/phpcs
 ```
 
-Or use Composer
+You can also selectively check files or directories by specifying them.
 
-```bash
-composer check-cs .
-```
+### Recommendation
 
-The final `.` here specifies the files/folders you want to test - this is typically the current directory (`.`), but you can also selectively check files or directories by specifying them instead.
+It's recommended that you install a Composer plugin that will handle the registration of standards with PHP_CodeSniffer. The two actively maintained are
 
-### Standalone installation
+* [composer-phpcodesniffer-standards-plugin](https://github.com/higidi/composer-phpcodesniffer-standards-plugin)
+* [phpcodesniffer-composer-installer](https://github.com/DealerDirect/phpcodesniffer-composer-installer)
 
-Install the WPCS following the instructions [here](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards#standalone). Then download the Infinum's coding standards and put the `Infinum` folder in the `wpcs` folder.
+We suggest using the `dealerdirect/phpcodesniffer-composer-installer` when including our standards, so that you avoid any possible issues.
 
 ## Working in IDE
 
@@ -134,8 +139,6 @@ In config.cson linter-phpcs settings can look like this:
 Infinum WordPress Coding Standards are maintained and sponsored by
 [Infinum](https://www.infinum.co).
 
-<img src="https://infinum.co/infinum.png" width="264">
-
 ## License
 
-Infinum WordPress Coding Standards are Copyright © 2018 Infinum. This is free software, and may be redistributed under the terms specified in the LICENSE file.
+Infinum WordPress Coding Standards are Copyright © 2020 Infinum. This is free software, and may be redistributed under the terms specified in the LICENSE file.
