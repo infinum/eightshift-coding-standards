@@ -1,156 +1,159 @@
 <?xml version="1.0"?>
-<ruleset name="Infinum" namespace="Infinum">
-  <description>Infinum coding standards for WordPress projects</description>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum" namespace="Infinum" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+    <description>Infinum coding standards for WordPress projects</description>
 
-  <config name="encoding" value="utf-8" />
+    <config name="encoding" value="utf-8"/>
 
-  <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="7.2-" />
-  <rule ref="PHPCompatibilityWP" />
+    <!-- Check code for cross-version PHP compatibility. -->
+    <config name="testVersion" value="7.2-"/>
+    <rule ref="PHPCompatibilityWP"/>
 
-  <!-- Exclude certain patterns. -->
-  <exclude-pattern>/vendor/*</exclude-pattern>
-  <exclude-pattern>/node_modules/*</exclude-pattern>
+    <!-- Exclude certain patterns. -->
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
 
-  <!-- Only check php code, linters are used for checking js and css. -->
-  <arg name="extensions" value="php" />
+    <!-- Only check php code, linters are used for checking js and css. -->
+    <arg name="extensions" value="php"/>
 
-  <!-- Enable colors in report. -->
-  <arg name="colors" />
+    <!-- Enable colors in report. -->
+    <arg name="colors"/>
 
-  <!-- Add source codes in the report. -->
-  <arg value="sp" />
+    <!-- Add source codes in the report. -->
+    <arg value="sp"/>
 
-  <!-- Tabs should represent 2 spaces. -->
-  <arg name="tab-width" value="2" />
+    <!-- Tabs should represent 2 spaces. -->
+    <arg name="tab-width" value="2"/>
 
-  <!-- Run sniffs in parallel for faster results. -->
-  <arg name="parallel" value="8" />
+    <!-- Run sniffs in parallel for faster results. -->
+    <arg name="parallel" value="8"/>
 
-  <!-- Cache results between two calls. -->
-  <arg name="cache" />
+    <!-- Cache results between two calls. -->
+    <arg name="cache"/>
 
-  <!-- Check against minimum WP version. -->
-  <config name="minimum_supported_wp_version" value="4.7" />
+    <!-- Check against minimum WP version. -->
+    <config name="minimum_supported_wp_version" value="5.0"/>
 
-  <!-- Set minimum supported version for deprecated functions. -->
-  <rule ref="WordPress.WP.DeprecatedFunctions">
-    <properties>
-      <property name="minimum_supported_version" value="4.7" />
-    </properties>
-  </rule>
+    <!-- Set minimum supported version for deprecated functions. -->
+    <rule ref="WordPress.WP.DeprecatedFunctions">
+        <properties>
+            <property name="minimum_supported_version" value="5.0"/>
+        </properties>
+    </rule>
 
-  <!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
-       Use PSR-2 ruleset for spacing and naming.
-       Use WordPress-Docs for documentation checks. -->
-  <rule ref="PSR12" />
-  <rule ref="WordPress-Docs" />
-  <rule ref="WordPress-Extra" />
+    <!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
+         Use PSR-2 ruleset for spacing and naming.
+         Use WordPress-Docs for documentation checks. -->
+    <rule ref="PSR12"/>
+    <rule ref="WordPress-Docs"/>
+    <rule ref="WordPress-Extra"/>
 
-  <!-- Allow multiple parameters on one line for multi-line function calls. -->
-  <rule ref="PEAR.Functions.FunctionCallSignature">
-    <properties>
-       <property name="allowMultipleArguments" value="true" />
-    </properties>
-  </rule>
+    <rule ref="WordPress.PHP.YodaConditions">
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+    </rule>
 
-  <!-- Improve code readablilty by allowing the artguments after function call. -->
-  <rule ref="PEAR.Functions.FunctionCallSignature">
-    <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-    <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
-  </rule>
+    <!-- File naming should follow PSR-12, not WPCS. -->
+    <rule ref="WordPress.Files.FileName">
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    </rule>
 
-  <!-- Make this sniff more sensitive to commented out code blocks. -->
-  <rule ref="Squiz.PHP.CommentedOutCode">
-    <properties>
-      <property name="maxPercentage" value="55" />
-    </properties>
-  </rule>
+    <!-- File comment should follow PSR-12, not WPCS. -->
+    <rule ref="Squiz.Commenting.FileComment">
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+    </rule>
 
-  <!-- Warn about lines longer than 135 chars, and never error. -->
-  <rule ref="Generic.Files.LineLength">
-    <properties>
-      <property name="lineLimit" value="120" />
-      <property name="absoluteLineLimit" value="0" />
-    </properties>
-  </rule>
+    <!-- Braces should follow PSR-12 style not WPCS. -->
+    <rule ref="Generic.Classes.OpeningBraceSameLine">
+        <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine"/>
+    </rule>
 
-  <!-- Rule that will correctly indent arrays. -->
-  <rule ref="Generic.Arrays.ArrayIndent">
-    <properties>
-      <property name="indent" value="2" />
-    </properties>
-  </rule>
+    <!-- Exclude the array alignment enforcing. -->
+    <rule ref="WordPress.Arrays.ArrayIndentation">
+        <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
+    </rule>
 
-  <!-- Spaces instead tabs. -->
-  <rule ref="Generic.WhiteSpace.ScopeIndent">
-    <properties>
-      <property name="indent" value="2" />
-      <property name="tabIndent" value="false" />
-      <property name="exact" value="true" />
-    </properties>
-  </rule>
+    <!-- Use tabs, not spaces. -->
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
-  <!-- Remove requring extra spaces in arrays. -->
-  <rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
-    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener" />
-    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser" />
-  </rule>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent">
+        <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+    </rule>
 
-  <!-- Forcing 4 tabs instead of 2 should be disallowed. -->
-  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
-    <exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found" />
-  </rule>
+    <!-- Opening brace must follow PSR-12 standard -->
+    <rule ref="Generic.Functions">
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
+    </rule>
 
-  <rule ref="WordPress.Arrays.ArrayIndentation">
-    <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
-  </rule>
+    <!-- Allow short array syntax. -->
+    <rule ref="Generic.Arrays">
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+    </rule>
 
-  <rule ref="Generic.WhiteSpace">
-    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
-  </rule>
+    <!-- Remove aligning the array arrows. -->
+    <rule ref="WordPress.Arrays">
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
+        <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
+    </rule>
 
-  <!-- Space between the function keyword and the open parenthesis for closures. -->
-  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
-    <properties>
-      <property name="spaces_before_closure_open_paren" value="0" />
-    </properties>
-  </rule>
+    <!-- Remove spaces after opening and before closing bracket. -->
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket"/>
+    </rule>
 
-  <!-- Remove requring extra spaces in control structures (conditionals, loops etc.). -->
-  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
-    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis" />
-    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis" />
-  </rule>
+    <!-- Remove requiring extra spaces in arrays. -->
+    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener"/>
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser"/>
+    </rule>
 
-  <!-- Brace on a separate line. -->
-  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
-    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />
-  </rule>
+    <!-- Improve code readability by allowing the arguments after function call. -->
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+    </rule>
 
-  <rule ref="PSR2.Classes.ClassDeclaration">
-    <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
-  </rule>
+    <!-- Remove extra spacing inside function declaration and call signature -->
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+        <properties>
+            <property name="equalsSpacing" value="1"/>
+            <property name="requiredSpacesAfterOpen" value="0"/>
+            <property name="requiredSpacesBeforeClose" value="0"/>
+        </properties>
+    </rule>
 
-  <!-- Remove extra spacing inside function declaration and call signature -->
-  <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
-    <properties>
-      <property name="equalsSpacing" value="1" />
-      <property name="requiredSpacesAfterOpen" value="0" />
-      <property name="requiredSpacesBeforeClose" value="0" />
-    </properties>
-  </rule>
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <properties>
+            <property name="requiredSpacesAfterOpen" value="0"/>
+            <property name="requiredSpacesBeforeClose" value="0"/>
+        </properties>
+    </rule>
 
-  <rule ref="PEAR.Functions.FunctionCallSignature">
-    <properties>
-      <property name="requiredSpacesAfterOpen" value="0" />
-      <property name="requiredSpacesBeforeClose" value="0" />
-    </properties>
-  </rule>
+    <!-- Remove requiring extra spaces in control structures (conditionals, loops etc.). -->
+    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis"/>
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis"/>
+    </rule>
 
-  <rule ref="WordPress.PHP.YodaConditions">
-    <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
-  </rule>
+    <!-- Allow multiple parameters on one line for multi-line function calls. -->
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <properties>
+            <property name="allowMultipleArguments" value="true"/>
+        </properties>
+    </rule>
 
+    <!-- Warn about lines longer than 135 chars, and never error. -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Make this sniff more sensitive to commented out code blocks. -->
+    <rule ref="Squiz.PHP.CommentedOutCode">
+        <properties>
+            <property name="maxPercentage" value="55"/>
+        </properties>
+    </rule>
 
 </ruleset>
