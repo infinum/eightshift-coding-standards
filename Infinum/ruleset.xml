@@ -65,7 +65,7 @@
     <!-- Warn about lines longer than 120 chars, and never error. -->
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="120"/>
+            <property name="lineLimit" value="125"/>
             <property name="absoluteLineLimit" value="0"/>
         </properties>
     </rule>
