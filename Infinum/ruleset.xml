@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum" namespace="Infinum" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum" namespace="Infinum"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
     <description>Infinum coding standards for WordPress projects</description>
 
     <config name="encoding" value="utf-8"/>
@@ -41,83 +42,15 @@
     </rule>
 
     <!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
-         Use PSR-2 ruleset for spacing and naming.
          Use WordPress-Docs for documentation checks. -->
     <rule ref="PSR12"/>
     <rule ref="WordPress-Docs"/>
-    <rule ref="WordPress-Extra"/>
-
-    <rule ref="WordPress.PHP.YodaConditions">
-        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-    </rule>
-
-    <!-- File naming should follow PSR-12, not WPCS. -->
-    <rule ref="WordPress.Files.FileName">
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-    </rule>
-
-    <!-- File comment should follow PSR-12, not WPCS. -->
-    <rule ref="Squiz.Commenting.FileComment">
-        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
-    </rule>
-
-    <!-- Braces should follow PSR-12 style not WPCS. -->
-    <rule ref="Generic.Classes.OpeningBraceSameLine">
-        <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine"/>
-    </rule>
-
-    <!-- Exclude the array alignment enforcing. -->
-    <rule ref="WordPress.Arrays.ArrayIndentation">
-        <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
-        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys"/>
-    </rule>
 
     <!-- Use tabs, not spaces. -->
     <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
     <rule ref="Generic.WhiteSpace.DisallowTabIndent">
         <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
-    </rule>
-
-    <!-- Opening brace must follow PSR-12 standard -->
-    <rule ref="Generic.Functions">
-        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie"/>
-    </rule>
-
-    <!-- Allow short array syntax. -->
-    <rule ref="Generic.Arrays">
-        <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
-    </rule>
-
-    <!-- Don't enforce snake case. -->
-    <rule ref="WordPress.NamingConventions">
-        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
-    </rule>
-
-    <!-- Remove aligning the array arrows. -->
-    <rule ref="WordPress.Arrays">
-        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned"/>
-        <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
-    </rule>
-
-    <!-- Remove spaces after opening and before closing bracket. -->
-    <rule ref="PEAR.Functions.FunctionCallSignature">
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket"/>
-    </rule>
-
-    <!-- Remove requiring extra spaces in arrays. -->
-    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener"/>
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser"/>
-    </rule>
-
-    <!-- Improve code readability by allowing the arguments after function call. -->
-    <rule ref="PEAR.Functions.FunctionCallSignature">
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
     </rule>
 
     <!-- Remove extra spacing inside function declaration and call signature -->
@@ -129,27 +62,7 @@
         </properties>
     </rule>
 
-    <rule ref="PEAR.Functions.FunctionCallSignature">
-        <properties>
-            <property name="requiredSpacesAfterOpen" value="0"/>
-            <property name="requiredSpacesBeforeClose" value="0"/>
-        </properties>
-    </rule>
-
-    <!-- Remove requiring extra spaces in control structures (conditionals, loops etc.). -->
-    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis"/>
-    </rule>
-
-    <!-- Allow multiple parameters on one line for multi-line function calls. -->
-    <rule ref="PEAR.Functions.FunctionCallSignature">
-        <properties>
-            <property name="allowMultipleArguments" value="true"/>
-        </properties>
-    </rule>
-
-    <!-- Warn about lines longer than 135 chars, and never error. -->
+    <!-- Warn about lines longer than 120 chars, and never error. -->
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="120"/>
@@ -164,4 +77,40 @@
         </properties>
     </rule>
 
+    <!-- Enforce PSR-12 style file comments. -->
+    <rule ref="Squiz.Commenting.FileComment">
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+    </rule>
+
+    <!-- Ensure proper object instantiation. -->
+    <rule ref="WordPress.Classes.ClassInstantiation"/>
+
+    <!-- Useful code analysis sniffs. -->
+    <rule ref="WordPress.CodeAnalysis"/>
+
+    <!-- Date Time sniffs. -->
+    <rule ref="WordPress.DateTime"/>
+
+    <!-- Database sniffs. -->
+    <rule ref="WordPress.DB"/>
+
+    <!-- We want to ensure hook name validity, this is a coding standard for WordPress. -->
+    <rule ref="WordPress.NamingConventions.ValidHookName"/>
+    <rule ref="WordPress.NamingConventions.ValidPostTypeSlug"/>
+
+    <!-- PHP sniffs are useful. Except Yoda conditions -->
+    <rule ref="WordPress.PHP">
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+    </rule>
+
+    <!-- Security sniffs. -->
+    <rule ref="WordPress.Security"/>
+
+    <!-- I18n sniffs. -->
+    <rule ref="WordPress.Utils.I18nTextDomainFixer"/>
+
+    <!-- General WP sniffs. -->
+    <rule ref="WordPress.WP">
+        <exclude name="WordPress.WP.TimezoneChange"/>
+    </rule>
 </ruleset>
