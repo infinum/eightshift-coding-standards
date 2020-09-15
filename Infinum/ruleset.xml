@@ -82,13 +82,6 @@
         <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
     </rule>
 
-    <!-- Ignore errors in @inheritDoc doctags. -->
-    <rule ref="Squiz.Commenting.FunctionComment">
-        <properties>
-            <property name="skipIfInheritdoc" value="true"/>
-        </properties>
-    </rule>
-
     <!-- Ensure proper object instantiation. -->
     <rule ref="WordPress.Classes.ClassInstantiation"/>
 
