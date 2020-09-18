@@ -156,8 +156,6 @@ class Cli
 
 		$commandName = $args[0] ?? '';
 
-		$arr = [ 'some value', 'some other value' ];
-
 		if (empty($commandName)) {
 			\WP_CLI::error('First argument must be a valid command name.');
 		}
