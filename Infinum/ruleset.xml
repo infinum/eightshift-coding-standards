@@ -28,9 +28,6 @@
     <!-- Run sniffs in parallel for faster results. -->
     <arg name="parallel" value="8"/>
 
-    <!-- Cache results between two calls. -->
-    <arg name="cache"/>
-
     <!-- Check against minimum WP version. -->
     <config name="minimum_supported_wp_version" value="5.0"/>
 
@@ -53,6 +50,17 @@
         <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
     </rule>
 
+    <!-- Warn about lines longer than 120 chars, and never error. -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="125"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Disallow array() syntax. Use [] instead. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
     <!-- Remove extra spacing inside function declaration and call signature -->
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
         <properties>
@@ -62,15 +70,7 @@
         </properties>
     </rule>
 
-    <!-- Warn about lines longer than 120 chars, and never error. -->
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="125"/>
-            <property name="absoluteLineLimit" value="0"/>
-        </properties>
-    </rule>
-
-    <!-- Make this sniff more sensitive to commented out code blocks. -->
+    <!--  Make this sniff more sensitive to commented out code blocks.-->
     <rule ref="Squiz.PHP.CommentedOutCode">
         <properties>
             <property name="maxPercentage" value="55"/>
@@ -85,8 +85,8 @@
     <!-- Enforce camelCase -->
     <rule ref="Squiz.NamingConventions.ValidVariableName"/>
 
-    <!-- Disallow array() syntax. Use [] instead. -->
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <!-- Disallow spacing inside arrays. -->
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
 
     <!-- Ensure proper object instantiation. -->
     <rule ref="WordPress.Classes.ClassInstantiation"/>
