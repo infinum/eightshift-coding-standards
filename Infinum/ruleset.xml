@@ -82,6 +82,12 @@
         <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
     </rule>
 
+    <!-- Enforce camelCase -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName"/>
+
+    <!-- Disallow array() syntax. Use [] instead. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
     <!-- Ensure proper object instantiation. -->
     <rule ref="WordPress.Classes.ClassInstantiation"/>
 
