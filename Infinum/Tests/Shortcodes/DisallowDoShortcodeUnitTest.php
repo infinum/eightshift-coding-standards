@@ -2,7 +2,7 @@
 /**
  * Unit test class for DisallowDoShortcode Standard.
  *
- * @package Infinum\Sniffs\Shortcodes
+ * @package Infinum\Tests\Shortcodes
  * @link    https://github.com/infinum/coding-standards-wp
  * @license https://opensource.org/licenses/MIT MIT
  */
@@ -14,9 +14,10 @@ use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 /**
  * Unit test class for the DisallowDoShortcode sniff.
  *
+ * @since 1.0.0 Added $testFile parameter.
  * @since 0.4.0
  */
-class FileIncludeUnitTest extends AbstractSniffUnitTest {
+class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest {
 
   /**
    * Returns the lines where errors should occur.
@@ -39,6 +40,7 @@ class FileIncludeUnitTest extends AbstractSniffUnitTest {
         6 => 1,
         7 => 1,
         8 => 1,
+        9 => 1,
     );
   }
 }

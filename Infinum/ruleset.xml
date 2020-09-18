@@ -1,202 +1,122 @@
 <?xml version="1.0"?>
-<ruleset name="Infinum" namespace="Infinum">
-  <description>Infinum coding standards for WordPress</description>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum" namespace="Infinum"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+    <description>Infinum coding standards for WordPress projects</description>
 
-  <config name="encoding" value="utf-8"/>
+    <config name="encoding" value="utf-8"/>
 
-  <!-- Check code for cross-version PHP compatibility. -->
-  <config name="testVersion" value="7.1-"/>
-  <rule ref="PHPCompatibilityWP">
-    <include-pattern>*\.(php|inc)$</include-pattern>
-  </rule>
+    <!-- Check code for cross-version PHP compatibility. -->
+    <config name="testVersion" value="7.2-"/>
+    <rule ref="PHPCompatibilityWP"/>
 
-  <!-- Exclude certain patterns -->
-  <exclude-pattern>/vendor/*</exclude-pattern>
-  <exclude-pattern>/node_modules/*</exclude-pattern>
-  <exclude-pattern>*/data/*</exclude-pattern>
-  <exclude-pattern>*.js</exclude-pattern>
-  <exclude-pattern>*.css</exclude-pattern>
+    <!-- Exclude certain patterns. -->
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/node_modules/*</exclude-pattern>
 
-  <!-- Only check php code, linters are used for checking js and css -->
-  <arg name="extensions" value="php"/>
+    <!-- Only check php code, linters are used for checking js and css. -->
+    <arg name="extensions" value="php"/>
 
-  <!-- Enable colors in report -->
-  <arg name="colors"/>
+    <!-- Enable colors in report. -->
+    <arg name="colors"/>
 
-  <!-- Add source codes in the report -->
-  <arg value="s"/>
+    <!-- Add source codes in the report. -->
+    <arg value="sp"/>
 
-  <!-- Tabs should represent 2 spaces. -->
-  <arg name="tab-width" value="2"/>
+    <!-- Tabs should represent 2 spaces. -->
+    <arg name="tab-width" value="2"/>
 
-  <!-- Check against minimum WP version. -->
-  <config name="minimum_supported_wp_version" value="5.0"/>
+    <!-- Run sniffs in parallel for faster results. -->
+    <arg name="parallel" value="8"/>
 
-  <!-- Load WordPress Coding standards -->
-  <rule ref="WordPress-Core"/>
-  <rule ref="WordPress-Docs"/>
-  <rule ref="WordPress-Extra"/>
+    <!-- Check against minimum WP version. -->
+    <config name="minimum_supported_wp_version" value="5.0"/>
 
-  <!-- Add checking for unused function parameters. -->
-  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <!-- Set minimum supported version for deprecated functions. -->
+    <rule ref="WordPress.WP.DeprecatedFunctions">
+        <properties>
+            <property name="minimum_supported_version" value="5.0"/>
+        </properties>
+    </rule>
 
-  <!-- No minification of scripts or files -->
-  <rule ref="Internal.Tokenizer.Exception">
-    <message>File appears to be minified and cannot be processed.</message>
-  </rule>
+    <!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
+         Use WordPress-Docs for documentation checks. -->
+    <rule ref="PSR12"/>
+    <rule ref="WordPress-Docs"/>
 
-  <!-- No ByteOrderMark allowed - important to prevent issues with content being sent before headers. -->
-  <rule ref="Generic.Files.ByteOrderMark"/>
+    <!-- Use tabs, not spaces. -->
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
-  <!-- Prohibit the use of the eval() PHP language construct. -->
-  <rule ref="Squiz.PHP.Eval.Discouraged">
-    <type>error</type>
-    <message>eval() is a security risk so not allowed.</message>
-  </rule>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent">
+        <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+    </rule>
 
-  <!-- Prohibit the use of the `goto` PHP language construct. -->
-  <rule ref="Generic.PHP.DiscourageGoto.Found">
-    <type>error</type>
-    <message>The "goto" language construct should not be used.</message>
-  </rule>
+    <!-- Warn about lines longer than 120 chars, and never error. -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="125"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
 
-  <!-- Ignore direct DB queries rule -->
-  <rule ref="WordPress.DB.DirectDatabaseQuery">
-    <severity>0</severity>
-  </rule>
+    <!-- Disallow array() syntax. Use [] instead. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
-  <!-- Don't use Yoda conditions -->
-  <rule ref="WordPress.PHP.YodaConditions">
-    <severity>0</severity>
-  </rule>
+    <!-- Remove extra spacing inside function declaration and call signature -->
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+        <properties>
+            <property name="equalsSpacing" value="1"/>
+            <property name="requiredSpacesAfterOpen" value="0"/>
+            <property name="requiredSpacesBeforeClose" value="0"/>
+        </properties>
+    </rule>
 
-  <!-- Ignore translators style warning  -->
-  <rule ref="WordPress.WP.I18n.TranslatorsCommentWrongStyle">
-    <severity>0</severity>
-  </rule>
+    <!--  Make this sniff more sensitive to commented out code blocks.-->
+    <rule ref="Squiz.PHP.CommentedOutCode">
+        <properties>
+            <property name="maxPercentage" value="55"/>
+        </properties>
+    </rule>
 
-  <!-- Ignore translators comment missing  -->
-  <rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
-    <severity>0</severity>
-  </rule>
+    <!-- Enforce PSR-12 style file comments. -->
+    <rule ref="Squiz.Commenting.FileComment">
+        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+    </rule>
 
-  <!-- Ignore whitespace precision alignment  -->
-  <rule ref="WordPress.WhiteSpace.PrecisionAlignment">
-    <severity>0</severity>
-  </rule>
+    <!-- Enforce camelCase -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName"/>
 
-  <!-- Ignore multiple statement alignment  -->
-  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
-    <severity>0</severity>
-  </rule>
+    <!-- Disallow spacing inside arrays. -->
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
 
-  <!-- Ignore space indent error  -->
-  <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
-    <severity>0</severity>
-  </rule>
+    <!-- Ensure proper object instantiation. -->
+    <rule ref="WordPress.Classes.ClassInstantiation"/>
 
-  <!-- Ignore rule about enqueueing scripts in the footer -->
-  <rule ref="WordPress.WP.EnqueuedResourceParameters.NotInFooter">
-    <severity>0</severity>
-  </rule>
+    <!-- Useful code analysis sniffs. -->
+    <rule ref="WordPress.CodeAnalysis"/>
 
-  <!-- Modify post per page limit -->
-  <rule ref="WordPress.WP.PostsPerPage">
-    <properties>
-      <property name="posts_per_page" value="1000"/>
-    </properties>
-  </rule>
+    <!-- Date Time sniffs. -->
+    <rule ref="WordPress.DateTime"/>
 
-  <!-- Set the default indent value and force spaces instead of tabs -->
-  <rule ref="WordPress.Arrays.ArrayIndentation">
-    <properties>
-      <property name="tabIndent" value="false"/>
-    </properties>
-  </rule>
+    <!-- Database sniffs. -->
+    <rule ref="WordPress.DB"/>
 
-  <!-- Exclude WordPress array indentation because it forced 4 space indentation -->
-  <rule ref="WordPress.Arrays.MultipleStatementAlignment">
-    <properties>
-      <property name="alignMultilineItems" value="!=100"/>
-    </properties>
-  </rule>
+    <!-- We want to ensure hook name validity, this is a coding standard for WordPress. -->
+    <rule ref="WordPress.NamingConventions.ValidHookName"/>
+    <rule ref="WordPress.NamingConventions.ValidPostTypeSlug"/>
 
-  <!-- Exclude the multiline array indentation sniff,
-  because it clashes with Generic indentation sniff -->
-  <rule ref="WordPress.Arrays.ArrayIndentation">
-    <severity>0</severity>
-  </rule>
+    <!-- PHP sniffs are useful. Except Yoda conditions -->
+    <rule ref="WordPress.PHP">
+        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+    </rule>
 
-  <rule ref="Generic.WhiteSpace.ScopeIndent">
-    <properties>
-      <property name="indent" value="2"/>
-      <property name="tabIndent" value="false"/>
-    </properties>
-  </rule>
+    <!-- Security sniffs. -->
+    <rule ref="WordPress.Security"/>
 
-  <!-- Rule that will correctly indent arrays -->
-  <rule ref="Generic.Arrays.ArrayIndent">
-    <properties>
-      <property name="indent" value="2"/>
-    </properties>
-  </rule>
+    <!-- I18n sniffs. -->
+    <rule ref="WordPress.Utils.I18nTextDomainFixer"/>
 
-  <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
-
-  <!-- Function parameters have to have a space before opening
-  and after closing braces. Also the default indentation of properties is 2 spaces -->
-  <rule ref="PEAR.Functions.FunctionCallSignature">
-    <properties>
-      <property name="indent" value="2"/>
-      <property name="requiredSpacesAfterOpen" value="1"/>
-      <property name="requiredSpacesBeforeClose" value="1"/>
-    </properties>
-  </rule>
-
-  <!-- Set minimum supported version for deprecated functions -->
-  <rule ref="WordPress.WP.DeprecatedFunctions">
-    <properties>
-      <property name="minimum_supported_version" value="5.0"/>
-    </properties>
-  </rule>
-
-  <!-- Allow theme hierarchy specific file name exceptions -->
-  <rule ref="WordPress.Files.FileName">
-    <properties>
-      <property name="is_theme" value="true"/>
-    </properties>
-  </rule>
-
-  <!-- Forbidden space after function keyword and open parenthesis -->
-  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
-    <properties>
-      <property name="spaces_before_closure_open_paren" value="0"/>
-    </properties>
-  </rule>
-
-  <!-- Ignore unused parameters in functions on account on hooks -->
-  <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.Found">
-    <severity>0</severity>
-  </rule>
-
-  <!-- Private methods MUST not be prefixed with an underscore -->
-  <rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
-    <severity>0</severity>
-  </rule>
-  <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-    <type>error</type>
-  </rule>
-
-  <!-- Private properties MUST not be prefixed with an underscore -->
-  <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
-    <severity>0</severity>
-  </rule>
-  <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
-    <type>error</type>
-  </rule>
-
-  <!-- Don't worry about files that don't contain any code -->
-  <rule ref="Internal.NoCodeFound">
-    <severity>0</severity>
-  </rule>
+    <!-- General WP sniffs. -->
+    <rule ref="WordPress.WP">
+        <exclude name="WordPress.WP.TimezoneChange"/>
+    </rule>
 </ruleset>

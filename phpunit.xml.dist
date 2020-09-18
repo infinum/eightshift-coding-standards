@@ -9,7 +9,7 @@
 
   <testsuites>
     <testsuite name="Infinum">
-      <directory suffix="Test.php">./Infinum/Tests/</directory>
+      <directory suffix="UnitTest.php">./Infinum/Tests/</directory>
     </testsuite>
   </testsuites>
 

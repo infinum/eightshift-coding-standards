@@ -3,13 +3,12 @@
 # If you develop for Infinum coding standard using Composer, use `--prefer-source`.
 # https://blog.madewithlove.be/post/gitattributes/
 # Taken from WPCS https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/
-/.travis.yml export-ignore
+/.github export-ignore
 /.phpcs.xml.dist export-ignore
 /phpunit.xml.dist export-ignore
-/.github export-ignore
-/bin export-ignore
-/Test export-ignore
+
 /Infinum/Tests export-ignore
+/tests export-ignore
 
 # Auto detect text files and perform LF normalization
 # http://davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/

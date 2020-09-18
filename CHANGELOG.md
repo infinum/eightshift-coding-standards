@@ -10,24 +10,29 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
-## [0.4.2](https://github.com/infinum/coding-standards-wp/compare/0.4.1...0.4.2) - 2020-01-24
+## [1.0.0](https://github.com/infinum/coding-standards-wp/compare/0.4.1...1.0.0) - 2020-09-11
+
+### Official release of the Infinum coding standards for WordPress projects
+
+This is the official release of the Infinum coding standards for WordPress. It contains breaking changes, mostly in regard of the naming scheme. 
+To equate the way we write our PHP and JS we opted to follow a modified PSR standards.
+What this means is that we will remove liberal spacing, add some PSR12 modifications regarding arguments placing in closures, change snake_case with CamelCase for classes (for autoload puropses) and some other minor changes that will be documented below.
+If you wish to use the old standards, be sure to modify your projects `composer.json` file with the appropriate version.
 
 ### Added
-- Add check for minification of scripts or files
-- Added no ByteOrderMark allowed check
-- Add eval() check
-- Add goto check
-
-### Changed
-- Updated coding standards of the standard
-- Updated the minimum WP suported version
-- Readme update
-- Updated dealerdirect suggestions and packages version update
+- Added PSR-12 standards
+- Added more tests
+- Updated the WPCS to 2.3.0
+- Updated scripts
 
 ### Removed
-- Remove autoloading from the ruleset
-- Removed test bootstrap
-- Removed allowed pattern for underscore `-` pattern in files in sections
+- Removed the Test bootstrap
+- Removed PHP 5.6 support and raised the recommended PHP version to 7.2 or higher
+- Removed WordPress-Core standards
+
+### Changed
+- Replaced WordPress naming standards to modified PSR standards
+- Changed the namespace of the WPCS core classes
 
 ## [0.4.1](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.1) - 2018-11-15
 
@@ -35,36 +40,34 @@ _No documentation available about unreleased changes as of yet._
 - Silenced previously excluded sniffs to avoid loading the entire `WordPress` ruleset
 - Silenced `WordPress.Arrays.ArrayIndentation` to avoid it clashing with Generic indentation sniff
 
+### Removed
+- Fixed multiple alignment sniff issue
+
 ### Changed
 - Reorganized sniff rules
 - Raised the minimum supported PHP version to PHP 7.1
-
-### Removed
-- Fixed multiple alignment sniff issue
 
 ## [0.4.0](https://github.com/infinum/coding-standards-wp/compare/0.3.1...0.4.0) - 2018-10-24
 
 ### Added
 - Unit tests - the basic setup is taken from https://github.com/WPTRT/WPThemeReview/
 - Ignore rule about enqueueing scripts in the footer
-- Ignore unused parameters in functions on account on hooks
 - .gitattributes file for release purposes
 - Added internal ruleset for writing additional sniffs
 - Added rule about alignment of assignment operators (see this [customizable property](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Customisable-Sniff-Properties#genericformattingmultiplestatementalignment))
 - Added a rule about function parameters and indentation
+- Ignore unused parameters in functions on account on hooks
 - Added a rule about private methods and properties - they MUST NOT be prefixed with an underscore
 - Added PHPCompatibilityWP ruleset for checking a cross-version PHP compatibility (from PHP 7.0 onwards)
 - Added detailed CHANGELOG
-- Added autoload for loading the standards
-- Added .travis.yml for automatic checks on new sniff addition
-
-## Changed
 - Updated readme
+- Added autoload for loading the standards
 - Updated composer.json
   - added different requirements
   - added unit test packages
   - moved phpcodesniffer-composer-installer to suggested package
   - updated scripts
+- Added .travis.yml for automatic checks on new sniff addition
 
 ### Removed
 - Removed ruleset.xml from the root of the standards
@@ -83,17 +86,17 @@ _No documentation available about unreleased changes as of yet._
 
 ### Added
 - Added minimum_supported_wp_version check - v4.7 is set as the minimum
-- Added additional rules to ruleset
 
 ### Changed
-- Updated the DisallowDoShortcodeSniff to match phpcs 3.0.0 and latest WPCS
+- Added additional rules to ruleset
+- Fix the exclude patterns
 - Change the VIP ruleset to WP native one since VIP is being deprecated upstream
 
 ### Removed
 - Removed OnlyClassInFile sniff as it's pulled from the upstream
 
 ### Fixed
-- Fix the exclude patterns
+- Updated the DisallowDoShortcodeSniff to match phpcs 3.0.0 and latest WPCS
 
 ## [0.2.8](https://github.com/infinum/coding-standards-wp/compare/0.2.6...0.2.8) - 2018-06-21
 
@@ -104,11 +107,11 @@ _No documentation available about unreleased changes as of yet._
 - Added WordPress.Arrays.MultipleStatementAlignment to the exclude list
 - Added WordPress.Arrays.ArrayIndentation to the ruleset
 - License file
+- Update WPCS dependency to 0.14.0
 
 ### Changed
 - Changed from GPLv2 to MIT license
 - Updated readme - minor improvements and added credits
-- Update WPCS dependency to 0.14.0
 
 ### Removed
 - Removed PSR1.Classes.ClassDeclaration exclusion
@@ -137,11 +140,11 @@ _No documentation available about unreleased changes as of yet._
 ### Added
 - Added `tab-width` rule (2 spaces default)
 
-### Changed
-- Corrected the indentation in the ruleset
-
 ### Removed
 - Removed prefix check, since we started using namespaces and OOP instead of procedural php and global namespace
+
+### Changed
+- Corrected the indentation in the ruleset
 
 ## [0.2.2](https://github.com/infinum/coding-standards-wp/compare/0.2.1...0.2.2) - 2017-07-25
 

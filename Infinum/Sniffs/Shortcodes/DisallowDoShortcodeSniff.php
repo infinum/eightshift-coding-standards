@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Infinum coding standards for WordPress
  *
@@ -8,14 +9,15 @@
  * @license MIT https://github.com/infinum/coding-standards-wp/blob/master/LICENSE
  * @link    https://github.com/infinum/coding-standards-wp
  *
+ * @since 1.0.0 Removed the Tokens util. Modified the warning code
+ * @since 0.4.2 Renamed the WPCS namespace - changed in v2.0.0 of WPCS
  * @since 0.3.0 Updated sniff to be compatible with latest PHPCS and WPCS
- * @since 1.0.0
+ * @since 0.1.0
  */
 
 namespace Infinum\Sniffs\Shortcodes;
 
 use WordPressCS\WordPress\Sniff;
-use PHP_CodeSniffer_Tokens as Tokens;
 
 /**
  * Ensures do_shortcode() function is not being used.
@@ -25,29 +27,39 @@ use PHP_CodeSniffer_Tokens as Tokens;
  *
  * @link https://konstantin.blog/2013/dont-do_shortcode/
  */
-class DisallowDoShortcodeSniff extends Sniff {
-  /**
-   * Returns an array of tokens this test wants to listen for.
-   *
-   * @return array
-   */
-  public function register() {
-    return Tokens::$functionNameTokens;
-  }
+class DisallowDoShortcodeSniff extends Sniff
+{
+	/**
+	 * Returns an array of tokens this test wants to listen for.
+	 *
+	 * @return array
+	 */
+	public function register()
+	{
+		return [
+			\T_STRING,
+			\T_CONSTANT_ENCAPSED_STRING,
+			\T_DOUBLE_QUOTED_STRING,
+		];
+	}
 
-  /**
-   * Processes this test, when one of its tokens is encountered.
-   *
-   * @param int $stackPtr The position of the current token in the token stack.
-   *
-   * @return void|int
-   */
-  public function process_token( $stackPtr ) {
+	/**
+	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @param int $stackPtr The position of the current token in the token stack.
+	 *
+	 * @return void|int
+	 */
+	public function process_token($stackPtr)
+	{
+		$token = $this->tokens[$stackPtr];
 
-    $token = $this->tokens[ $stackPtr ];
-
-    if ( preg_match( '`^do_shortcode`i', $token['content'] ) > 0 ) {
-      $this->phpcsFile->addWarning( 'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.', $stackPtr, 'do_shortcodeDetected' );
-    }
-  }
+		if (preg_match('`do_shortcode`i', $token['content']) > 0) {
+			$this->phpcsFile->addWarning(
+				'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.',
+				$stackPtr,
+				'shortcodeUsageDetected'
+			);
+		}
+	}
 }
