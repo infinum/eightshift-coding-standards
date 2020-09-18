@@ -50,7 +50,7 @@ class Cli
    *
    * @var string
    */
-	protected $command_parent_name;
+	protected $commandParentName;
 
   /**
    * All classes and commands that can be used on development and public WP CLI.
@@ -154,17 +154,19 @@ class Cli
 	public function loadDevelop(array $args = []): void
 	{
 
-		$command_name = $args[0] ?? '';
+		$commandName = $args[0] ?? '';
 
-		if (empty($command_name)) {
+		$arr = [ 'some value', 'some other value' ];
+
+		if (empty($commandName)) {
 			\WP_CLI::error('First argument must be a valid command name.');
 		}
 
 		foreach ($this->getDevelopClasses() as $item) {
-			$reflection_class = new \ReflectionClass($item);
-			$class            = $reflection_class->newInstanceArgs([ null ]);
+			$reflectionClass = new \ReflectionClass($item);
+			$class            = $reflectionClass->newInstanceArgs([ null ]);
 
-			if ($class->get_command_name() === $command_name) {
+			if ($class->get_command_name() === $commandName) {
 				$class->__invoke(
 					[],
 					$class->get_develop_args($args)
@@ -178,17 +180,17 @@ class Cli
   /**
    * Run all CLI commands for normal WPCLI.
    *
-   * @param string $command_parent_name Define top level commands name.
+   * @param string $commandParentName Define top level commands name.
    *
    * @return void
    */
-	public function load(string $command_parent_name): void
+	public function load(string $commandParentName): void
 	{
-		$this->command_parent_name = $command_parent_name;
+		$this->commandParentName = $commandParentName;
 
 		foreach ($this->getPublicClasses() as $item) {
-			$reflection_class = new \ReflectionClass($item);
-			$class            = $reflection_class->newInstanceArgs([ $this->command_parent_name ]);
+			$reflectionClass = new \ReflectionClass($item);
+			$class            = $reflectionClass->newInstanceArgs([ $this->commandParentName ]);
 
 			$class->register();
 		}

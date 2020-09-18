@@ -62,7 +62,7 @@ class CliInitTheme extends AbstractCli
 		];
 	}
 
-	public function __invoke(array $args, array $assoc_args) // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+	public function __invoke(array $args, array $assocArgs) // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 	{
 		if (!function_exists('add_action')) {
 			$this->run_reset();
@@ -70,11 +70,11 @@ class CliInitTheme extends AbstractCli
 		}
 
 		foreach (static::INIT_THEME_CLASSES as $item) {
-			$reflection_class = new \ReflectionClass($item);
-			$class = $reflection_class->newInstanceArgs([null]);
+			$reflectionClass = new \ReflectionClass($item);
+			$class = $reflectionClass->newInstanceArgs([null]);
 
 			if (function_exists('add_action')) {
-				\WP_CLI::runcommand("{$this->command_parent_name} {$class->getCommandName()}");
+				\WP_CLI::runcommand("{$this->commandParentName} {$class->getCommandName()}");
 			} else {
 				\WP_CLI::runcommand("eval-file bin/cli.php {$class->getCommandName()} --skip-wordpress");
 			}
