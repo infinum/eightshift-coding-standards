@@ -1,15 +1,15 @@
 {
-    "name": "infinum/coding-standards-wp",
+    "name": "infinum/eightshift-coding-standards",
     "type": "phpcodesniffer-standard",
-    "description": "Infinum WordPress Coding Standards",
+    "description": "Eightshift WordPress Coding Standards",
     "keywords": [
       "phpcs",
       "standards",
       "WordPress",
-      "Infinum",
+      "Eightshift",
       "Eightshift"
     ],
-    "homepage": "https://github.com/infinum/coding-standards-wp",
+    "homepage": "https://github.com/infinum/eightshift-coding-standards",
     "license": "MIT",
     "authors": [
       {
@@ -19,11 +19,11 @@
       },
       {
         "name"    : "Contributors",
-        "homepage": "https://github.com/infinum/coding-standards-wp/graphs/contributors"
+        "homepage": "https://github.com/infinum/eightshift-coding-standards/graphs/contributors"
       }
     ],
     "require": {
-      "php": ">=7.2",
+      "php": "^7.2",
       "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
       "phpcompatibility/phpcompatibility-wp": "^2.1",
       "wp-coding-standards/wpcs" : "^2.3.0"
@@ -35,15 +35,15 @@
       "roave/security-advisories": "dev-master"
     },
     "scripts": {
-      "tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Infinum --bootstrap=\"./vendor/squizlabs/php_codesniffer/tests/bootstrap.php\" ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
-      "tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./Infinum ./tests/",
+      "tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift --bootstrap=\"./vendor/squizlabs/php_codesniffer/tests/bootstrap.php\" ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
+      "tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./Eightshift ./tests/",
       "lint": "@php ./vendor/bin/parallel-lint --exclude .git --exclude .github --exclude vendor .",
       "standards:list": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -i",
-      "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs ./Infinum/Sniffs",
+      "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs Eightshift/Sniffs",
       "standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
     },
     "support": {
-      "issues": "https://github.com/infinum/coding-standards-wp/issues",
-      "source": "https://github.com/infinum/coding-standards-wp"
+      "issues": "https://github.com/infinum/eightshift-coding-standards/issues",
+      "source": "https://github.com/infinum/eightshift-coding-standards"
     }
 }

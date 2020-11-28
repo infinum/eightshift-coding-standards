@@ -1,13 +1,13 @@
 # Exclude these files from release archives.
 # This will also make them unavailable when using Composer with `--prefer-dist`.
-# If you develop for Infinum coding standard using Composer, use `--prefer-source`.
+# If you develop for Eightshift coding standard using Composer, use `--prefer-source`.
 # https://blog.madewithlove.be/post/gitattributes/
 # Taken from WPCS https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/
 /.github export-ignore
 /.phpcs.xml.dist export-ignore
 /phpunit.xml.dist export-ignore
 
-/Infinum/Tests export-ignore
+/Eightshift/Tests export-ignore
 /tests export-ignore
 
 # Auto detect text files and perform LF normalization

@@ -56,7 +56,7 @@ jobs:
       - name: Lint ruleset.xml
         uses: ChristophWurst/xmllint-action@v1
         with:
-          xml-file: ./Infinum/ruleset.xml
+          xml-file: ./Eightshift/ruleset.xml
           xml-schema-file: ./phpcs.xsd
 
   phpcs_check:
@@ -96,7 +96,7 @@ jobs:
         - name: Check coding standards using PHPCS
           run: composer standards:check -- --runtime-set testVersion ${{ matrix.php }}-
 
-        - name: Check Infinum standards on example code
+        - name: Check Eightshift standards on example code
           run: composer tests:checkcs -- --runtime-set testVersion ${{ matrix.php }}-
 
   tests:

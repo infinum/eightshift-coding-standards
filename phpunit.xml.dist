@@ -8,8 +8,8 @@
   colors="true">
 
   <testsuites>
-    <testsuite name="Infinum">
-      <directory suffix="UnitTest.php">./Infinum/Tests/</directory>
+    <testsuite name="Eightshift">
+      <directory suffix="UnitTest.php">./Eightshift/Tests/</directory>
     </testsuite>
   </testsuites>
 

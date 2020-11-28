@@ -1,4 +1,4 @@
-# Change Log for the Infinum WordPress Coding Standards
+# Change Log for the Eightshift WordPress Coding Standards
 
 All notable changes to this project will be documented in this file.
 
@@ -12,9 +12,11 @@ _No documentation available about unreleased changes as of yet._
 
 ## [1.0.0](https://github.com/infinum/coding-standards-wp/compare/0.4.1...1.0.0) - 2020-09-18
 
-### Official release of the Infinum coding standards for WordPress projects
+### Official release of the Eightshift coding standards for WordPress projects
 
-This is the official release of the Infinum coding standards for WordPress. It contains breaking changes, mostly in regard of the naming scheme. 
+This is the official release of the Eightshift coding standards for WordPress. It contains breaking changes, mostly in
+ regard
+ of the naming scheme. 
 To equate the way we write our PHP and JS we opted to follow a modified PSR standards.
 What this means is that we will remove liberal spacing, add some PSR12 modifications regarding arguments placing in closures, change snake_case with CamelCase for classes (for autoload puropses) and some other minor changes that will be documented below.
 If you wish to use the old standards, be sure to modify your projects `composer.json` file with the appropriate version.
