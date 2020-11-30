@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Infinum coding standards for WordPress
+ * Eightshift coding standards for WordPress
  *
- * @package Infinum\Sniffs\Shortcodes
+ * @package Eightshift\Sniffs\Shortcodes
  *
- * @author  Infinum <info@infinum.co>
+ * @author  Eightshift <info@infinum.co>
  * @license MIT https://github.com/infinum/coding-standards-wp/blob/master/LICENSE
  * @link    https://github.com/infinum/coding-standards-wp
  *
@@ -15,7 +15,7 @@
  * @since 0.1.0
  */
 
-namespace Infinum\Sniffs\Shortcodes;
+namespace Eightshift\Sniffs\Shortcodes;
 
 use WordPressCS\WordPress\Sniff;
 

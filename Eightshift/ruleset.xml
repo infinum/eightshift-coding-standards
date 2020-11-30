@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum" namespace="Infinum"
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift" namespace="Eightshift"
          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
-    <description>Infinum coding standards for WordPress projects</description>
+    <description>Eightshift coding standards for WordPress projects</description>
 
     <config name="encoding" value="utf-8"/>
 

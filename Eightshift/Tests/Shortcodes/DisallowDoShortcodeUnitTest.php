@@ -2,12 +2,12 @@
 /**
  * Unit test class for DisallowDoShortcode Standard.
  *
- * @package Infinum\Tests\Shortcodes
+ * @package Eightshift\Tests\Shortcodes
  * @link    https://github.com/infinum/coding-standards-wp
  * @license https://opensource.org/licenses/MIT MIT
  */
 
-namespace Infinum\Tests\Shortcodes;
+namespace Eightshift\Tests\Shortcodes;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 

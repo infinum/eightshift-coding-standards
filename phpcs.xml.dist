@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Infinum Coding Standards for WordPress"
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift Coding Standards for WordPress"
          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
-    <description>The coding standards used when writing Infinum Coding Standards itself</description>
+    <description>The coding standards used when writing Eightshift Coding Standards itself</description>
 
     <file>.</file>
 
@@ -17,7 +17,7 @@
     <!-- Exclude Composer vendor directory. -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
 
-    <rule ref="Infinum"/>
+    <rule ref="Eightshift"/>
 
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <severity>0</severity>
@@ -28,7 +28,7 @@
     </rule>
 
     <!-- Hack to prevent errors. -->
-    <rule ref="Infinum.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected">
+    <rule ref="Eightshift.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected">
         <severity>0</severity>
     </rule>
 
