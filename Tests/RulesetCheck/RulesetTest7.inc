@@ -1,14 +1,13 @@
 <?php
 
 /**
- * View file for bulk email sending
+ * View file example
  *
  * @package Project
  */
 
 namespace Project;
 
-use Project\Callback\BulkEmailFormOptions;
 use ProjectVendor\EightshiftLibs\Helpers\Components;
 
 $manifest = Components::getManifest(__DIR__);
@@ -17,6 +16,15 @@ $componentName = $attributes['componentName'] ?? $manifest['componentName'];
 $mainTitle = Components::checkAttr('title', $attributes, $manifest, $componentName);
 $nonceField = Components::checkAttr('nonceField', $attributes, $manifest, $componentName);
 
+$classname = Components::classnames([
+	'some-class',
+	'other-class-name'
+]);
+
+echo Components::classnames([ // phpcs:ignore
+	'some-class',
+	'other-class-name'
+]);
 ?>
 
 <div class="wrap bulk-email js-bulk-mail-send">
