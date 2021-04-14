@@ -6,7 +6,7 @@
  * @package EightshiftCS
  *
  * @author  Eightshift <team@eightshift.com>
- * @license MIT https://github.com/infinum/eightshift-coding-standards/blob/master/LICENSE
+ * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/infinum/eightshift-coding-standards
  *
  * @since 1.0.0 Removed the Tokens util. Modified the warning code
