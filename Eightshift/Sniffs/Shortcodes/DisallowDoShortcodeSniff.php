@@ -3,11 +3,11 @@
 /**
  * Eightshift coding standards for WordPress
  *
- * @package Eightshift\Sniffs\Shortcodes
+ * @package EightshiftCS
  *
- * @author  Eightshift <info@infinum.co>
- * @license MIT https://github.com/infinum/coding-standards-wp/blob/master/LICENSE
- * @link    https://github.com/infinum/coding-standards-wp
+ * @author  Eightshift <team@eightshift.com>
+ * @license MIT https://github.com/infinum/eightshift-coding-standards/blob/master/LICENSE
+ * @link    https://github.com/infinum/eightshift-coding-standards
  *
  * @since 1.0.0 Removed the Tokens util. Modified the warning code
  * @since 0.4.2 Renamed the WPCS namespace - changed in v2.0.0 of WPCS
