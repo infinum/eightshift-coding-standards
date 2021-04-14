@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Builds against PHP 7.2, 7.4 and 8.0 are specified separately in the "include" section below.
+        # Builds against PHP 7.2, 7.4 are specified separately in the "include" section below.
         php: [ '7.3' ]
         phpcs_branch: [ '3.6.0', 'dev-master' ]
         wpcs_branch: [ '2.2.0', 'dev-master' ]
@@ -40,14 +40,6 @@ jobs:
             phpcs_branch: '3.5.0'
             wpcs_branch: '2.3.0'
             allowed_failure: false
-          - php: '8.0'
-            phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-master'
-            allowed_failure: true
-          - php: '8.0'
-            phpcs_branch: '3.5.7'
-            wpcs_branch: '2.3.0'
-            allowed_failure: true
 
           # Compliment the matrix with some additional builds.
           # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
@@ -102,6 +94,7 @@ jobs:
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
+      # Once we'll support PHP 8 this will come in handy.
       - name: Install Composer dependencies
         if: ${{ matrix.php < 8.0 }}
         uses: ramsey/composer-install@v1
