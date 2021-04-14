@@ -13,18 +13,19 @@ jobs:
   # If needs be, we can always add more interim versions at a later point in time.
   lint:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        php: ['7.2', '7.3', '7.4', '8.0']
-        experimental: [false]
+        php: ['7.2', '7.3', '7.4']
+        allowed_failure: [ false ]
 
         include:
+          - php: '8.0'
+            allowed_failure: true
           - php: '8.1'
-            experimental: true
+            allowed_failure: true
 
     name: "Lint: PHP ${{ matrix.php }}"
-    continue-on-error: ${{ matrix.experimental }}
+    continue-on-error: ${{ matrix.allowed_failure }}
 
     steps:
       - name: Checkout code

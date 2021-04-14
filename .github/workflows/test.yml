@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         # Builds against PHP 7.2, 7.4 and 8.0 are specified separately in the "include" section below.
-        php: [ '7.0', '7.1', '7.3' ]
+        php: [ '7.3' ]
         phpcs_branch: [ '3.6.0', 'dev-master' ]
         wpcs_branch: [ '2.2.0', 'dev-master' ]
         allowed_failure: [ false ]
@@ -43,11 +43,11 @@ jobs:
           - php: '8.0'
             phpcs_branch: 'dev-master'
             wpcs_branch: 'dev-master'
-            allowed_failure: false
+            allowed_failure: true
           - php: '8.0'
             phpcs_branch: '3.5.7'
             wpcs_branch: '2.3.0'
-            allowed_failure: false
+            allowed_failure: true
 
           # Compliment the matrix with some additional builds.
           # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
