@@ -85,7 +85,7 @@ jobs:
       # For now, just check that all sniffs have unit tests.
       # At a later stage the documentation check can be activated.
       - name: Check sniff feature completeness
-        run: composer check-complete
+        run: composer check:complete
 
   # Makes sure the ruleset don't throw unexpected errors or warnings.
   # This workflow needs to be run against a high PHP version to prevent triggering the syntax error check.
