@@ -85,11 +85,6 @@ class CustomEscapeOutputSniff extends EscapeOutputSniff
 			}
 		}
 
-		// Checking for the ignore comment, ex: //xss ok.
-		if ($this->has_whitelist_comment('xss', $stackPtr)) {
-			return;
-		}
-
 		if (isset($this->unsafePrintingFunctions[$function])) {
 			$error = $this->phpcsFile->addError(
 				"All output should be run through an escaping function (like %s), found '%s'.",
