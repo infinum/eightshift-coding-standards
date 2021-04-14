@@ -1,6 +1,7 @@
 composer.phar
 /vendor
 phpcs-report.xml
+composer.lock
 
 # Mac OS custom attribute store and thumbnails
 *.DS_Store
