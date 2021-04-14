@@ -13,7 +13,7 @@
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 
 	<!-- Only check php code, linters are used for checking js and css. -->
-	<arg name="extensions" value="php"/>
+	<arg name="extensions" value="php,inc"/>
 
 	<!-- Enable colors in report. -->
 	<arg name="colors"/>
