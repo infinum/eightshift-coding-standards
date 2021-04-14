@@ -1,0 +1,43 @@
+name: Lint
+
+on:
+  # Run on PRs and pushes.
+  push:
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  #### PHP LINT STAGE ####
+  # Linting against high/low of each PHP major should catch everything.
+  # If needs be, we can always add more interim versions at a later point in time.
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+
+    name: "Lint: PHP ${{ matrix.php }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: cs2pr
+
+      - name: 'Composer: adjust dependencies'
+        # Remove PHPUnit requirement to save some bandwidth.
+        run: composer remove --no-update phpunit/phpunit
+
+      # Install dependencies and handle caching in one go.
+      # @link https://github.com/marketplace/actions/install-composer-dependencies
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v1
+
+      - name: Lint against parse errors
+        run: composer lint:ci | cs2pr

@@ -8,7 +8,7 @@
 /phpunit.xml.dist export-ignore
 
 /Eightshift/Tests export-ignore
-/tests export-ignore
+/Tests export-ignore
 
 # Auto detect text files and perform LF normalization
 # http://davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/

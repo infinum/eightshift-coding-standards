@@ -16,6 +16,7 @@
 
     <!-- Exclude Composer vendor directory. -->
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/*UnitTest.inc</exclude-pattern>
 
     <rule ref="Eightshift"/>
 
