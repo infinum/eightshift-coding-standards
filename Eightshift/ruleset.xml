@@ -1,138 +1,137 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift" namespace="Eightshift"
-         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
-    <description>Eightshift coding standards for WordPress projects</description>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift" namespace="Eightshift" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+	<description>Eightshift coding standards for WordPress projects</description>
 
-    <config name="encoding" value="utf-8"/>
+	<config name="encoding" value="utf-8"/>
 
-    <!-- Check code for cross-version PHP compatibility. -->
-    <config name="testVersion" value="7.2-"/>
-    <rule ref="PHPCompatibilityWP"/>
+	<!-- Check code for cross-version PHP compatibility. -->
+	<config name="testVersion" value="7.2-"/>
+	<rule ref="PHPCompatibilityWP"/>
 
-    <!-- Exclude certain patterns. -->
-    <exclude-pattern>/vendor/*</exclude-pattern>
-    <exclude-pattern>/node_modules/*</exclude-pattern>
+	<!-- Exclude certain patterns. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
 
-    <!-- Only check php code, linters are used for checking js and css. -->
-    <arg name="extensions" value="php"/>
+	<!-- Only check php code, linters are used for checking js and css. -->
+	<arg name="extensions" value="php"/>
 
-    <!-- Enable colors in report. -->
-    <arg name="colors"/>
+	<!-- Enable colors in report. -->
+	<arg name="colors"/>
 
-    <!-- Add source codes in the report. -->
-    <arg value="sp"/>
+	<!-- Add source codes in the report. -->
+	<arg value="sp"/>
 
-    <!-- Tabs should represent 2 spaces. -->
-    <arg name="tab-width" value="2"/>
+	<!-- Tabs should represent 2 spaces. -->
+	<arg name="tab-width" value="2"/>
 
-    <!-- Run sniffs in parallel for faster results. -->
-    <arg name="parallel" value="8"/>
+	<!-- Run sniffs in parallel for faster results. -->
+	<arg name="parallel" value="8"/>
 
-    <!-- Check against minimum WP version. -->
-    <config name="minimum_supported_wp_version" value="5.0"/>
+	<!-- Check against minimum WP version. -->
+	<config name="minimum_supported_wp_version" value="5.0"/>
 
-    <!-- Set minimum supported version for deprecated functions. -->
-    <rule ref="WordPress.WP.DeprecatedFunctions">
-        <properties>
-            <property name="minimum_supported_version" value="5.0"/>
-        </properties>
-    </rule>
+	<!-- Set minimum supported version for deprecated functions. -->
+	<rule ref="WordPress.WP.DeprecatedFunctions">
+		<properties>
+			<property name="minimum_supported_version" value="5.0"/>
+		</properties>
+	</rule>
 
-    <!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
-         Use WordPress-Docs for documentation checks. -->
-    <rule ref="PSR12"/>
-    <rule ref="WordPress-Docs"/>
+	<!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
+		 Use WordPress-Docs for documentation checks. -->
+	<rule ref="PSR12"/>
+	<rule ref="WordPress-Docs"/>
 
-    <!-- Use tabs, not spaces. -->
-    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<!-- Use tabs, not spaces. -->
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
-    <rule ref="Generic.WhiteSpace.DisallowTabIndent">
-        <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
-    </rule>
+	<rule ref="Generic.WhiteSpace.DisallowTabIndent">
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
+	</rule>
 
-    <!-- Warn about lines longer than 120 chars, and never error. -->
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="125"/>
-            <property name="absoluteLineLimit" value="0"/>
-        </properties>
-    </rule>
+	<!-- Warn about lines longer than 120 chars, and never error. -->
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="125"/>
+			<property name="absoluteLineLimit" value="0"/>
+		</properties>
+	</rule>
 
-    <!-- Disallow array() syntax. Use [] instead. -->
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+	<!-- Disallow array() syntax. Use [] instead. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
-    <!-- Remove extra spacing inside function declaration and call signature -->
-    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
-        <properties>
-            <property name="equalsSpacing" value="1"/>
-            <property name="requiredSpacesAfterOpen" value="0"/>
-            <property name="requiredSpacesBeforeClose" value="0"/>
-        </properties>
-    </rule>
+	<!-- Remove extra spacing inside function declaration and call signature -->
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="equalsSpacing" value="1"/>
+			<property name="requiredSpacesAfterOpen" value="0"/>
+			<property name="requiredSpacesBeforeClose" value="0"/>
+		</properties>
+	</rule>
 
-    <!--  Make this sniff more sensitive to commented out code blocks.-->
-    <rule ref="Squiz.PHP.CommentedOutCode">
-        <properties>
-            <property name="maxPercentage" value="55"/>
-        </properties>
-    </rule>
+	<!--  Make this sniff more sensitive to commented out code blocks.-->
+	<rule ref="Squiz.PHP.CommentedOutCode">
+		<properties>
+			<property name="maxPercentage" value="55"/>
+		</properties>
+	</rule>
 
-    <!-- Enforce PSR-12 style file comments. -->
-    <rule ref="Squiz.Commenting.FileComment">
-        <exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
-    </rule>
+	<!-- Enforce PSR-12 style file comments. -->
+	<rule ref="Squiz.Commenting.FileComment">
+		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+	</rule>
 
-    <!-- Enforce camelCase -->
-    <rule ref="Squiz.NamingConventions.ValidVariableName"/>
+	<!-- Enforce camelCase -->
+	<rule ref="Squiz.NamingConventions.ValidVariableName"/>
 
-    <!-- Disallow spacing inside arrays. -->
-    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+	<!-- Disallow spacing inside arrays. -->
+	<rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
 
-    <!-- Private methods MUST not be prefixed with an underscore -->
-    <rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
-        <severity>0</severity>
-    </rule>
-    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-        <type>error</type>
-    </rule>
+	<!-- Private methods MUST not be prefixed with an underscore -->
+	<rule ref="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore">
+		<severity>0</severity>
+	</rule>
+	<rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+		<type>error</type>
+	</rule>
 
-    <!-- Private properties MUST not be prefixed with an underscore -->
-    <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
-        <severity>0</severity>
-    </rule>
-    <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
-        <type>error</type>
-    </rule>
+	<!-- Private properties MUST not be prefixed with an underscore -->
+	<rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+		<severity>0</severity>
+	</rule>
+	<rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+		<type>error</type>
+	</rule>
 
-    <!-- Ensure proper object instantiation. -->
-    <rule ref="WordPress.Classes.ClassInstantiation"/>
+	<!-- Ensure proper object instantiation. -->
+	<rule ref="WordPress.Classes.ClassInstantiation"/>
 
-    <!-- Useful code analysis sniffs. -->
-    <rule ref="WordPress.CodeAnalysis"/>
+	<!-- Useful code analysis sniffs. -->
+	<rule ref="WordPress.CodeAnalysis"/>
 
-    <!-- Date Time sniffs. -->
-    <rule ref="WordPress.DateTime"/>
+	<!-- Date Time sniffs. -->
+	<rule ref="WordPress.DateTime"/>
 
-    <!-- Database sniffs. -->
-    <rule ref="WordPress.DB"/>
+	<!-- Database sniffs. -->
+	<rule ref="WordPress.DB"/>
 
-    <!-- We want to ensure hook name validity, this is a coding standard for WordPress. -->
-    <rule ref="WordPress.NamingConventions.ValidHookName"/>
-    <rule ref="WordPress.NamingConventions.ValidPostTypeSlug"/>
+	<!-- We want to ensure hook name validity, this is a coding standard for WordPress. -->
+	<rule ref="WordPress.NamingConventions.ValidHookName"/>
+	<rule ref="WordPress.NamingConventions.ValidPostTypeSlug"/>
 
-    <!-- PHP sniffs are useful. Except Yoda conditions -->
-    <rule ref="WordPress.PHP">
-        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-    </rule>
+	<!-- PHP sniffs are useful. Except Yoda conditions -->
+	<rule ref="WordPress.PHP">
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+	</rule>
 
-    <!-- Security sniffs. -->
-    <rule ref="WordPress.Security"/>
+	<!-- Security sniffs. -->
+	<rule ref="WordPress.Security"/>
 
-    <!-- I18n sniffs. -->
-    <rule ref="WordPress.Utils.I18nTextDomainFixer"/>
+	<!-- I18n sniffs. -->
+	<rule ref="WordPress.Utils.I18nTextDomainFixer"/>
 
-    <!-- General WP sniffs. -->
-    <rule ref="WordPress.WP">
-        <exclude name="WordPress.WP.TimezoneChange"/>
-    </rule>
+	<!-- General WP sniffs. -->
+	<rule ref="WordPress.WP">
+		<exclude name="WordPress.WP.TimezoneChange"/>
+	</rule>
 </ruleset>
