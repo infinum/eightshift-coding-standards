@@ -141,4 +141,5 @@
 	<rule ref="WordPress.Security.EscapeOutput">
 		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
 	</rule>
+
 </ruleset>
