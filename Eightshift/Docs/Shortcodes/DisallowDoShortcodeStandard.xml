@@ -1,0 +1,34 @@
+<documentation title="Disallow Do Shortcode">
+    <standard>
+    <![CDATA[
+      The do_shortcode() WordPress function should not be used inside php source files.
+    ]]>
+    </standard>
+    <code_comparison>
+        <code title="Valid: Using a helper from eightshift-libs, which calls the shortcode callback">
+        <![CDATA[
+use EightshiftLibs\Helpers\Shortcode;
+echo Shortcode::getShortcode('cool-shortcode');
+        ]]>
+        </code>
+        <code title="Invalid: Using do_shortcode() inside a php file">
+        <![CDATA[
+echo do_shortcode( '[cool-shortcode]' );
+        ]]>
+        </code>
+    </code_comparison>
+    <code_comparison>
+        <code title="Valid: Using shortcode callback directly in your code">
+        <![CDATA[
+$var = custom_shortcode_callback();
+        ]]>
+        </code>
+        <code title="Invalid: Using do_shortcode() inside a php file">
+        <![CDATA[
+$var = do_shortcode(
+    '[custom id="91" title="quote"]'
+);
+        ]]>
+        </code>
+    </code_comparison>
+</documentation>
