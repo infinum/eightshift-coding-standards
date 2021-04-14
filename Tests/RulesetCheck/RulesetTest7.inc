@@ -14,7 +14,7 @@ use ProjectVendor\EightshiftLibs\Helpers\Components;
 $manifest = Components::getManifest(__DIR__);
 $componentName = $attributes['componentName'] ?? $manifest['componentName'];
 
-$title = Components::checkAttr('title', $attributes, $manifest, $componentName);
+$mainTitle = Components::checkAttr('title', $attributes, $manifest, $componentName);
 $nonceField = Components::checkAttr('nonceField', $attributes, $manifest, $componentName);
 
 ?>
@@ -24,7 +24,7 @@ $nonceField = Components::checkAttr('nonceField', $attributes, $manifest, $compo
 		<?php
 		echo Components::render('heading', [
 			'headingLevel' => 1,
-			'headingContent' => $title
+			'headingContent' => $mainTitle
 		]),
 		Components::render('paragraph', [
 			'paragraphContent' => \esc_html__(
