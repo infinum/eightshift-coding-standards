@@ -1,49 +1,63 @@
 {
-    "name": "infinum/eightshift-coding-standards",
-    "type": "phpcodesniffer-standard",
-    "description": "Eightshift WordPress Coding Standards",
-    "keywords": [
-      "phpcs",
-      "standards",
-      "WordPress",
-      "Eightshift",
-      "Eightshift"
-    ],
-    "homepage": "https://github.com/infinum/eightshift-coding-standards",
-    "license": "MIT",
-    "authors": [
-      {
-        "name"    : "Denis Žoljom",
-        "homepage": "https://github.com/dingo-d",
-        "role"    : "Lead developer"
-      },
-      {
-        "name"    : "Contributors",
-        "homepage": "https://github.com/infinum/eightshift-coding-standards/graphs/contributors"
-      }
-    ],
-    "require": {
-      "php": "^7.2",
-      "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-      "phpcompatibility/phpcompatibility-wp": "^2.1",
-      "wp-coding-standards/wpcs" : "^2.3.0"
-    },
-    "require-dev": {
-      "php-parallel-lint/php-parallel-lint": "^1.2.0",
-      "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
-      "phpcompatibility/php-compatibility": "^9.0",
-      "roave/security-advisories": "dev-master"
-    },
-    "scripts": {
-      "tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift --bootstrap=\"./vendor/squizlabs/php_codesniffer/tests/bootstrap.php\" ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
-      "tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./Eightshift ./tests/",
-      "lint": "@php ./vendor/bin/parallel-lint --exclude .git --exclude .github --exclude vendor .",
-      "standards:list": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -i",
-      "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs Eightshift/Sniffs",
-      "standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
-    },
-    "support": {
-      "issues": "https://github.com/infinum/eightshift-coding-standards/issues",
-      "source": "https://github.com/infinum/eightshift-coding-standards"
-    }
+	"name": "infinum/eightshift-coding-standards",
+	"type": "phpcodesniffer-standard",
+	"description": "Eightshift WordPress Coding Standards",
+	"keywords": [
+		"phpcs",
+		"standards",
+		"WordPress",
+		"Eightshift"
+	],
+	"homepage": "https://github.com/infinum/eightshift-coding-standards",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Denis Žoljom",
+			"homepage": "https://github.com/dingo-d",
+			"role": "Lead developer"
+		},
+		{
+			"name": "Contributors",
+			"homepage": "https://github.com/infinum/eightshift-coding-standards/graphs/contributors"
+		}
+	],
+	"require": {
+		"php": "^7.2",
+		"squizlabs/php_codesniffer": "^3.6.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.1",
+		"wp-coding-standards/wpcs": "^2.3.0",
+		"phpcsstandards/phpcsutils": "^1.0",
+		"phpcsstandards/phpcsextra": "^1.0"
+	},
+	"require-dev": {
+		"phpcompatibility/php-compatibility": "^9.0",
+		"phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+		"phpcsstandards/phpcsdevtools": "^1.0",
+		"php-parallel-lint/php-parallel-lint": "^1.2.0",
+		"php-parallel-lint/php-console-highlighter": "^0.5",
+		"roave/security-advisories": "dev-master"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"EightshiftCS\\Eightshift\\": "Eightshift/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"scripts": {
+		"lint": "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git --exclude .github",
+		"lint:ci": "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git --exclude .github --checkstyle",
+		"standards:list": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -i",
+		"standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+		"standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+		"tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
+		"tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./Eightshift ./Tests/",
+		"check:complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
+		"check:complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift"
+	},
+	"support": {
+		"issues": "https://github.com/infinum/eightshift-coding-standards/issues",
+		"source": "https://github.com/infinum/eightshift-coding-standards"
+	}
 }
