@@ -1,0 +1,23 @@
+<documentation title="Modified Escape Output">
+    <standard>
+    <![CDATA[
+      The original escaping sniff doesn't recognize the static methods as a part of escaping functions.
+      The following implementation will add eightshift libs specific Components::render method to a
+      safe list when sniffing the codebase.
+    ]]>
+    </standard>
+    <code_comparison>
+        <code title="Valid: Using Components::render won't trigger sniff, and doesn't have to be escaped">
+        <![CDATA[
+use EightshiftLibs\Helpers\Components;
+echo Components::render('paragraph', []);
+        ]]>
+        </code>
+        <code title="Invalid: Using other Components helpers require escaping">
+        <![CDATA[
+use EightshiftLibs\Helpers\Components;
+echo Components::classnames(['my-class']);
+        ]]>
+        </code>
+    </code_comparison>
+</documentation>
