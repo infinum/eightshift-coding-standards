@@ -132,6 +132,7 @@ jobs:
           $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest4.inc --standard=Eightshift
           $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest5.inc --standard=Eightshift
           $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest6.inc --standard=Eightshift
+          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest7.inc --standard=Eightshift
 
       # Test for fixer conflicts by running the auto-fixers of the complete WPCS over the test case files.
       # This is not an exhaustive test, but should give an early indication for typical fixer conflicts.
