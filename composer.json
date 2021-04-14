@@ -52,7 +52,7 @@
 		"standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
 		"standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
 		"tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
-		"tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=./Eightshift ./Tests/",
+		"tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -ps ./Tests/RulesetCheck/ --standard=Eightshift",
 		"check:complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
 		"check:complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift"
 	},
