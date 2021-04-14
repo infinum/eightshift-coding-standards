@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for DisallowDoShortcode Standard.
  *
