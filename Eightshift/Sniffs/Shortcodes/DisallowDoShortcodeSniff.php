@@ -15,7 +15,7 @@
  * @since 0.1.0
  */
 
-namespace Eightshift\Sniffs\Shortcodes;
+namespace EightshiftCS\Eightshift\Sniffs\Shortcodes;
 
 use WordPressCS\WordPress\Sniff;
 
