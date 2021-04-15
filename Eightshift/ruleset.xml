@@ -147,17 +147,17 @@
 	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing"/>
 
 	<!-- Detect duplicate array keys in array declarations. -->
-	<rule ref-="Universal.Arrays.DuplicateArrayKey"/>
+	<rule ref="Universal.Arrays.DuplicateArrayKey"/>
 
 	<!-- Don't use a mix of integer and numeric keys for array items. -->
-	<rule ref-="Universal.Arrays.MixedArrayKeyTypes"/>
+	<rule ref="Universal.Arrays.MixedArrayKeyTypes"/>
 
 	<!-- Don't use a mix of keyed and unkeyed array items. -->
-	<rule ref-="Universal.Arrays.MixedKeyedUnkeyedArray"/>
+	<rule ref="Universal.Arrays.MixedKeyedUnkeyedArray"/>
 
 	<!-- Enforce uppercase when using PHP native magic constants, like __FILE__ et al. -->
-	<rule ref-="Universal.Constants.UppercaseMagicConstants"/>
+	<rule ref="Universal.Constants.UppercaseMagicConstants"/>
 
 	<!-- Enforce the use of the boolean && and || operators instead of the logical and/or operators. -->
-	<rule ref-="Universal.Operators.DisallowLogicalAndOr"/>
+	<rule ref="Universal.Operators.DisallowLogicalAndOr"/>
 </ruleset>
