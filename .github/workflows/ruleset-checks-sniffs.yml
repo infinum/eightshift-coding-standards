@@ -125,13 +125,7 @@ jobs:
         uses: ramsey/composer-install@v1
 
       - name: Test the Eightshift ruleset
-        run: |
-          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest.inc --standard=Eightshift
-          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest2.inc --standard=Eightshift
-          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest3.inc --standard=Eightshift
-          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest4.inc --standard=Eightshift
-          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest5.inc --standard=Eightshift
-          $(pwd)/vendor/bin/phpcs -ps ./Tests/RulesetCheck/RulesetTest6.inc --standard=Eightshift
+        run: composer tests:checkcs
 
       # Test for fixer conflicts by running the auto-fixers of the complete WPCS over the test case files.
       # This is not an exhaustive test, but should give an early indication for typical fixer conflicts.

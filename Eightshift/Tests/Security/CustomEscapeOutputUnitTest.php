@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Unit test class for DisallowDoShortcode sniff.
+ * Unit test class for CustomEscapeOutput sniff.
  *
  * @package EightshiftCS
  *
@@ -10,17 +10,16 @@
  * @link    https://github.com/infinum/eightshift-coding-standards
  */
 
-namespace EightshiftCS\Eightshift\Tests\Shortcodes;
+namespace EightshiftCS\Eightshift\Tests\Security;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 
 /**
- * Unit test class for the DisallowDoShortcode sniff.
+ * Unit test class for the CustomEscapeOutput sniff.
  *
- * @since 1.0.0 Added $testFile parameter.
- * @since 0.4.0
+ * @since 1.2.0
  */
-class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
+class CustomEscapeOutputUnitTest extends AbstractSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.
@@ -29,7 +28,12 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 	 */
 	public function getErrorList(): array
 	{
-		return [];
+		return [
+			8 => 1,
+			13 => 1,
+			16 => 1,
+			17 => 1
+		];
 	}
 
 	/**
@@ -39,13 +43,6 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 	 */
 	public function getWarningList(): array
 	{
-		return [
-			4 => 1,
-			5 => 1,
-			6 => 1,
-			7 => 1,
-			8 => 1,
-			9 => 1,
-		];
+		return [];
 	}
 }
