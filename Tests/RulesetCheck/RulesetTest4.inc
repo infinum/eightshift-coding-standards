@@ -162,7 +162,7 @@ class Cli
 
 		foreach ($this->getDevelopClasses() as $item) {
 			$reflectionClass = new \ReflectionClass($item);
-			$class            = $reflectionClass->newInstanceArgs([ null ]);
+			$class = $reflectionClass->newInstanceArgs([null]);
 
 			if ($class->get_command_name() === $commandName) {
 				$class->__invoke(
@@ -188,7 +188,7 @@ class Cli
 
 		foreach ($this->getPublicClasses() as $item) {
 			$reflectionClass = new \ReflectionClass($item);
-			$class            = $reflectionClass->newInstanceArgs([ $this->commandParentName ]);
+			$class = $reflectionClass->newInstanceArgs([$this->commandParentName]);
 
 			$class->register();
 		}
