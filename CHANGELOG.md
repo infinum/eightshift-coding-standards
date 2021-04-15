@@ -10,6 +10,33 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes as of yet._
 
+## [1.2.0](https://github.com/infinum/coding-standards-wp/compare/1.1.0...1.2.0) - 2020-04-15
+
+### Added
+- Workflows for GH Actions
+- Docs for custom sniffs
+- Modified escaping sniff
+    - will exclude the custom `Components::render()` method from the eightshift-libs
+- Added phpcs extra ruleset for array spacing and array best practices
+- Update samples for ruleset
+
+### Changed
+- Updated sniffs namespace
+  
+### Fixed
+- Fix docblocks in the sniffs
+
+## [1.1.0](https://github.com/infinum/coding-standards-wp/compare/1.0.1...1.1.0) - 2020-11-30
+
+### Package renaming
+
+We renamed the package from `infinum/coding-standards-wp` to `infinum/eightshift-coding-standards`.
+
+## [1.1.0](https://github.com/infinum/coding-standards-wp/compare/1.0.0...1.0.1) - 2020-09-24
+
+### Added
+- Added a rule to prevent underscores denoting the private methods/properties
+
 ## [1.0.0](https://github.com/infinum/coding-standards-wp/compare/0.4.1...1.0.0) - 2020-09-18
 
 ### Official release of the Eightshift coding standards for WordPress projects
