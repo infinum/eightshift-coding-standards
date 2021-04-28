@@ -28,12 +28,12 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Check against minimum WP version. -->
-	<config name="minimum_supported_wp_version" value="5.0"/>
+	<config name="minimum_supported_wp_version" value="5.4"/>
 
 	<!-- Set minimum supported version for deprecated functions. -->
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
-			<property name="minimum_supported_version" value="5.0"/>
+			<property name="minimum_supported_version" value="5.4"/>
 		</properties>
 	</rule>
 
@@ -79,6 +79,7 @@
 	<!-- Enforce PSR-12 style file comments. -->
 	<rule ref="Squiz.Commenting.FileComment">
 		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
 	</rule>
 
 	<!-- Enforce camelCase -->
