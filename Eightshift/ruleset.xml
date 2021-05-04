@@ -154,7 +154,4 @@
 
 	<!-- Enforce the use of the boolean && and || operators instead of the logical and/or operators. -->
 	<rule ref="Universal.Operators.DisallowLogicalAndOr"/>
-
-	<!-- Verify that else(if) statements with braces are on a new line. -->
-	<rule ref="Universal.ControlStructures.IfElseDeclaration"/>
 </ruleset>
