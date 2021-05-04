@@ -2,13 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
-This projects adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
+This project adheres to [Semantic Versioning](https://semver.org/) and [Keep a CHANGELOG](https://keepachangelog.com/).
 
 The semantic versioning started from version 0.2.1.
 
 ## [Unreleased]
 
-_No documentation available about unreleased changes as of yet._
+_No documentation available about unreleased changes yet._
+
+## [1.3.0](https://github.com/infinum/coding-standards-wp/compare/1.2.0...1.3.0) - 2020-05-04
+
+### Removed
+- Modified escaping sniff
+    - The sniff wasn't working correctly, and we'll wait for the upstream to fix the issue
+- Exclude doc comment align sniff
+
+### Fixed
+- Improve disallow do shortcode sniff (better regex and tests)
+- Fixed the namespace in the ruleset.xml
+
+### Changed
+- Update minimum supported WP version to 5.4
 
 ## [1.2.0](https://github.com/infinum/coding-standards-wp/compare/1.1.0...1.2.0) - 2020-04-15
 
@@ -181,6 +195,6 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 - Updated DisallowDoShortcodeSniff regex - from multiline check to just case insensitive check
 - Increased dependencu on WPCS 0.12.0
 
-## [0.2.1](https://github.com/infinum/coding-standards-wp/compare/0.2.1...master) - 2017-07-18
+## [0.2.1](https://github.com/infinum/coding-standards-wp/compare/0.2.1...main) - 2017-07-18
 
 Initial release
