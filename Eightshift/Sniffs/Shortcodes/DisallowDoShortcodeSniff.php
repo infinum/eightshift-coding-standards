@@ -17,7 +17,8 @@
 
 namespace EightshiftCS\Eightshift\Sniffs\Shortcodes;
 
-use WordPressCS\WordPress\Sniff;
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Ensures do_shortcode() function is not being used.
@@ -27,7 +28,7 @@ use WordPressCS\WordPress\Sniff;
  *
  * @link https://konstantin.blog/2013/dont-do_shortcode/
  */
-class DisallowDoShortcodeSniff extends Sniff
+class DisallowDoShortcodeSniff implements Sniff
 {
 	/**
 	 * Returns an array of tokens this test wants to listen for.
@@ -46,16 +47,18 @@ class DisallowDoShortcodeSniff extends Sniff
 	/**
 	 * Processes this test, when one of its tokens is encountered.
 	 *
-	 * @param int $stackPtr The position of the current token in the token stack.
+	 * @param File $phpcsFile The PHP_CodeSniffer file where the token was found.
+	 * @param int $stackPtr  The position of the current token in the stack.
 	 *
-	 * @return void|int
+	 * @return void
 	 */
-	public function process_token($stackPtr)
+	public function process(File $phpcsFile, $stackPtr)
 	{
-		$token = $this->tokens[$stackPtr];
+		$tokens = $phpcsFile->getTokens();
+		$token = $tokens[$stackPtr];
 
-		if (preg_match('`do_shortcode`i', $token['content']) > 0) {
-			$this->phpcsFile->addWarning(
+		if (preg_match('/\bdo_shortcode\b/', $token['content']) > 0) {
+			$phpcsFile->addWarning(
 				'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.',
 				$stackPtr,
 				'shortcodeUsageDetected'
