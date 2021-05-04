@@ -30,11 +30,11 @@ echo Components::classnames([ // phpcs:ignore
 <div class="wrap bulk-email js-bulk-mail-send">
 	<div class="bulk-email__wrapper">
 		<?php
-		echo Components::render('heading', [
+		echo Components::render('heading', [ // phpcs:ignore
 			'headingLevel' => 1,
 			'headingContent' => $mainTitle
 		]),
-		Components::render('paragraph', [
+		Components::render('paragraph', [ // phpcs:ignore
 			'paragraphContent' => \esc_html__(
 				'Use the form below to send the bulk emails to conference attendees.',
 				'project'
