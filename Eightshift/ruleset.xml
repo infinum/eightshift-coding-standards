@@ -136,22 +136,6 @@
 		<exclude name="WordPress.WP.TimezoneChange"/>
 	</rule>
 
-	<!-- Adding render() method to auto escaped list. This is a temporary workaround of this issue:
-		 https://github.com/WordPress/WordPress-Coding-Standards/issues/1176#issuecomment-784045848
-		 We still cannot put the name of the class this method is coming from, because it's hard to
-		 figure out. This will be fixed in the future in the PHPCSUtils, and ported to the
-		 escapeOutput sniff, in the meantime we just need to make sure that ONLY
-		 EightshiftLibs\Helpers\Components::render() method is safe, if you're using any other
-		 render() method, that ISN'T safe and needs to be escaped.
-	-->
-	<rule ref="WordPress.Security.EscapeOutput">
-		<properties>
-			<property name="customAutoEscapedFunctions" type="array">
-				<element value="render"/>
-			</property>
-		</properties>
-	</rule>
-
 	<!-- PHPCS Extra standard.
 		 Normalize array brace spacing. Enforce no spaces inside arrays. -->
 	<rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing"/>
