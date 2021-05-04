@@ -46,6 +46,10 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 			7 => 1,
 			8 => 1,
 			9 => 1,
+			17 => 1,
+			22 => 1,
+			34 => 1,
+			48 => 1,
 		];
 	}
 }

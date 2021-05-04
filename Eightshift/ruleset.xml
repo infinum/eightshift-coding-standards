@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift" namespace="Eightshift" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift" namespace="EightshiftCS" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 	<description>Eightshift coding standards for WordPress projects</description>
 
 	<config name="encoding" value="utf-8"/>
@@ -28,12 +28,12 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Check against minimum WP version. -->
-	<config name="minimum_supported_wp_version" value="5.0"/>
+	<config name="minimum_supported_wp_version" value="5.4"/>
 
 	<!-- Set minimum supported version for deprecated functions. -->
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
-			<property name="minimum_supported_version" value="5.0"/>
+			<property name="minimum_supported_version" value="5.4"/>
 		</properties>
 	</rule>
 
@@ -79,6 +79,7 @@
 	<!-- Enforce PSR-12 style file comments. -->
 	<rule ref="Squiz.Commenting.FileComment">
 		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
+		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
 	</rule>
 
 	<!-- Enforce camelCase -->
@@ -133,13 +134,6 @@
 	<!-- General WP sniffs. -->
 	<rule ref="WordPress.WP">
 		<exclude name="WordPress.WP.TimezoneChange"/>
-	</rule>
-
-	<!-- Temporarily excluding the OutputNotEscaped sniff because of this issue:
-		 https://github.com/WordPress/WordPress-Coding-Standards/issues/1176#issuecomment-784045848
-		 Instead, a custom sniff has been added that will prevent flagging this as an error. -->
-	<rule ref="WordPress.Security.EscapeOutput">
-		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
 	</rule>
 
 	<!-- PHPCS Extra standard.
