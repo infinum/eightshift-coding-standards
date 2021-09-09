@@ -18,19 +18,11 @@
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/*UnitTest.inc</exclude-pattern>
 
-	<rule ref="Eightshift"/>
-
-	<rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
-		<severity>0</severity>
-	</rule>
-
-	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis">
-		<severity>0</severity>
-	</rule>
-
-	<!-- Hack to prevent errors. -->
-	<rule ref="Eightshift.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected">
-		<severity>0</severity>
+	<rule ref="Eightshift">
+		<exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis"/>
+		<!-- Hack to prevent errors. -->
+		<exclude name="Eightshift.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected"/>
 	</rule>
 
 	<rule ref="PHPCompatibility">
