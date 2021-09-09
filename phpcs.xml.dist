@@ -33,4 +33,7 @@
         <severity>0</severity>
     </rule>
 
+    <rule ref="PHPCompatibility">
+        <severity>5</severity>
+    </rule>
 </ruleset>
