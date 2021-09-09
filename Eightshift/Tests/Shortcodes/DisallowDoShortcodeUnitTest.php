@@ -17,6 +17,8 @@ use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 /**
  * Unit test class for the DisallowDoShortcode sniff.
  *
+ * @covers \EightshiftCS\Eightshift\Sniffs\Shortcodes\DisallowDoShortcodeSniff
+ *
  * @since 1.0.0 Added $testFile parameter.
  * @since 0.4.0
  */
