@@ -19,11 +19,12 @@ namespace EightshiftCS\Eightshift\Sniffs\Shortcodes;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHPCSUtils\Utils\TextStrings;
 
 /**
  * Ensures do_shortcode() function is not being used.
  *
- * Don’t use do_shortcode when you can use your callback function directly,
+ * Don't use do_shortcode when you can use your callback function directly,
  * which is much more efficient.
  *
  * @link https://konstantin.blog/2013/dont-do_shortcode/
@@ -40,7 +41,6 @@ class DisallowDoShortcodeSniff implements Sniff
 		return [
 			\T_STRING,
 			\T_CONSTANT_ENCAPSED_STRING,
-			\T_DOUBLE_QUOTED_STRING,
 		];
 	}
 
@@ -54,10 +54,13 @@ class DisallowDoShortcodeSniff implements Sniff
 	 */
 	public function process(File $phpcsFile, $stackPtr)
 	{
-		$tokens = $phpcsFile->getTokens();
-		$token = $tokens[$stackPtr];
+		$tokens  = $phpcsFile->getTokens();
+		$content = \strtolower($tokens[$stackPtr]['content']);
+		if ($tokens[$stackPtr]['code'] === \T_CONSTANT_ENCAPSED_STRING) {
+			$content = TextStrings::stripQuotes($content);
+		}
 
-		if (\preg_match('/\bdo_shortcode\b/', $token['content']) > 0) {
+		if ($content === 'do_shortcode') {
 			$phpcsFile->addWarning(
 				'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.',
 				$stackPtr,

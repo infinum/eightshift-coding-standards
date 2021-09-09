@@ -58,3 +58,10 @@ add_filter(
 		return $finalComment;
 	}
 );
+
+MyClass::do_shortcode($param); // Ok.
+MyNamespace\do_shortcode($param); // Ok.
+\do_shortcode($param); // Warning.
+
+Do_ShortCode($param); // Warning.
+DO_SHORTCODE($param); // Warning.

@@ -40,7 +40,30 @@
 	<!-- Use PSR-12 ruleset: https://www.php-fig.org/psr/psr-12/
 		 Use WordPress-Docs for documentation checks. -->
 	<rule ref="PSR12"/>
-	<rule ref="WordPress-Docs"/>
+	<rule ref="WordPress-Docs">
+		<exclude name="Squiz.Commenting.FunctionComment"/>
+	</rule>
+
+	<rule ref="Eightshift.Commenting.FunctionComment">
+		<!-- WP prefers int and bool instead of integer and boolean -->
+		<exclude name="Eightshift.Commenting.FunctionComment.IncorrectParamVarName"/>
+		<!-- WP prefers int and bool instead of integer and boolean -->
+		<exclude name="Eightshift.Commenting.FunctionComment.InvalidReturn"/>
+		<!-- WP prefers indicating a @return null for early returns -->
+		<exclude name="Eightshift.Commenting.FunctionComment.InvalidReturnNotVoid"/>
+		<!-- WP states not all functions require @return -->
+		<exclude name="Eightshift.Commenting.FunctionComment.MissingReturn"/>
+		<!-- Excluded to allow param documentation for arrays  -->
+		<exclude name="Eightshift.Commenting.FunctionComment.ParamCommentNotCapital"/>
+		<!-- Excluded to allow param documentation for arrays  -->
+		<exclude name="Eightshift.Commenting.FunctionComment.SpacingAfterParamName"/>
+		<!-- It is too early for PHP7 features to be required -->
+		<exclude name="Eightshift.Commenting.FunctionComment.ScalarTypeHintMissing"/>
+		<!-- WP doesn't require type hints -->
+		<exclude name="Eightshift.Commenting.FunctionComment.TypeHintMissing"/>
+		<!-- EightShift specific: Don't bother with param spacing. -->
+		<exclude name="Eightshift.Commenting.FunctionComment.SpacingAfterParamType"/>
+	</rule>
 
 	<!-- Use tabs, not spaces. -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
@@ -79,7 +102,6 @@
 	<!-- Enforce PSR-12 style file comments. -->
 	<rule ref="Squiz.Commenting.FileComment">
 		<exclude name="Squiz.Commenting.FileComment.SpacingAfterOpen"/>
-		<exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
 	</rule>
 
 	<!-- Enforce camelCase -->
