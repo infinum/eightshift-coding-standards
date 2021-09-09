@@ -38,6 +38,8 @@ use EightshiftLibs\Db\ImportCli;
 use EightshiftLibs\GitIgnore\GitIgnoreCli;
 use EightshiftLibs\Readme\ReadmeCli;
 use EightshiftLibs\Setup\UpdateCli;
+use WP_CLI;
+use ReflectionClass;
 
 /**
  * Class Cli
@@ -123,7 +125,7 @@ class Cli
    */
 	public function getDevelopClasses(): array
 	{
-		return array_merge(
+		return \array_merge(
 			static::CLASSES_LIST,
 			static::DEVELOP_CLASSES,
 			static::SETUP_CLASSES
@@ -137,7 +139,7 @@ class Cli
    */
 	public function getPublicClasses(): array
 	{
-		return array_merge(
+		return \array_merge(
 			static::CLASSES_LIST,
 			static::PUBLIC_CLASSES,
 			static::SETUP_CLASSES
@@ -157,11 +159,11 @@ class Cli
 		$commandName = $args[0] ?? '';
 
 		if (empty($commandName)) {
-			\WP_CLI::error('First argument must be a valid command name.');
+			WP_CLI::error('First argument must be a valid command name.');
 		}
 
 		foreach ($this->getDevelopClasses() as $item) {
-			$reflectionClass = new \ReflectionClass($item);
+			$reflectionClass = new ReflectionClass($item);
 			$class = $reflectionClass->newInstanceArgs([null]);
 
 			if ($class->get_command_name() === $commandName) {
@@ -187,7 +189,7 @@ class Cli
 		$this->commandParentName = $commandParentName;
 
 		foreach ($this->getPublicClasses() as $item) {
-			$reflectionClass = new \ReflectionClass($item);
+			$reflectionClass = new ReflectionClass($item);
 			$class = $reflectionClass->newInstanceArgs([$this->commandParentName]);
 
 			$class->register();

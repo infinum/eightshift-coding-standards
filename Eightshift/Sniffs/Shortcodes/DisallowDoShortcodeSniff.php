@@ -57,7 +57,7 @@ class DisallowDoShortcodeSniff implements Sniff
 		$tokens = $phpcsFile->getTokens();
 		$token = $tokens[$stackPtr];
 
-		if (preg_match('/\bdo_shortcode\b/', $token['content']) > 0) {
+		if (\preg_match('/\bdo_shortcode\b/', $token['content']) > 0) {
 			$phpcsFile->addWarning(
 				'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.',
 				$stackPtr,
