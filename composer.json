@@ -58,5 +58,10 @@
 	"support": {
 		"issues": "https://github.com/infinum/eightshift-coding-standards/issues",
 		"source": "https://github.com/infinum/eightshift-coding-standards"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
