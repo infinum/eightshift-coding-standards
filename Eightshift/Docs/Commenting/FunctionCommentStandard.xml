@@ -1,0 +1,49 @@
+<documentation title="Function comment">
+    <standard>
+    <![CDATA[
+      Modification of the SquizFunctionCommment sniff where we want remove docblock for the  __invoke method in all classes extending AbstractCli class.
+    ]]>
+    </standard>
+    <code_comparison>
+        <code title="Valid: Extending the AbstractCli without a docblock on __invoke method">
+        <![CDATA[
+class ClassWithPhpStanCommentOnInvoke extends AbstractCli
+{
+    /* @phpstan-ignore-next-line */
+    public function __invoke(array $args, array $assocArgs)
+    {
+        // This should be silently ignored.
+    }
+}
+        ]]>
+        </code>
+        <code title="Valid: Having a docblock on a regular invokable class">
+        <![CDATA[
+class RegularClass extends NotAbstractCli
+{
+    /**
+     * @param array $args      Arguments.
+     * @param array $assocArgs Associated arguments.
+     *
+     * @return void
+     */
+    public function __invoke(array $args, array $assocArgs)
+    {
+        // This code complies with the standards.
+    }
+}
+        ]]>
+        </code>
+        <code title="Invalid: Missing a docblock on a class which is not extending AbstractCli class">
+        <![CDATA[
+class NotExtendingClass
+{
+    public function __invoke(array $args, array $assocArgs)
+    {
+        // This method should throw an error because it doesn't extend AbstractCli class.
+    }
+}
+        ]]>
+        </code>
+    </code_comparison>
+</documentation>
