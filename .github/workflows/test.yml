@@ -97,11 +97,11 @@ jobs:
       # Once we'll support PHP 8 this will come in handy.
       - name: Install Composer dependencies
         if: ${{ matrix.php < 8.0 }}
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
 
       - name: Install Composer dependencies
         if: ${{ matrix.php >= 8.0 }}
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
         with:
           composer-options: --ignore-platform-reqs
 
