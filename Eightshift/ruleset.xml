@@ -5,7 +5,7 @@
 	<config name="encoding" value="utf-8"/>
 
 	<!-- Check code for cross-version PHP compatibility. -->
-	<config name="testVersion" value="7.2-"/>
+	<config name="testVersion" value="7.4-"/>
 	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Exclude certain patterns. -->
@@ -22,7 +22,7 @@
 	<arg value="sp"/>
 
 	<!-- Tabs should represent 2 spaces. -->
-	<arg name="tab-width" value="2"/>
+	<arg name="tab-width" value="4"/>
 
 	<!-- Run sniffs in parallel for faster results. -->
 	<arg name="parallel" value="8"/>
