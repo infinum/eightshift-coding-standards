@@ -21,20 +21,31 @@ use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
  *
  * @since 1.4.0 Added $testFile parameter.
  */
-class ComponentsEscapeSniffUnitTest extends AbstractSniffUnitTest
+class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.
 	 *
+	 * @param string $testFile The name of the file being tested.
+	 *
 	 * @return array <int line number> => <int number of errors>
 	 */
-	public function getErrorList(): array
+	public function getErrorList($testFile = ''): array
 	{
-		return [
-			3 => 1,
-			10 => 1,
-			17 => 1
-		];
+		switch ( $testFile ) {
+			case 'ComponentsEscapeUnitTest.1.inc':
+				return [
+					21 => 1,
+				];
+			case 'ComponentsEscapeUnitTest.2.inc':
+				return [
+					3 => 1,
+					10 => 1,
+					17 => 1
+				];
+			default:
+				return [];
+		}
 	}
 
 	/**
