@@ -31,6 +31,9 @@ class ComponentsEscapeSniffUnitTest extends AbstractSniffUnitTest
 	public function getErrorList(): array
 	{
 		return [
+			3 => 1,
+			10 => 1,
+			17 => 1
 		];
 	}
 

@@ -13,3 +13,7 @@ echo MyClass\Components::render( // Bad. Not the libs helper.
 		'accordionContent' => $innerBlockContent
 	])
 );
+
+echo Components::props('accordion', $attributes, [ // Bad. Not safe method.
+	'accordionContent' => $innerBlockContent
+]);
