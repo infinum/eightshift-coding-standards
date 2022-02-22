@@ -1,7 +1,7 @@
 <documentation title="Function comment">
     <standard>
     <![CDATA[
-      Modification of the SquizFunctionCommment sniff where we want remove docblock for the  __invoke method in all classes extending AbstractCli class.
+      Modification of the SquizFunctionComment sniff where we want remove docblock for the  __invoke method in all classes extending AbstractCli class.
     ]]>
     </standard>
     <code_comparison>
