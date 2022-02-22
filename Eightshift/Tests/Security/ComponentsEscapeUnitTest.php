@@ -32,7 +32,7 @@ class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
 	 */
 	public function getErrorList($testFile = ''): array
 	{
-		switch ( $testFile ) {
+		switch ($testFile) {
 			case 'ComponentsEscapeUnitTest.1.inc':
 				return [
 					21 => 1,

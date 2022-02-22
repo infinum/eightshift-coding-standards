@@ -48,24 +48,32 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 
 		// We are interested in classes.
 		if ($tokens[$clsPtr]['code'] === \T_DOUBLE_COLON) {
-
 			// Find the method name. If the method name is render or outputCssVariables,
 			// try to resolve the class name.
 			// If the class name is not Components, bail out. If it is, check if it's imported
 			// or fully qualified. If it's not, bail out.
 			$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($clsPtr + 1), null, false, null, true);
 
-			if ($tokens[$methodNamePtr]['content'] === 'render' || $tokens[$methodNamePtr]['content'] === 'outputCssVariables') {
-
+			if (
+				$tokens[$methodNamePtr]['content'] === 'render' ||
+				$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
+			) {
 				$nameEnd = $phpcsFile->findPrevious(\T_STRING, ($methodNamePtr - 1));
-				$nameStart = ($phpcsFile->findPrevious([\T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE], ($nameEnd - 1), null, true, null, true) + 1);
+				$nameStart = ($phpcsFile->findPrevious(
+					[\T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE],
+					($nameEnd - 1),
+					null,
+					true,
+					null,
+					true
+				) + 1);
 				$className = GetTokensAsString::normal($phpcsFile, $nameStart, $nameEnd);
 
 				// Check if it's fully qualified, or if it's imported. If not, we should throw error.
 				if (!empty($className)) {
 					if ($this->checkIfImportExists($methodNamePtr) && $className === 'Components') {
 						return; // Stop processing the sniff, all is ok!
-					} elseif (strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
+					} elseif (\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
 						// Ok, because the name is fully qualified.
 						// Even though this ruleset forbids FQCN, and enforces imports.
 						return;
@@ -86,7 +94,9 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 
 	/**
 	 * Checks if the import statement exists in the current file, for the given stack pointer
-	 * @param $stackPtr
+	 *
+	 * @param int $stackPtr The position of the current token in the stack.
+	 *
 	 * @return bool
 	 */
 	private function checkIfImportExists($stackPtr): bool
@@ -105,7 +115,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 
 				if (!empty($importInfo)) {
 					foreach ($importInfo['name'] as $fullyQualifiedClassName) {
-						if (strpos($fullyQualifiedClassName, 'EightshiftLibs\\Helpers\\Components') !== false) {
+						if (\strpos($fullyQualifiedClassName, 'EightshiftLibs\\Helpers\\Components') !== false) {
 							$importExists = true;
 							break;
 						}
