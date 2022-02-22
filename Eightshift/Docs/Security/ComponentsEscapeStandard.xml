@@ -1,0 +1,43 @@
+<documentation title="Components escape">
+    <standard>
+    <![CDATA[
+      Modification of the EscapeOutput sniff where we want to silence escape errors on library specific safe static methods.
+    ]]>
+    </standard>
+    <code_comparison>
+        <code title="Valid: Calling Components::render if the Components class comes from EightshiftLibs">
+        <![CDATA[
+use ProjectVendor\EightshiftLibs\Helpers\Components;
+
+echo Components::render(
+    'accordion',
+    Components::props('accordion', $attributes, [
+        'accordionContent' => $innerBlockContent
+    ])
+);
+        ]]>
+        </code>
+        <code title="Valid: Referencing fully qualified class name">
+        <![CDATA[
+echo ProjectVendor\EightshiftLibs\Helpers\Components::outputCssVariables(
+    'accordion',
+    Components::props('accordion', $attributes, [
+        'accordionContent' => $innerBlockContent
+    ])
+);
+        ]]>
+        </code>
+        <code title="Invalid: Using globally namespaced methods">
+        <![CDATA[
+echo \Components::outputCssVariables($attributes, $manifest, $unique, $globalManifest);
+        ]]>
+        </code>
+        <code title="Invalid: Calling a non safe method">
+        <![CDATA[
+echo Components::props('accordion', $attributes, [
+    'accordionContent' => $innerBlockContent
+]);
+        ]]>
+        </code>
+    </code_comparison>
+</documentation>
