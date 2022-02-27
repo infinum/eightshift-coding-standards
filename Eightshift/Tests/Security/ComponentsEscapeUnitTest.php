@@ -36,12 +36,18 @@ class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
 			case 'ComponentsEscapeUnitTest.1.inc':
 				return [
 					21 => 1,
+					23 => 1,
 				];
 			case 'ComponentsEscapeUnitTest.2.inc':
 				return [
 					3 => 1,
 					10 => 1,
 					17 => 1
+				];
+			case 'ComponentsEscapeUnitTest.3.inc':
+				return [
+					12 => 1,
+					19 => 1,
 				];
 			default:
 				return [];

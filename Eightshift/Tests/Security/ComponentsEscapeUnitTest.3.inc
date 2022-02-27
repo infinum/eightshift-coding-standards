@@ -1,26 +1,25 @@
 <?php
 
-echo Components::render( // Bad. Not the libs helper, no import.
+use ProjectVendor\EightshiftLibs\Helpers;
+
+echo Helpers\Components::render( // OK (imported method, even though not correctly, it's still valid)
 	'accordion',
 	Components::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo MyClass\Components::render( // Bad. Not the libs helper.
+echo Components::render( // Bad (Not correctly imported)
 	'accordion',
 	Components::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo Components::props('accordion', $attributes, [ // Bad. Not safe method.
-	'accordionContent' => $innerBlockContent
-]);
-
-echo ProjectVendor\EightshiftLibs\Helpers\Components::render( // OK (FQCN)
+echo (new Components())->render( // Bad
 	'accordion',
 	Components::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
+

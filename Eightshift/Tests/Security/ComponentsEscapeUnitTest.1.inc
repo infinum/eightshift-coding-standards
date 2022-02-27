@@ -19,3 +19,5 @@ echo ProjectVendor\EightshiftLibs\Helpers\Components::render( // OK (FQCN)
 echo Components::outputCssVariables($attributes, $manifest, $unique, $globalManifest); // OK (import)
 
 echo \Components::outputCssVariables($attributes, $manifest, $unique, $globalManifest); // Bad (global namespaced class)
+
+echo Components::getManifest($attributes, $manifest, $unique, $globalManifest); // Bad (Not on the safe method list)
