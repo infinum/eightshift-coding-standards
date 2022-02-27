@@ -18,8 +18,6 @@ echo Components::render( // Bad (Not correctly imported)
 
 echo (new Components())->render( // Bad
 	'accordion',
-	Components::props('accordion', $attributes, [
-		'accordionContent' => $innerBlockContent
-	])
+	[]
 );
 
