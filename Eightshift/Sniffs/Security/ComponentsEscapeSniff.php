@@ -88,9 +88,19 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				// Fully qualified import, i.e. EightshiftLibs\Helpers\Components.
 				if ($importData['fullImportExists']) {
 					// Components name is ok, \Components is not ok, \Anything\Components is not ok FQCN is ok.
-					if ($className === 'Components' || strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
+					if (
+						$className === 'Components' ||
+						\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false
+					) {
 						// Check the static method name.
-						$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
+						$methodNamePtr = $phpcsFile->findNext(
+							\T_STRING,
+							($componentsClassNamePtr + 1),
+							null,
+							false,
+							null,
+							true
+						);
 
 						if (
 							$tokens[$methodNamePtr]['content'] === 'render' ||
@@ -99,27 +109,48 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
-							$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+							$echoPtr = $phpcsFile->findPrevious(
+								\T_ECHO,
+								($componentsClassNamePtr - 1),
+								null,
+								false,
+								null,
+								true
+							);
 
 							return parent::process_token($echoPtr);
 						}
 					} else {
 						// Some other class we don't care about.
-						$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+						$echoPtr = $phpcsFile->findPrevious(
+							\T_ECHO,
+							($componentsClassNamePtr - 1),
+							null,
+							false,
+							null,
+							true
+						);
 
 						return parent::process_token($echoPtr);
 					}
 				} else {
 					// Partial import, Check if the last part of the import exists at the beginning of the class name.
-					$import = explode('\\', $importData['importName'] ?? '');
-					$lastNamespacePart = end($import);
+					$import = \explode('\\', $importData['importName'] ?? '');
+					$lastNamespacePart = \end($import);
 
-					$checkedClassName = explode('\\', $className);
+					$checkedClassName = \explode('\\', $className);
 					$firstNamespacePart = $checkedClassName[0];
 
 					if ($lastNamespacePart === $firstNamespacePart) {
 						// Correctly used class name.
-						$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
+						$methodNamePtr = $phpcsFile->findNext(
+							\T_STRING,
+							($componentsClassNamePtr + 1),
+							null,
+							false,
+							null,
+							true
+						);
 
 						if (
 							$tokens[$methodNamePtr]['content'] === 'render' ||
@@ -128,21 +159,42 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
-							$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+							$echoPtr = $phpcsFile->findPrevious(
+								\T_ECHO,
+								($componentsClassNamePtr - 1),
+								null,
+								false,
+								null,
+								true
+							);
 
 							return parent::process_token($echoPtr);
 						}
 					} else {
 						// Wrongly imported, or class that is not related to the libs.
-						$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+						$echoPtr = $phpcsFile->findPrevious(
+							\T_ECHO,
+							($componentsClassNamePtr - 1),
+							null,
+							false,
+							null,
+							true
+						);
 
 						return parent::process_token($echoPtr);
 					}
 				}
 			} else {
 				// Check if the class name is fully qualified and contains the helper part.
-				if (strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
-					$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
+				if (\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
+					$methodNamePtr = $phpcsFile->findNext(
+						\T_STRING,
+						($componentsClassNamePtr + 1),
+						null,
+						false,
+						null,
+						true
+					);
 
 					if (
 						$tokens[$methodNamePtr]['content'] === 'render' ||
@@ -151,12 +203,26 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 						return; // Skip sniffing allowed methods.
 					} else {
 						// Not allowed method, continue as usual.
-						$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+						$echoPtr = $phpcsFile->findPrevious(
+							\T_ECHO,
+							($componentsClassNamePtr - 1),
+							null,
+							false,
+							null,
+							true
+						);
 
 						return parent::process_token($echoPtr);
 					}
 				} else {
-					$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+					$echoPtr = $phpcsFile->findPrevious(
+						\T_ECHO,
+						($componentsClassNamePtr - 1),
+						null,
+						false,
+						null,
+						true
+					);
 
 					return parent::process_token($echoPtr);
 				}
