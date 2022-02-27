@@ -43,53 +43,132 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 		$tokens = $this->tokens;
 		$phpcsFile = $this->phpcsFile;
 
-		// This one catches namespace separators. We don't need those.
-		$clsPtr = $phpcsFile->findNext(\T_WHITESPACE, ($stackPtr + 1), null, true, null, true);
+		// Check if the current token is a part of the import, if it is, skip the check.
+		$useToken = $phpcsFile->findPrevious(\T_USE, ($stackPtr - 1), null, false, null, false);
+		$endOfUse = $phpcsFile->findNext(\T_SEMICOLON, $useToken, null, false, null, false);
 
-		// We are interested in classes.
-		if ($tokens[$clsPtr]['code'] === \T_DOUBLE_COLON) {
-			// Find the method name. If the method name is render or outputCssVariables,
-			// try to resolve the class name.
-			// If the class name is not Components, bail out. If it is, check if it's imported
-			// or fully qualified. If it's not, bail out.
-			$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($clsPtr + 1), null, false, null, true);
+		// Ignore all the tokens that are a part of the import statement. Every import statement ends in the semicolon.
+		if ($stackPtr <= $endOfUse) {
+			return;
+		}
 
-			if (
-				$tokens[$methodNamePtr]['content'] === 'render' ||
-				$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
-			) {
-				$nameEnd = $phpcsFile->findPrevious(\T_STRING, ($methodNamePtr - 1));
-				$nameStart = ($phpcsFile->findPrevious(
-					[\T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE],
-					($nameEnd - 1),
-					null,
-					true,
-					null,
-					true
-				) + 1);
-				$className = GetTokensAsString::normal($phpcsFile, $nameStart, $nameEnd);
+		// Memoization.
+		static $importExists = false;
+		static $fileChecked = false;
+		static $importData = [];
 
-				// Check if it's fully qualified, or if it's imported. If not, we should throw error.
-				if (!empty($className)) {
-					if ($this->checkIfImportExists($methodNamePtr) && $className === 'Components') {
-						return; // Stop processing the sniff, all is ok!
-					} elseif (\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
-						// Ok, because the name is fully qualified.
-						// Even though this ruleset forbids FQCN, and enforces imports.
-						return;
+		if (!$importExists && !$fileChecked) {
+			// Check if import exists.
+			$importData = $this->checkIfImportInformation($stackPtr);
+			$importExists = $importData['importExists'];
+			$fileChecked = true;
+		}
+
+		if ($tokens[$stackPtr]['code'] === \T_ECHO) {
+			// Check for Components string token.
+			$componentsClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Components', false);
+
+			// Check if the next token is double colon. This means it's a class.
+			if ($tokens[$componentsClassNamePtr + 1]['code'] !== \T_DOUBLE_COLON) {
+				$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+				return parent::process_token($echoPtr);
+			}
+
+			// If it is, check, if the class is imported or fully qualified.
+			$nameEnd = $phpcsFile->findPrevious(\T_STRING, ($componentsClassNamePtr + 1));
+			$nameStart = ($phpcsFile->findPrevious(
+				[\T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE],
+				($nameEnd - 1),
+				null,
+				true,
+				null,
+				true
+			) + 1);
+
+			$className = GetTokensAsString::normal($phpcsFile, $nameStart, $nameEnd);
+
+			if ($importExists) {
+				// Fully qualified import, i.e. EightshiftLibs\Helpers\Components.
+				if ($importData['fullImportExists']) {
+					// Components name is ok, \Components is not ok, \Anything\Components is not ok.
+					if ($className === 'Components') {
+						// Check the static method name.
+						$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
+
+						if (
+							$tokens[$methodNamePtr]['content'] === 'render' ||
+							$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
+						) {
+							return; // Skip sniffing allowed methods.
+						} else {
+							// Not allowed method, continue as usual.
+							$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+							return parent::process_token($echoPtr);
+						}
 					} else {
-						// Process the sniff as usual.
-						return parent::process_token($stackPtr);
+						// Some other class we don't care about.
+						$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+						return parent::process_token($echoPtr);
 					}
 				} else {
-					// Process the sniff as usual.
-					return parent::process_token($stackPtr);
+					// Partial import, Check if the last part of the import exists at the beginning of the class name.
+					$import = explode('\\', $importData['importName'] ?? '');
+					$lastNamespace = end($import);
+
+					$checkedClassName = explode('\\', $className);
+					$firstNamespace = $checkedClassName[0];
+
+					if ($lastNamespace === $firstNamespace) {
+						// Correctly used class name.
+						$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
+
+						if (
+							$tokens[$methodNamePtr]['content'] === 'render' ||
+							$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
+						) {
+							return; // Skip sniffing allowed methods.
+						} else {
+							// Not allowed method, continue as usual.
+							$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+							return parent::process_token($echoPtr);
+						}
+					} else {
+						// Wrongly imported, or class that is not related to the libs.
+						$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+						return parent::process_token($echoPtr);
+					}
 				}
 			} else {
-				// Process the sniff as usual.
-				return parent::process_token($stackPtr);
+				// Check if the class name is fully qualified and contains the helper part.
+				if (strpos('EightshiftLibs\\Helpers\\Components', $className) !== false) {
+					$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
+
+					if (
+						$tokens[$methodNamePtr]['content'] === 'render' ||
+						$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
+					) {
+						return; // Skip sniffing allowed methods.
+					} else {
+						// Not allowed method, continue as usual.
+						$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+						return parent::process_token($echoPtr);
+					}
+				} else {
+					$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
+
+					return parent::process_token($echoPtr);
+				}
 			}
 		}
+
+		// Process the sniff as usual.
+		return parent::process_token($stackPtr);
 	}
 
 	/**
@@ -97,14 +176,17 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
 	 *
-	 * @return bool
+	 * @return array<string, bool|string> Information about the imports
 	 */
-	private function checkIfImportExists($stackPtr): bool
+	private function checkIfImportInformation($stackPtr): array
 	{
 		$tokens = $this->tokens;
 		$phpcsFile = $this->phpcsFile;
 
-		$importExists = false;
+		$importData = [
+			'importExists' => false,
+			'fullImportExists' => false
+		];
 
 		// Check if the correct import exists at the top of the file.
 		$importPtr = $phpcsFile->findPrevious(\T_USE, ($stackPtr - 1), null, false, null, false);
@@ -114,9 +196,20 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				$importInfo = UseStatements::splitImportUseStatement($phpcsFile, $importPtr);
 
 				if (!empty($importInfo)) {
-					foreach ($importInfo['name'] as $fullyQualifiedClassName) {
-						if (\strpos($fullyQualifiedClassName, 'EightshiftLibs\\Helpers\\Components') !== false) {
-							$importExists = true;
+					foreach ($importInfo['name'] as $fullyQualifiedClassNameImport) {
+						// Check for partial import.
+						if (\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers') !== false) {
+							$importData['importExists'] = true;
+							$importData['importName'] = $fullyQualifiedClassNameImport;
+
+							// Check for fully qualified import.
+							if (\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\Components') !== false) {
+								$importData['fullImportExists'] = true;
+								$importData['importName'] = $fullyQualifiedClassNameImport;
+
+								break;
+							}
+
 							break;
 						}
 					}
@@ -124,6 +217,6 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 			}
 		}
 
-		return $importExists;
+		return $importData;
 	}
 }
