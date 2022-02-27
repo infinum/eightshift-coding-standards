@@ -42,26 +42,22 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	{
 		$tokens = $this->tokens;
 		$phpcsFile = $this->phpcsFile;
+		$importData = [];
+		$importExists = false;
 
 		// Check if the current token is a part of the import, if it is, skip the check.
 		$useToken = $phpcsFile->findPrevious(\T_USE, ($stackPtr - 1), null, false, null, false);
-		$endOfUse = $phpcsFile->findNext(\T_SEMICOLON, $useToken, null, false, null, false);
 
-		// Ignore all the tokens that are a part of the import statement. Every import statement ends in the semicolon.
-		if ($stackPtr <= $endOfUse) {
-			return;
-		}
+		if ($useToken) {
+			$endOfUse = $phpcsFile->findNext(\T_SEMICOLON, $useToken, null, false, null, false);
 
-		// Memoization.
-		static $importExists = false;
-		static $fileChecked = false;
-		static $importData = [];
+			// Ignore all the tokens that are a part of the import statement. Every import statement ends in the semicolon.
+			if ($stackPtr <= $endOfUse) {
+				return;
+			}
 
-		if (!$importExists && !$fileChecked) {
-			// Check if import exists.
 			$importData = $this->checkIfImportInformation($stackPtr);
 			$importExists = $importData['importExists'];
-			$fileChecked = true;
 		}
 
 		if ($tokens[$stackPtr]['code'] === \T_ECHO) {
@@ -91,8 +87,8 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 			if ($importExists) {
 				// Fully qualified import, i.e. EightshiftLibs\Helpers\Components.
 				if ($importData['fullImportExists']) {
-					// Components name is ok, \Components is not ok, \Anything\Components is not ok.
-					if ($className === 'Components') {
+					// Components name is ok, \Components is not ok, \Anything\Components is not ok FQCN is ok.
+					if ($className === 'Components' || strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
 						// Check the static method name.
 						$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
 
@@ -116,12 +112,12 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				} else {
 					// Partial import, Check if the last part of the import exists at the beginning of the class name.
 					$import = explode('\\', $importData['importName'] ?? '');
-					$lastNamespace = end($import);
+					$lastNamespacePart = end($import);
 
 					$checkedClassName = explode('\\', $className);
-					$firstNamespace = $checkedClassName[0];
+					$firstNamespacePart = $checkedClassName[0];
 
-					if ($lastNamespace === $firstNamespace) {
+					if ($lastNamespacePart === $firstNamespacePart) {
 						// Correctly used class name.
 						$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
 
@@ -145,7 +141,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				}
 			} else {
 				// Check if the class name is fully qualified and contains the helper part.
-				if (strpos('EightshiftLibs\\Helpers\\Components', $className) !== false) {
+				if (strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
 					$methodNamePtr = $phpcsFile->findNext(\T_STRING, ($componentsClassNamePtr + 1), null, false, null, true);
 
 					if (
@@ -203,7 +199,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							$importData['importName'] = $fullyQualifiedClassNameImport;
 
 							// Check for fully qualified import.
-							if (\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\Components') !== false) {
+							if (\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Components') !== false) {
 								$importData['fullImportExists'] = true;
 								$importData['importName'] = $fullyQualifiedClassNameImport;
 
