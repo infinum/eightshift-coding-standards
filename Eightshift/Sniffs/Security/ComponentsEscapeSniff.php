@@ -64,6 +64,11 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 			// Check for Components string token.
 			$componentsClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Components', false);
 
+			if (!$componentsClassNamePtr) {
+				// If there is no Components down the line, just run the regular sniff.
+				return parent::process_token($stackPtr);
+			}
+
 			// Check if the next token is double colon. This means it's a class.
 			if ($tokens[$componentsClassNamePtr + 1]['code'] !== \T_DOUBLE_COLON) {
 				$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
