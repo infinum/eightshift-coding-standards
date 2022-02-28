@@ -21,3 +21,4 @@ echo (new Components())->render( // Bad
 	[]
 );
 
+echo $nonceField; // Bad

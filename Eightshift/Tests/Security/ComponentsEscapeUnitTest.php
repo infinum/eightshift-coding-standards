@@ -48,6 +48,7 @@ class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
 				return [
 					12 => 1,
 					19 => 1,
+					24 => 1,
 				];
 			default:
 				return [];
