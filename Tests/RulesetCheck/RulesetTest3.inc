@@ -27,7 +27,6 @@ use ReflectionClass;
  */
 class CliInitTheme extends AbstractCli
 {
-
 	/**
 	 * All classes for initial theme setup for project.
 	 */

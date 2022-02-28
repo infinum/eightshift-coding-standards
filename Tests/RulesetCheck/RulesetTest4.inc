@@ -46,7 +46,6 @@ use ReflectionClass;
  */
 class Cli
 {
-
   /**
    * Top level commands name.
    *
