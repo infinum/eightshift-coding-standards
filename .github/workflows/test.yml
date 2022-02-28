@@ -36,17 +36,6 @@ jobs:
             wpcs_branch: 'dev-master'
         include:
           # Complete the matrix.
-          # PHPCS 3.5.0 is the lowest PHPCS version (runtime) compatible with PHP 7.4.
-          # PHPCS 3.5.7 is the lowest PHPCS version (runtime) compatible with PHP 8.0.
-          - php: '7.4'
-            phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-master'
-            allowed_failure: false
-          - php: '7.4'
-            phpcs_branch: '3.5.0'
-            wpcs_branch: '2.3.0'
-            allowed_failure: false
-
           # Compliment the matrix with some additional builds.
           # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
           - php: '7.2'
