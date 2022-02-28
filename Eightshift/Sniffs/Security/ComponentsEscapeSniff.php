@@ -69,7 +69,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				return parent::process_token($stackPtr);
 			}
 
-			// Check if the next token is double colon. This means it's a class.
+			// Check if the next token is double colon. We are interested in static methods.
 			if ($tokens[$componentsClassNamePtr + 1]['code'] !== \T_DOUBLE_COLON) {
 				$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($componentsClassNamePtr - 1), null, false, null, true);
 
