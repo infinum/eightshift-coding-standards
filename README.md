@@ -23,7 +23,7 @@ or add to your `composer.json`
 
 ```json
 "require-dev": {
-  "infinum/eightshift-coding-standards": "^1.0"
+  "infinum/eightshift-coding-standards": "^1.4"
 }
 ```
 
@@ -149,12 +149,9 @@ In config.cson linter-phpcs settings can look like this:
 
 ## Credits
 
-Eightshift WordPress Coding Standards are maintained and sponsored by
-[Eightshift](https://www.infinum.co).
+Eightshift WordPress Coding Standards are maintained and sponsored by [Infinum](https://www.infinum.com).
 
 ## License
 
-Eightshift WordPress Coding Standards are Copyright © 2020 Eightshift. This is free software, and may be redistributed
- under
- the
- terms specified in the LICENSE file.
+Eightshift WordPress Coding Standards are Copyright © 2022 Infinum.
+This is free software, and may be redistributed under the terms specified in the LICENSE file.
