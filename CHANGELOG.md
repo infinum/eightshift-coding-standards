@@ -10,7 +10,7 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
-## [1.4.0](https://github.com/infinum/eightshift-coding-standards/compare/1.3.0...1.4.0) - 2022-03-07
+## [1.4.0](https://github.com/infinum/eightshift-coding-standards/compare/1.3.0...1.4.0) - 2022-03-08
 
 ### Added
 - EightShift ruleset: add rules for use statements 
