@@ -61,6 +61,14 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 		}
 
 		if ($tokens[$stackPtr]['code'] === \T_ECHO) {
+			// Check the next token after echo.
+			$elementPtr = $phpcsFile->findNext(\T_WHITESPACE, ($stackPtr + 1), null, true, null, false);
+
+			// If it's not the string token, move on, we're only interested in Components string.
+			if ($tokens[$elementPtr]['code'] !== \T_STRING) {
+				return parent::process_token($stackPtr);
+			}
+
 			// Check for Components string token.
 			$componentsClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Components', false);
 
