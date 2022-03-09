@@ -9,6 +9,12 @@ on:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     name: PHP ${{ matrix.php }} with PHPCS ${{ matrix.phpcs_branch }}/WPCS ${{ matrix.wpcs_branch }}
@@ -30,17 +36,6 @@ jobs:
             wpcs_branch: 'dev-master'
         include:
           # Complete the matrix.
-          # PHPCS 3.5.0 is the lowest PHPCS version (runtime) compatible with PHP 7.4.
-          # PHPCS 3.5.7 is the lowest PHPCS version (runtime) compatible with PHP 8.0.
-          - php: '7.4'
-            phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-master'
-            allowed_failure: false
-          - php: '7.4'
-            phpcs_branch: '3.5.0'
-            wpcs_branch: '2.3.0'
-            allowed_failure: false
-
           # Compliment the matrix with some additional builds.
           # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
           - php: '7.2'
@@ -97,11 +92,11 @@ jobs:
       # Once we'll support PHP 8 this will come in handy.
       - name: Install Composer dependencies
         if: ${{ matrix.php < 8.0 }}
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
 
       - name: Install Composer dependencies
         if: ${{ matrix.php >= 8.0 }}
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
         with:
           composer-options: --ignore-platform-reqs
 

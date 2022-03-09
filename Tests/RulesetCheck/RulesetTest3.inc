@@ -19,13 +19,14 @@ use EightshiftLibs\Enqueue\Theme\EnqueueThemeCli;
 use EightshiftLibs\Main\MainCli;
 use EightshiftLibs\Manifest\ManifestCli;
 use EightshiftLibs\Menu\MenuCli;
+use WP_CLI;
+use ReflectionClass;
 
 /**
  * Class CliInitTheme
  */
 class CliInitTheme extends AbstractCli
 {
-
 	/**
 	 * All classes for initial theme setup for project.
 	 */
@@ -64,24 +65,24 @@ class CliInitTheme extends AbstractCli
 
 	public function __invoke(array $args, array $assocArgs) // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
 	{
-		if (!function_exists('add_action')) {
+		if (!\function_exists('add_action')) {
 			$this->run_reset();
-			\WP_CLI::log('--------------------------------------------------');
+			WP_CLI::log('--------------------------------------------------');
 		}
 
 		foreach (static::INIT_THEME_CLASSES as $item) {
-			$reflectionClass = new \ReflectionClass($item);
+			$reflectionClass = new ReflectionClass($item);
 			$class = $reflectionClass->newInstanceArgs([null]);
 
-			if (function_exists('add_action')) {
-				\WP_CLI::runcommand("{$this->commandParentName} {$class->getCommandName()}");
+			if (\function_exists('add_action')) {
+				WP_CLI::runcommand("{$this->commandParentName} {$class->getCommandName()}");
 			} else {
-				\WP_CLI::runcommand("eval-file bin/cli.php {$class->getCommandName()} --skip-wordpress");
+				WP_CLI::runcommand("eval-file bin/cli.php {$class->getCommandName()} --skip-wordpress");
 			}
 		}
 
-		\WP_CLI::log('--------------------------------------------------');
+		WP_CLI::log('--------------------------------------------------');
 
-		\WP_CLI::success('All commands are finished.');
+		WP_CLI::success('All commands are finished.');
 	}
 }

@@ -11,13 +11,13 @@ declare(strict_types=1);
 namespace EightshiftLibs\Helpers;
 
 use EightshiftLibs\Exception\ComponentException;
+use Exception;
 
 /**
  * Helpers for components
  */
 class Components
 {
-
 	/**
 	 * Makes sure the output is string. Useful for converting an array of components into a string.
 	 * If you pass an associative array it will output strings with keys,
@@ -32,17 +32,17 @@ class Components
 	{
 		$output = '';
 
-		if (is_array($variable)) {
-			$isAssociative = array_values($variable) === $variable;
+		if (\is_array($variable)) {
+			$isAssociative = \array_values($variable) === $variable;
 
 			if ($isAssociative) {
-				$output = implode('', $variable);
+				$output = \implode('', $variable);
 			} else {
 				foreach ($variable as $key => $value) {
-					$output .= $key . '="' . htmlspecialchars($value) . '" ';
+					$output .= $key . '="' . \htmlspecialchars($value) . '" ';
 				}
 			}
-		} elseif (is_string($variable)) {
+		} elseif (\is_string($variable)) {
 			$output = $variable;
 		} else {
 			throw ComponentException::throwNotStringOrArray($variable);
@@ -60,7 +60,7 @@ class Components
 	 */
 	public static function classnames(array $classes): string
 	{
-		return trim(implode(' ', $classes));
+		return \trim(\implode(' ', $classes));
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Components
 		 *
 		 * parentClass__componentName.php
 		 */
-		if (strpos($component, '.php') !== false) {
+		if (\strpos($component, '.php') !== false) {
 			$componentPath = "{$parentPath}/$component";
 
 			if ($useComponentDefaults) {
@@ -117,7 +117,7 @@ class Components
 			}
 		}
 
-		if (!file_exists($componentPath)) {
+		if (!\file_exists($componentPath)) {
 			throw ComponentException::throwUnableToLocateComponent($componentPath);
 		}
 
@@ -125,13 +125,13 @@ class Components
 			$attributes = self::getDefaultRenderAttributes($manifest, $attributes);
 		}
 
-		ob_start();
+		\ob_start();
 
 		// Wrap component with parent BEM selector if parent's class is provided. Used
 		// for setting specific styles for components rendered inside other components.
 		if (isset($attributes['parentClass'])) {
-			$component = str_replace('.php', '', $component);
-			printf('<div class="%s">', \esc_attr("{$attributes['parentClass']}__{$component}"));
+			$component = \str_replace('.php', '', $component);
+			\printf('<div class="%s">', \esc_attr("{$attributes['parentClass']}__{$component}"));
 		}
 
 		require $componentPath;
@@ -140,7 +140,7 @@ class Components
 			echo '</div>';
 		}
 
-		return trim((string)ob_get_clean());
+		return \trim((string)\ob_get_clean());
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Components
 			}
 		}
 
-		return array_merge($defaultAttributes, $attributes);
+		return \array_merge($defaultAttributes, $attributes);
 	}
 
 	/**
@@ -176,11 +176,11 @@ class Components
 	{
 		$manifest = "{$path}/manifest.json";
 
-		if (!file_exists($manifest)) {
+		if (!\file_exists($manifest)) {
 			throw ComponentException::throwUnableToLocateComponent($manifest);
 		}
 
-		return json_decode(implode(' ', (array)file($manifest)), true);
+		return \json_decode(\implode(' ', (array)\file($manifest)), true);
 	}
 
 	/**
@@ -205,8 +205,8 @@ class Components
 
 		foreach ($items as $itemKey => $itemValue) {
 			if (
-				(gettype($itemValue) === 'string' && $itemValue === '')
-				|| gettype($itemValue) === 'boolean' && $itemValue === false
+				(\gettype($itemValue) === 'string' && $itemValue === '')
+				|| \gettype($itemValue) === 'boolean' && $itemValue === false
 			) {
 				continue;
 			}
@@ -230,7 +230,7 @@ class Components
 	 * @param string $componentName The real component name.
 	 *
 	 * @return mixed
-	 * @throws \Exception When we're unable to find the component by $component.
+	 * @throws Exception When we're unable to find the component by $component.
 	 */
 	public static function checkAttr(string $key, array $attributes, array $manifest, string $componentName = '')
 	{
@@ -240,7 +240,7 @@ class Components
 			$manifestKey = $manifest['attributes'][$key] ?? null;
 
 			if ($manifestKey === null) {
-				throw new \Exception(
+				throw new Exception(
 					"{$key} key does not exist in the {$componentName} component.
 					Please check your implementation.
 					Check if your {$key} attribut exists in the component's manifest.json"
@@ -281,9 +281,9 @@ class Components
 		$fullModifier = '';
 		$fullElement = '';
 
-		$element = trim($element);
-		$modifier = trim($modifier);
-		$block = trim($block);
+		$element = \trim($element);
+		$modifier = \trim($modifier);
+		$block = \trim($block);
 
 		if (!empty($element)) {
 			$fullElement = "__{$element}";
@@ -313,7 +313,7 @@ class Components
 		foreach ($globalManifest['globalVariables'] as $itemKey => $itemValue) {
 			$itemKey = self::camelToKebabCase($itemKey);
 
-			if (gettype($itemValue) === 'array') {
+			if (\gettype($itemValue) === 'array') {
 				$output .= self::outputCssVariablesGlobalInner($itemValue, $itemKey);
 			} else {
 				$output .= "--global-{$itemKey}: {$itemValue};\n";
@@ -388,7 +388,7 @@ class Components
 		$customOutput = '';
 
 		// Check manifest for the attributes with variable key.
-		$defaultAttributes = array_filter(
+		$defaultAttributes = \array_filter(
 			$manifest['attributes'],
 			function ($item) {
 				return isset($item['variable']);
@@ -406,7 +406,7 @@ class Components
 				}
 			}
 
-			$attributes = array_merge($default, $attributes);
+			$attributes = \array_merge($default, $attributes);
 		}
 
 		foreach ($attributes as $key => $value) {
@@ -421,8 +421,8 @@ class Components
 
 			// Output select variable from the options array but dont use value key. It will use variable key.
 			if (isset($manifest['options'][$key]) && $manifest['attributes'][$key]['variable'] === 'select') {
-				$selectVariable = array_values(
-					array_filter(
+				$selectVariable = \array_values(
+					\array_filter(
 						$manifest['options'][$key],
 						function ($item) use ($attributes, $key) {
 							return $item['value'] === $attributes[$key];
@@ -437,13 +437,13 @@ class Components
 			if (
 				isset($manifest['options'][$key]) &&
 				$manifest['attributes'][$key]['variable'] === 'boolean' &&
-				count($manifest['options'][$key]) === 2
+				\count($manifest['options'][$key]) === 2
 			) {
 				$value = $manifest['options'][$key][(int)$attributes[$key]];
 			}
 
 			// Return correct boolean type as string.
-			if (gettype($value) === 'boolean') {
+			if (\gettype($value) === 'boolean') {
 				$value = $value ? 'true' : 'false';
 			}
 
@@ -468,7 +468,7 @@ class Components
 
 
 		// Output manual output from the array of variables.
-		$manual = isset($manifest['variables']) ? implode(";\n", $manifest['variables']) : '';
+		$manual = isset($manifest['variables']) ? \implode(";\n", $manifest['variables']) : '';
 
 		return "
 			<style>
@@ -487,7 +487,7 @@ class Components
 	 */
 	public static function getUnique(): string
 	{
-		return md5(uniqid((string)\wp_rand(), true));
+		return \md5(\uniqid((string)\wp_rand(), true));
 	}
 
 	/**
@@ -499,8 +499,8 @@ class Components
 	 */
 	public static function camelToKebabCase(string $string): string
 	{
-		$replace = preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '-$0', $string) ?? '';
-		return ltrim(strtolower($replace), '-');
+		$replace = \preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '-$0', $string) ?? '';
+		return \ltrim(\strtolower($replace), '-');
 	}
 
 	/**
@@ -512,7 +512,7 @@ class Components
 	 */
 	public static function isAssoc(array $array): bool
 	{
-		return count(array_filter(array_keys($array), 'is_string')) > 0;
+		return \count(\array_filter(\array_keys($array), 'is_string')) > 0;
 	}
 
 	/**
@@ -561,7 +561,7 @@ class Components
 		foreach ($attributes as $key => $value) {
 			$result = false;
 			foreach ($dependency as $element) {
-				if ($element === substr($key, 0, strlen($element))) {
+				if ($element === \substr($key, 0, \strlen($element))) {
 					$result = true;
 				}
 			}
@@ -572,7 +572,7 @@ class Components
 
 				// Change the name of the key if they are different.
 				if ($realName !== $newNameInternal) {
-					$newKey = $realName . substr($key, strlen($newNameInternal));
+					$newKey = $realName . \substr($key, \strlen($newNameInternal));
 				}
 
 				$output[$newKey] = $value;
@@ -596,7 +596,7 @@ class Components
 	{
 		$return = [];
 
-		array_walk_recursive(
+		\array_walk_recursive(
 			$array,
 			function ($a) use (&$return) {
 				$return[] = $a;

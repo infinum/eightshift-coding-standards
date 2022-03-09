@@ -17,18 +17,26 @@
 
 namespace EightshiftCS\Eightshift\Sniffs\Shortcodes;
 
-use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Sniffs\Sniff;
+use PHPCSUtils\Utils\TextStrings;
+use WordPressCS\WordPress\Sniff;
 
 /**
  * Ensures do_shortcode() function is not being used.
  *
- * Don’t use do_shortcode when you can use your callback function directly,
+ * Don't use do_shortcode when you can use your callback function directly,
  * which is much more efficient.
+ *
+ * @since 1.4.0 Updated the sniff
+ *              Make the sniff extends the WPCS Sniff class so that we can
+ *              catch the cases of namespaced and static calls which would
+ *              have been a false positives in the old sniff.
+ *              The native WPCS Sniff class has two useful helper methods
+ *              for detecting this.
+ * @since 0.1.0
  *
  * @link https://konstantin.blog/2013/dont-do_shortcode/
  */
-class DisallowDoShortcodeSniff implements Sniff
+class DisallowDoShortcodeSniff extends Sniff
 {
 	/**
 	 * Returns an array of tokens this test wants to listen for.
@@ -40,25 +48,40 @@ class DisallowDoShortcodeSniff implements Sniff
 		return [
 			\T_STRING,
 			\T_CONSTANT_ENCAPSED_STRING,
-			\T_DOUBLE_QUOTED_STRING,
+			\T_DOUBLE_COLON,
+			\T_NS_SEPARATOR
 		];
 	}
 
 	/**
-	 * Processes this test, when one of its tokens is encountered.
+	 * Processes a sniff when one of its tokens is encountered.
 	 *
-	 * @param File $phpcsFile The PHP_CodeSniffer file where the token was found.
-	 * @param int $stackPtr  The position of the current token in the stack.
+	 * @since 1.4.0
 	 *
-	 * @return void
+	 * @param int $stackPtr The position of the current token in the stack.
+	 *
+	 * @return int|void Integer stack pointer to skip forward or void to continue
+	 *                  normal file processing.
 	 */
-	public function process(File $phpcsFile, $stackPtr)
+	public function process_token($stackPtr)
 	{
-		$tokens = $phpcsFile->getTokens();
-		$token = $tokens[$stackPtr];
+		$content = \strtolower($this->tokens[$stackPtr]['content']);
+		if ($this->tokens[$stackPtr]['code'] === \T_CONSTANT_ENCAPSED_STRING) {
+			$content = TextStrings::stripQuotes($content);
+		}
 
-		if (preg_match('/\bdo_shortcode\b/', $token['content']) > 0) {
-			$phpcsFile->addWarning(
+		// Check for namespaced function named do_shortcode.
+		if ($this->is_token_namespaced($stackPtr)) {
+			return;
+		}
+
+		// If the do_shortcode is a static method of some class, it's also ok.
+		if ($this->is_class_object_call($stackPtr)) {
+			return;
+		}
+
+		if ($content === 'do_shortcode') {
+			$this->phpcsFile->addWarning(
 				'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.',
 				$stackPtr,
 				'shortcodeUsageDetected'

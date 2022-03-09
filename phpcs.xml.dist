@@ -1,36 +1,32 @@
 <?xml version="1.0"?>
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift Coding Standards for WordPress"
-         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+		 xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
-    <description>The coding standards used when writing Eightshift Coding Standards itself</description>
+	<description>The coding standards used when writing Eightshift Coding Standards itself</description>
 
-    <file>.</file>
+	<file>.</file>
 
-    <!-- Additional arguments. -->
-    <arg value="sp"/>
+	<!-- Additional arguments. -->
+	<arg value="sp"/>
 
-    <arg name="basepath" value="./"/>
-    <arg name="tab-width" value="2"/>
-    <arg name="parallel" value="8"/>
-    <arg name="extensions" value="php"/>
+	<arg name="basepath" value="./"/>
+	<arg name="tab-width" value="4"/>
+	<arg name="parallel" value="8"/>
+	<arg name="extensions" value="php"/>
 
-    <!-- Exclude Composer vendor directory. -->
-    <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/*UnitTest.inc</exclude-pattern>
+	<!-- Exclude Composer vendor directory. -->
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/*UnitTest*.inc</exclude-pattern>
+	<exclude-pattern>*/Tests/RulesetCheck/*</exclude-pattern>
 
-    <rule ref="Eightshift"/>
+	<rule ref="Eightshift">
+		<exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis"/>
+		<!-- Hack to prevent errors. -->
+		<exclude name="Eightshift.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected"/>
+	</rule>
 
-    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
-        <severity>0</severity>
-    </rule>
-
-    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis">
-        <severity>0</severity>
-    </rule>
-
-    <!-- Hack to prevent errors. -->
-    <rule ref="Eightshift.Shortcodes.DisallowDoShortcode.shortcodeUsageDetected">
-        <severity>0</severity>
-    </rule>
-
+	<rule ref="PHPCompatibility">
+		<severity>5</severity>
+	</rule>
 </ruleset>

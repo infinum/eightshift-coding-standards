@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Unit test class for DisallowDoShortcode sniff.
+ * Unit test class for FunctionComment sniff.
  *
  * @package EightshiftCS
  *
@@ -10,19 +10,18 @@
  * @link    https://github.com/infinum/eightshift-coding-standards
  */
 
-namespace EightshiftCS\Eightshift\Tests\Shortcodes;
+namespace EightshiftCS\Eightshift\Tests\Commenting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 
 /**
- * Unit test class for the DisallowDoShortcode sniff.
+ * Unit test class for the FunctionCommentUnitTest sniff.
  *
- * @covers \EightshiftCS\Eightshift\Sniffs\Shortcodes\DisallowDoShortcodeSniff
+ * @covers \EightshiftCS\Eightshift\Sniffs\Commenting\FunctionCommentSniff
  *
- * @since 1.0.0 Added $testFile parameter.
- * @since 0.4.0
+ * @since 1.4.0 Added $testFile parameter.
  */
-class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
+class FunctionCommentUnitTest extends AbstractSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.
@@ -31,7 +30,13 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 	 */
 	public function getErrorList(): array
 	{
-		return [];
+		return [
+			12 => 1,
+			25 => 1,
+			43 => 1,
+			62 => 1,
+			79 => 1,
+		];
 	}
 
 	/**
@@ -41,20 +46,6 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 	 */
 	public function getWarningList(): array
 	{
-		return [
-			4 => 1,
-			5 => 1,
-			6 => 1,
-			7 => 1,
-			8 => 1,
-			9 => 1,
-			17 => 1,
-			22 => 1,
-			34 => 1,
-			48 => 1,
-			64 => 1,
-			66 => 1,
-			67 => 1,
-		];
+		return [];
 	}
 }

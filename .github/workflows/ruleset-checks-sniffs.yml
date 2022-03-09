@@ -6,6 +6,12 @@ on:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Performs some code-style related checks.
   #
@@ -45,7 +51,7 @@ jobs:
         run: composer require squizlabs/php_codesniffer:"dev-master" --no-update --no-scripts
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
 
       - name: Install xmllint
         run: sudo apt-get install libxml2-utils
@@ -122,7 +128,7 @@ jobs:
         run: composer require squizlabs/php_codesniffer:"${{ matrix.phpcs_version }}" --no-update --no-scripts
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
 
       - name: Test the Eightshift ruleset
         run: composer tests:checkcs
