@@ -10,6 +10,11 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [1.4.2](https://github.com/infinum/eightshift-coding-standards/compare/1.4.1...1.4.2) - 2022-03-10
+
+### Fixed
+- Exclude the native `WordPress.Security.EscapeOutput.OutputNotEscaped` sniff, because we are overloading it
+
 ## [1.4.1](https://github.com/infinum/eightshift-coding-standards/compare/1.4.0...1.4.1) - 2022-03-10
 
 ### Fixed

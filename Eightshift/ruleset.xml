@@ -147,8 +147,10 @@
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 	</rule>
 
-	<!-- Security sniffs. -->
-	<rule ref="WordPress.Security"/>
+	<!-- Exclude the WP escape output sniff, because we are overloading it. -->
+	<rule ref="WordPress.Security">
+		<exclude name="WordPress.Security.EscapeOutput"/>
+	</rule>
 
 	<!-- I18n sniffs. -->
 	<rule ref="WordPress.Utils.I18nTextDomainFixer"/>
