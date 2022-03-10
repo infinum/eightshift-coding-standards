@@ -10,6 +10,13 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [1.4.1](https://github.com/infinum/eightshift-coding-standards/compare/1.4.0...1.4.1) - 2022-03-10
+
+### Fixed
+- Fixed `Eightshift.Security.ComponentsEscape` sniff
+  - There was a case where the next string token caused issue because there was no guard clause 
+    to check if the string is actually a Components class or not.
+
 ## [1.4.0](https://github.com/infinum/eightshift-coding-standards/compare/1.3.0...1.4.0) - 2022-03-09
 
 ### Added
