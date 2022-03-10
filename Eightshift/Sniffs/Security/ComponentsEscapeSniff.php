@@ -69,6 +69,14 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				return parent::process_token($stackPtr);
 			}
 
+			// Check the next string token content.
+			if ($importExists) {
+				$fullyQualifiedImport = $importData['importName'];
+				if (\strpos($fullyQualifiedImport, $tokens[$elementPtr]['content']) === false) {
+					return parent::process_token($stackPtr);
+				}
+			}
+
 			// Check for Components string token.
 			$componentsClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Components', false);
 
