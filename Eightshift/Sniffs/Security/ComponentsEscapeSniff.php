@@ -31,6 +31,18 @@ use WordPressCS\WordPress\Sniffs\Security\EscapeOutputSniff;
 class ComponentsEscapeSniff extends EscapeOutputSniff
 {
 	/**
+	 * A fully qualified class name for Components class override
+	 *
+	 * You should put the fully qualified class name of the class you used
+	 * to override the EightshiftLibs\Helpers\Component class.
+	 *
+	 * For Example: namespace\\SomeSubNamespace\\MyComponents.
+	 *
+	 * @var string
+	 */
+	public $overriddenClass = '';
+
+	/**
 	 * Processes this test, when one of its tokens is encountered.
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
@@ -42,21 +54,27 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	{
 		$tokens = $this->tokens;
 		$phpcsFile = $this->phpcsFile;
-		$importData = [];
+		$importData = [
+			'importExists' => false,
+			'fullImportExists' => false
+		];
 		$importExists = false;
 
 		// Check if the current token is a part of the import, if it is, skip the check.
 		$useToken = $phpcsFile->findPrevious(\T_USE, ($stackPtr - 1), null, false, null, false);
 
 		if ($useToken) {
-			$endOfUse = $phpcsFile->findNext(\T_SEMICOLON, $useToken, null, false, null, false);
+			// Find all use tokens.
+			foreach ($tokens as $tokenPtr => $token) {
+				if ($token['code'] === \T_USE) {
+					$importData = $this->checkIfImportInformation($tokenPtr, $importData);
 
-			// Ignore all the tokens that are a part of the import statement. Every import statement ends in the semicolon.
-			if ($stackPtr <= $endOfUse) {
-				return;
+					if ($importData['importExists']) {
+						break;
+					}
+				}
 			}
 
-			$importData = $this->checkIfImportInformation($stackPtr);
 			$importExists = $importData['importExists'];
 		}
 
@@ -110,8 +128,9 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 				if ($importData['fullImportExists']) {
 					// Components name is ok, \Components is not ok, \Anything\Components is not ok FQCN is ok.
 					if (
-						$className === 'Components' ||
-						\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false
+						$className === 'Components'
+						|| \strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false
+						|| (! empty($this->overriddenClass) && \strpos($className, $this->overriddenClass) !== false)
 					) {
 						// Check the static method name.
 						$methodNamePtr = $phpcsFile->findNext(
@@ -130,27 +149,13 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
-							$echoPtr = $phpcsFile->findPrevious(
-								\T_ECHO,
-								($componentsClassNamePtr - 1),
-								null,
-								false,
-								null,
-								true
-							);
+							$echoPtr = $this->getEchoToken($componentsClassNamePtr);
 
 							return parent::process_token($echoPtr);
 						}
 					} else {
 						// Some other class we don't care about.
-						$echoPtr = $phpcsFile->findPrevious(
-							\T_ECHO,
-							($componentsClassNamePtr - 1),
-							null,
-							false,
-							null,
-							true
-						);
+						$echoPtr = $this->getEchoToken($componentsClassNamePtr);
 
 						return parent::process_token($echoPtr);
 					}
@@ -180,34 +185,23 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
-							$echoPtr = $phpcsFile->findPrevious(
-								\T_ECHO,
-								($componentsClassNamePtr - 1),
-								null,
-								false,
-								null,
-								true
-							);
+							$echoPtr = $this->getEchoToken($componentsClassNamePtr);
 
 							return parent::process_token($echoPtr);
 						}
 					} else {
 						// Wrongly imported, or class that is not related to the libs.
-						$echoPtr = $phpcsFile->findPrevious(
-							\T_ECHO,
-							($componentsClassNamePtr - 1),
-							null,
-							false,
-							null,
-							true
-						);
+						$echoPtr = $this->getEchoToken($componentsClassNamePtr);
 
 						return parent::process_token($echoPtr);
 					}
 				}
 			} else {
 				// Check if the class name is fully qualified and contains the helper part.
-				if (\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false) {
+				if (
+					\strpos($className, 'EightshiftLibs\\Helpers\\Components') !== false
+					|| (! empty($this->overriddenClass) && \strpos($className, $this->overriddenClass) !== false)
+				) {
 					$methodNamePtr = $phpcsFile->findNext(
 						\T_STRING,
 						($componentsClassNamePtr + 1),
@@ -224,26 +218,12 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 						return; // Skip sniffing allowed methods.
 					} else {
 						// Not allowed method, continue as usual.
-						$echoPtr = $phpcsFile->findPrevious(
-							\T_ECHO,
-							($componentsClassNamePtr - 1),
-							null,
-							false,
-							null,
-							true
-						);
+						$echoPtr = $this->getEchoToken($componentsClassNamePtr);
 
 						return parent::process_token($echoPtr);
 					}
 				} else {
-					$echoPtr = $phpcsFile->findPrevious(
-						\T_ECHO,
-						($componentsClassNamePtr - 1),
-						null,
-						false,
-						null,
-						true
-					);
+					$echoPtr = $this->getEchoToken($componentsClassNamePtr);
 
 					return parent::process_token($echoPtr);
 				}
@@ -258,48 +238,57 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	 * Checks if the import statement exists in the current file, for the given stack pointer
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
+	 * @param String[] $importData Import data array.
 	 *
 	 * @return array<string, bool|string> Information about the imports
 	 */
-	private function checkIfImportInformation($stackPtr): array
+	private function checkIfImportInformation(int $stackPtr, array $importData): array
 	{
-		$tokens = $this->tokens;
 		$phpcsFile = $this->phpcsFile;
 
-		$importData = [
-			'importExists' => false,
-			'fullImportExists' => false
-		];
+		$overriddenClass = \str_replace('\\\\', '\\', $this->overriddenClass);
 
-		// Check if the correct import exists at the top of the file.
-		$importPtr = $phpcsFile->findPrevious(\T_USE, ($stackPtr - 1), null, false, null, false);
+		if (UseStatements::isImportUse($phpcsFile, $stackPtr)) {
+			$importInfo = UseStatements::splitImportUseStatement($phpcsFile, $stackPtr);
 
-		if ($tokens[$importPtr]['code'] === \T_USE) {
-			if (UseStatements::isImportUse($phpcsFile, $importPtr)) {
-				$importInfo = UseStatements::splitImportUseStatement($phpcsFile, $importPtr);
+			if (!empty($importInfo)) {
+				foreach ($importInfo['name'] as $fullyQualifiedClassNameImport) {
+					if (
+						\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers') !== false
+						|| (! empty($overriddenClass) && \strpos($fullyQualifiedClassNameImport, $overriddenClass) !== false)
+					) {
+						$importData['importExists'] = true;
+						$importData['importName'] = $fullyQualifiedClassNameImport;
 
-				if (!empty($importInfo)) {
-					foreach ($importInfo['name'] as $fullyQualifiedClassNameImport) {
-						// Check for partial import.
-						if (\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers') !== false) {
-							$importData['importExists'] = true;
+						// Check for fully qualified import.
+						if (
+							\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Components') !== false
+							|| (! empty($overriddenClass) && \strpos($fullyQualifiedClassNameImport, $overriddenClass) !== false)
+						) {
+							$importData['fullImportExists'] = true;
 							$importData['importName'] = $fullyQualifiedClassNameImport;
-
-							// Check for fully qualified import.
-							if (\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Components') !== false) {
-								$importData['fullImportExists'] = true;
-								$importData['importName'] = $fullyQualifiedClassNameImport;
-
-								break;
-							}
 
 							break;
 						}
+
+						break;
 					}
 				}
 			}
 		}
 
 		return $importData;
+	}
+
+	/**
+	 * Return the position of the previous echo pointer
+	 *
+	 * @param int $stackPtr The position of the current token in the stack.
+	 *
+	 * @return int Token pointer number.
+	 */
+	private function getEchoToken(int $stackPtr): int
+	{
+		return $this->phpcsFile->findPrevious(\T_ECHO, ($stackPtr - 1), null, false, null, true);
 	}
 }
