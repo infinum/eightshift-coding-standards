@@ -54,6 +54,11 @@ class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
 				return [
 					102 => 1,
 				];
+			case 'ComponentsEscapeUnitTest.5.inc':
+				return [
+					25 => 1,
+					149 => 1,
+				];
 			default:
 				return [];
 		}
