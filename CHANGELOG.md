@@ -10,6 +10,18 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [1.5.0](https://github.com/infinum/eightshift-coding-standards/compare/1.4.2...1.5.0) - 2022-03-16
+
+### Added
+- Add `overriddenClass` parameter for the EightShift ComponentsEscape sniff
+  - This parameter will catch the cases where the libs Components class has been overridden.
+
+### Fixed
+- Fixed the edge case with overwriting libs classes. 
+
+### Changed
+- Code cleanup in EightShift ComponentsEscape sniff
+
 ## [1.4.2](https://github.com/infinum/eightshift-coding-standards/compare/1.4.1...1.4.2) - 2022-03-10
 
 ### Fixed
