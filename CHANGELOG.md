@@ -15,6 +15,7 @@ _No documentation available about unreleased changes yet._
 ### Added
 - Add `overriddenClass` parameter for the EightShift ComponentsEscape sniff
   - This parameter will catch the cases where the libs Components class has been overridden.
+- Add ignoreComments property for the line length sniff
 
 ### Fixed
 - Fixed the edge case with overwriting libs classes. 
