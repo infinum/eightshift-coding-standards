@@ -1,7 +1,7 @@
 name: Feature request
 description: Suggest a new sniff for these coding standards
-labels: feature request
-assignees: @dingo-d
+labels: ["feature request"]
+assignees: dingo-d
 body:
     - type: markdown
       attributes:
