@@ -1,7 +1,7 @@
 name: Bug report
 description: Report a potential bug with the project
-labels: bug
-assignees: @dingo-d
+labels: [bug]
+assignees: dingo-d
 body:
     - type: markdown
       attributes:
