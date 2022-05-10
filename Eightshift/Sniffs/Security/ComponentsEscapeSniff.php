@@ -263,7 +263,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 						// Check for fully qualified import.
 						if (
 							\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Components') !== false
-							|| (! empty($overriddenClass) && \strpos($fullyQualifiedClassNameImport, $overriddenClass) !== false)
+							|| (! empty($overriddenClass) && \strpos($fullyQualifiedClassNameImport, $overriddenClass) !== false) // phpcs:ignore Generic.Files.LineLength.TooLong
 						) {
 							$importData['fullImportExists'] = true;
 							$importData['importName'] = $fullyQualifiedClassNameImport;
