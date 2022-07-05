@@ -88,3 +88,44 @@ function __invoke() {
 function __invoke(string $name) {
 	// This code complies with the standards.
 }
+
+// phpcs:set Eightshift.Commenting.FunctionComment allowedExtendedClasses[] SomeOtherCliClass, AbstractCli
+class RegularClass extends SomeOtherCliClass
+{
+	public function __invoke(array $args, array $assocArgs)
+	{
+		// This method should not throw an error because we added
+        // the extending class to the list of allowed classes.
+	}
+
+	/**
+	 * @param array $args      Arguments.
+	 * @param array $assocArgs Associated arguments.
+	 *
+	 * @return void
+	 */
+	public function __invoke(array $args, array $assocArgs)
+	{
+		// This code complies with the standards.
+	}
+}
+
+// phpcs:set Eightshift.Commenting.FunctionComment allowedExtendedClasses[] AbstractCli
+class RegularClass extends SomeOtherCliClass
+{
+	public function __invoke(array $args, array $assocArgs)
+	{
+		// This method should throw an error because it doesn't extend AbstractCli class.
+	}
+
+	/**
+	 * @param array $args      Arguments.
+	 * @param array $assocArgs Associated arguments.
+	 *
+	 * @return void
+	 */
+	public function __invoke(array $args, array $assocArgs)
+	{
+		// This code complies with the standards.
+	}
+}

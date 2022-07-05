@@ -10,11 +10,17 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [1.6.0](https://github.com/infinum/eightshift-coding-standards/compare/1.5.1...1.6.0) - 2022-07-05
+
+### Changed
+- Add a parameter `$allowedExtendedClasses` in the FunctionComment sniff
+  - This way we can add a list of specific extending CLI classes which won't trigger
+    phpcs error on the __invoke() method.
+
 ## [1.5.1](https://github.com/infinum/eightshift-coding-standards/compare/1.5.0...1.5.1) - 2022-05-10
 
 ### Fixed
-- CI/CD check fixes 
-
+- CI/CD check fixes
 
 ## [1.5.0](https://github.com/infinum/eightshift-coding-standards/compare/1.4.2...1.5.0) - 2022-03-16
 
