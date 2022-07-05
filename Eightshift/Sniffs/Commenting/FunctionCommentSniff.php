@@ -23,11 +23,20 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  * Override the Squiz.Commenting.FunctionComment sniff
  *
  * This sniff will ignore the __invoke method in all the classes
- * that are extending the AbstractCli, which is used in the
- * eightshift-libs library to generate WP-CLI commands.
+ * that are extending the AbstractCli (or any of the class in the $allowedExtendedClasses list),
+ * which is used in the eightshift-libs library to generate WP-CLI commands.
  */
 class FunctionCommentSniff extends SquizFunctionComment
 {
+	/**
+	 * List of allowed classes that can be extended.
+	 *
+	 * @var string[]
+	 */
+	public $allowedExtendedClasses = [
+		'AbstractCli',
+	];
+
 	/**
 	 * Processes this test, when one of its tokens is encountered.
 	 *
@@ -43,8 +52,8 @@ class FunctionCommentSniff extends SquizFunctionComment
 	public function process(File $phpcsFile, $stackPtr)
 	{
 		// If the function is the called __invoke, and is inside the class
-		// that extends the AbstractCli class, we need to bow out. In all other cases
-		// we want to run the sniff.
+		// that extends the AbstractCli class (or any of the class in the $allowedExtendedClasses list),
+		// we need to bow out. In all other cases we want to run the sniff.
 		$functionName = $phpcsFile->getDeclarationName($stackPtr);
 
 		if ($functionName !== '__invoke') {
@@ -62,7 +71,7 @@ class FunctionCommentSniff extends SquizFunctionComment
 
 		$extendedClassName = ObjectDeclarations::findExtendedClassName($phpcsFile, $classPtr);
 
-		if ($extendedClassName !== 'AbstractCli') {
+		if (!\in_array($extendedClassName, $this->allowedExtendedClasses, true)) {
 			return parent::process($phpcsFile, $stackPtr);
 		}
 	}
