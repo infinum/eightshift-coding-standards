@@ -156,9 +156,9 @@
 	<!-- I18n sniffs. -->
 	<rule ref="WordPress.Utils.I18nTextDomainFixer"/>
 
-	<!-- General WP sniffs. -->
-	<rule ref="WordPress.WP">
-		<exclude name="WordPress.WP.TimezoneChange"/>
+	<!-- DateTime sniffs. -->
+	<rule ref="WordPress.DateTime">
+		<exclude name="WordPress.DateTime.RestrictedFunctions"/>
 	</rule>
 
 	<!-- PHPCS Extra standard.
