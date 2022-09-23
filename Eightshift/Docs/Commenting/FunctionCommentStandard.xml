@@ -1,4 +1,8 @@
-<documentation title="Function comment">
+<?xml version="1.0"?>
+<documentation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpcsstandards.github.io/PHPCSDevTools/phpcsdocs.xsd"
+    title="Function comment"
+    >
     <standard>
     <![CDATA[
       Modification of the SquizFunctionComment sniff where we want remove docblock for the  __invoke method in all classes extending AbstractCli class.
@@ -34,7 +38,24 @@ class RegularClass extends NotAbstractCli
 }
         ]]>
         </code>
-        <code title="Invalid: Missing a docblock on a class which is not extending AbstractCli class">
+    </code_comparison>
+    <code_comparison>
+        <code title="Valid: Having a docblock on __invoke in a class which is not extending AbstractCli class">
+        <![CDATA[
+class NotExtendingClass
+{
+    /**
+     * @param array $args List of arguments.
+     *
+     * @return void
+     */
+    public function __invoke(array $args)
+    {
+    }
+}
+        ]]>
+        </code>
+        <code title="Invalid: Missing a docblock on __invoke in a class which is not extending AbstractCli class">
         <![CDATA[
 class NotExtendingClass
 {

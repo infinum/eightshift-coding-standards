@@ -1,4 +1,8 @@
-<documentation title="Components escape">
+<?xml version="1.0"?>
+<documentation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpcsstandards.github.io/PHPCSDevTools/phpcsdocs.xsd"
+    title="Components escape"
+    >
     <standard>
     <![CDATA[
       Modification of the EscapeOutput sniff where we want to silence escape errors on library specific safe static methods.
@@ -27,6 +31,8 @@ echo ProjectVendor\EightshiftLibs\Helpers\Components::outputCssVariables(
 );
         ]]>
         </code>
+    </code_comparison>
+    <code_comparison>
         <code title="Invalid: Using globally namespaced methods">
         <![CDATA[
 echo \Components::outputCssVariables($attributes, $manifest, $unique, $globalManifest);
