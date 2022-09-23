@@ -26,17 +26,28 @@ class FunctionCommentUnitTest extends AbstractSniffUnitTest
 	/**
 	 * Returns the lines where errors should occur.
 	 *
+	 * @param string $testFile The name of the file being tested.
+	 *
 	 * @return array <int line number> => <int number of errors>
 	 */
-	public function getErrorList(): array
+	public function getErrorList($testFile = ''): array
 	{
-		return [
-			12 => 1,
-			25 => 1,
-			43 => 1,
-			62 => 1,
-			79 => 1,
-		];
+		switch ($testFile) {
+			case 'FunctionCommentUnitTest.1.inc':
+				return [
+					12 => 1,
+					25 => 1,
+					43 => 1,
+					62 => 1,
+					79 => 1,
+				];
+			case 'FunctionCommentUnitTest.2.inc':
+				return [
+
+				];
+			default:
+				return [];
+		}
 	}
 
 	/**
