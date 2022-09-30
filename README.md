@@ -1,4 +1,4 @@
-# Eightshift Coding Standards for WordPress
+![image](https://repository-images.githubusercontent.com/96307889/1ff5645a-63b3-476f-925a-5f37c2599f6e)
 
 [![Packagist downloads](https://img.shields.io/packagist/dt/infinum/eightshift-coding-standards.svg?style=for-the-badge
 )](https://packagist.org/packages/infinum/eightshift-coding-standards)
@@ -6,6 +6,8 @@
 [![GitHub tag](https://img.shields.io/github/tag/infinum/eightshift-coding-standards.svg?style=for-the-badge)](https://github.com/infinum/eightshift-coding-standards)
 [![GitHub stars](https://img.shields.io/github/stars/infinum/eightshift-coding-standards.svg?style=for-the-badge&label=Stars)](https://github.com/infinum/eightshift-coding-standards/)
 [![License](https://img.shields.io/github/license/infinum/eightshift-coding-standards.svg?style=for-the-badge)](https://github.com/infinum/eightshift-coding-standards)
+
+# Eightshift Coding Standards for WordPress
 
 This package contains [Eightshift Coding Standards for WordPress](https://handbook.infinum.co/books/wordpress) for
  [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/). The intention of this package is to have a unified
