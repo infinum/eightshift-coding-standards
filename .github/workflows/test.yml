@@ -24,14 +24,14 @@ jobs:
       fail-fast: false
       matrix:
         php: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
-        phpcs_branch: [ '3.7.0', 'dev-master' ]
+        phpcs_branch: [ '3.7.1', 'dev-master' ]
         wpcs_branch: [ '2.3.0', 'dev-master' ]
         allowed_failure: [ false ]
         exclude:
           # Only run low WPCS in combination with low PHPCS and high WPCS with high PHPCS.
           - phpcs_branch: 'dev-master'
             wpcs_branch: '2.3.0'
-          - phpcs_branch: '3.7.0'
+          - phpcs_branch: '3.7.1'
             wpcs_branch: 'dev-master'
         include:
           - php: '8.3'
