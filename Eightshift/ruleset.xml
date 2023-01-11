@@ -28,12 +28,12 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Check against minimum WP version. -->
-	<config name="minimum_supported_wp_version" value="5.4"/>
+	<config name="minimum_supported_wp_version" value="5.9"/>
 
 	<!-- Set minimum supported version for deprecated functions. -->
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
-			<property name="minimum_supported_version" value="5.4"/>
+			<property name="minimum_supported_version" value="5.9"/>
 		</properties>
 	</rule>
 
