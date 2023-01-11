@@ -42,19 +42,24 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: 'latest'
           coverage: none
           tools: cs2pr
 
       # Using PHPCS `master` as an early detection system for bugs upstream.
       - name: Set PHPCS version
-        run: composer require squizlabs/php_codesniffer:"dev-master" --no-update --no-scripts
+        run: composer require squizlabs/php_codesniffer:"dev-master" --no-update --no-scripts --no-interaction
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
+        with:
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Install xmllint
-        run: sudo apt-get install libxml2-utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y libxml2-utils
 
       # Show XML violations inline in the file diff.
       # @link https://github.com/marketplace/actions/xmllint-problem-matcher
@@ -109,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ '7.4' ]
+        php: [ '7.4', '8.0', '8.1', '8.2' ]
         phpcs_version: [ 'dev-master', '3.6.0' ]
 
     steps:

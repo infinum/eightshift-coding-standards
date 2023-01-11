@@ -23,32 +23,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Builds against PHP 7.2, 7.4 are specified separately in the "include" section below.
-        php: [ '7.3' ]
-        phpcs_branch: [ '3.6.0', 'dev-master' ]
-        wpcs_branch: [ '2.2.0', 'dev-master' ]
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
+        phpcs_branch: [ '3.7.1', 'dev-master' ]
+        wpcs_branch: [ '2.3.0', 'dev-master' ]
         allowed_failure: [ false ]
         exclude:
           # Only run low WPCS in combination with low PHPCS and high WPCS with high PHPCS.
           - phpcs_branch: 'dev-master'
-            wpcs_branch: '2.2.0'
-          - phpcs_branch: '3.6.0'
+            wpcs_branch: '2.3.0'
+          - phpcs_branch: '3.7.0'
             wpcs_branch: 'dev-master'
         include:
-          # Complete the matrix.
-          # Compliment the matrix with some additional builds.
-          # Separate test builds for PHP 7.2 with reversed PHPCS vs WPCS branches.
-          - php: '7.2'
-            phpcs_branch: 'dev-master'
-            wpcs_branch: '2.2.0'
-            allowed_failure: false
-          - php: '7.2'
-            phpcs_branch: '3.6.0'
-            wpcs_branch: 'dev-master'
-            allowed_failure: false
-
-          # Experimental build to see how much breaks against WPCS 3.0.
-          - php: '7.4'
+          - php: '8.3'
             phpcs_branch: 'dev-master'
             wpcs_branch: 'dev-develop'
             allowed_failure: true
@@ -64,9 +50,9 @@ jobs:
         id: set_ini
         run: |
           if [[ "${{ matrix.phpcs_branch }}" != "dev-master" && "${{ matrix.wpcs_branch }}" != "dev-develop" ]]; then
-            echo '::set-output name=PHP_INI::error_reporting=E_ALL & ~E_DEPRECATED'
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
           else
-            echo '::set-output name=PHP_INI::error_reporting=E_ALL'
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
           fi
 
       # Setup PHP versions, run checks
@@ -76,6 +62,7 @@ jobs:
           php-version: ${{ matrix.php }}
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
+          tools: cs2pr
 
       - name: Set the minimum stability requirement for develop branch of WPCS
         if: ${{ matrix.wpcs_branch == 'dev-develop' }}
@@ -99,6 +86,12 @@ jobs:
         uses: ramsey/composer-install@v2
         with:
           composer-options: --ignore-platform-reqs
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
-      - name: Run tests
-        run: composer tests:run
+      - name: Run the unit tests - PHP 7.4 - 8.0
+        if: ${{ matrix.php < '8.1' }}
+        run: composer run-tests
+
+      - name: Run the unit tests - PHP >= 8.1
+        if: ${{ matrix.php >= '8.1' }}
+        run: composer run-tests -- --no-configuration --dont-report-useless-tests

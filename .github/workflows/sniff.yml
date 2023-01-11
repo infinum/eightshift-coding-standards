@@ -30,7 +30,7 @@ jobs:
       - name: PHP setup
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: [ '7.4', '8.0', '8.1', '8.2' ]
           coverage: none
           tools: cs2pr
 
@@ -47,7 +47,9 @@ jobs:
         uses: ramsey/composer-install@v2
 
       - name: Install xmllint
-        run: sudo apt-get install --no-install-recommends -y libxml2-utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y libxml2-utils
 
       # Show XML violations inline in the file diff.
       # @link https://github.com/marketplace/actions/xmllint-problem-matcher
