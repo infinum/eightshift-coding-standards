@@ -1,4 +1,7 @@
-<documentation title="Function comment">
+<?xml version="1.0"?>
+<documentation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpcsstandards.github.io/PHPCSDevTools/phpcsdocs.xsd"
+    title="Function comment">
     <standard>
     <![CDATA[
       Modification of the SquizFunctionComment sniff where we want remove docblock for the  __invoke method in all classes extending AbstractCli class.
@@ -17,6 +20,20 @@ class ClassWithPhpStanCommentOnInvoke extends AbstractCli
 }
         ]]>
         </code>
+        <code title="Invalid: Missing a docblock on a method that is not __invoke">
+        <![CDATA[
+class ClassWithPhpStanCommentOnInvoke extends AbstractCli
+{
+    /* @phpstan-ignore-next-line */
+    public function foo(array $assocArgs)
+    {
+        // This method should throw an error because it's not an __invoke magic method.
+    }
+}
+        ]]>
+        </code>
+    </code_comparison>
+    <code_comparison>
         <code title="Valid: Having a docblock on a regular invokable class">
         <![CDATA[
 class RegularClass extends NotAbstractCli
