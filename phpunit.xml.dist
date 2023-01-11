@@ -18,5 +18,6 @@
        standards which we aren't testing.
        Ref: https://github.com/squizlabs/PHP_CodeSniffer/pull/1146 -->
     <env name="PHPCS_IGNORE_TESTS" value="PEAR,Zend,PSR2,MySource,Squiz,PSR1,PSR12,PHPCompatibility,PHPCompatibilityParagonieRandomCompat,PHPCompatibilityParagonieSodiumCompat,PHPCompatibilityWP,WordPress,WordPress-Extra,WordPress-Docs,WordPress-Core"/>
+    <var name="PHP_CODESNIFFER_PEAR" value="false" />
   </php>
 </phpunit>
