@@ -22,17 +22,17 @@
 		}
 	],
 	"require": {
-		"php": "^7.2",
-		"squizlabs/php_codesniffer": "^3.6.0",
-		"phpcompatibility/phpcompatibility-wp": "^2.1.1",
+		"php": "^7.4 | ^8.0",
+		"squizlabs/php_codesniffer": "^3.7.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.4",
 		"wp-coding-standards/wpcs": "^2.3.0",
 		"phpcsstandards/phpcsutils": "^1.0",
 		"phpcsstandards/phpcsextra": "^1.0",
-		"slevomat/coding-standard": "^7.0"
+		"slevomat/coding-standard": "^8.8.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0",
-		"phpcsstandards/phpcsdevtools": "^1.0",
+		"phpcsstandards/phpcsdevtools": "^1.2.0",
 		"php-parallel-lint/php-parallel-lint": "^1.3.2",
 		"php-parallel-lint/php-console-highlighter": "^1.0.0",
 		"roave/security-advisories": "dev-master"
@@ -53,7 +53,13 @@
 		"tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
 		"tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -ps ./Tests/RulesetCheck/ --standard=Eightshift",
 		"check:complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
-		"check:complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift"
+		"check:complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift",
+		"check-all": [
+			"@lint",
+			"@standards:check",
+			"@tests:run",
+			"@check:complete-strict"
+		]
 	},
 	"support": {
 		"issues": "https://github.com/infinum/eightshift-coding-standards/issues",
