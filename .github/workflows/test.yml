@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
-        phpcs_branch: [ '3.7.1', 'dev-master' ]
+        phpcs_branch: [ '3.7.0', 'dev-master' ]
         wpcs_branch: [ '2.3.0', 'dev-master' ]
         allowed_failure: [ false ]
         exclude:
@@ -42,7 +42,7 @@ jobs:
     steps:
       # Checkout repository
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
@@ -72,7 +72,7 @@ jobs:
         env:
           PHPCS_BRANCH: ${{ matrix.phpcs_branch }}
           WPCS_BRANCH: ${{ matrix.wpcs_branch }}
-        run: composer require squizlabs/php_codesniffer:${PHPCS_BRANCH} wp-coding-standards/wpcs:${WPCS_BRANCH} --no-update --no-scripts
+        run: composer require squizlabs/php_codesniffer:${PHPCS_BRANCH} wp-coding-standards/wpcs:${WPCS_BRANCH} --no-update --no-scripts --no-interaction
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
@@ -80,6 +80,8 @@ jobs:
       - name: Install Composer dependencies
         if: ${{ matrix.php < 8.0 }}
         uses: ramsey/composer-install@v2
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Install Composer dependencies
         if: ${{ matrix.php >= 8.0 }}

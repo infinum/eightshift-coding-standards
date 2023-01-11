@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -44,6 +44,8 @@ jobs:
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Lint against parse errors
         run: composer lint:ci | cs2pr
