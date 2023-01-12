@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
   backupGlobals="true"
-  bootstrap="./vendor/squizlabs/php_codesniffer/tests/bootstrap.php"
+  bootstrap="./Tests/bootstrap.php"
   beStrictAboutTestsThatDoNotTestAnything="false"
   colors="true">
 
@@ -12,12 +12,4 @@
       <directory suffix="UnitTest.php">./Eightshift/Tests/</directory>
     </testsuite>
   </testsuites>
-
-  <php>
-    <!-- This line prevents issues with PHPCS trying to load sniff files for
-       standards which we aren't testing.
-       Ref: https://github.com/squizlabs/PHP_CodeSniffer/pull/1146 -->
-    <env name="PHPCS_IGNORE_TESTS" value="PEAR,Zend,PSR2,MySource,Squiz,PSR1,PSR12,PHPCompatibility,PHPCompatibilityParagonieRandomCompat,PHPCompatibilityParagonieSodiumCompat,PHPCompatibilityWP,WordPress,WordPress-Extra,WordPress-Docs,WordPress-Core"/>
-    <var name="PHP_CODESNIFFER_PEAR" value="false" />
-  </php>
 </phpunit>
