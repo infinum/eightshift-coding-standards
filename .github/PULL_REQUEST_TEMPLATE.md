@@ -1,13 +1,11 @@
-## Description
-<!-- Please describe what you have changed or added -->
+# Description
 
-## Types of changes
-<!-- What types of changes does your code introduce?  -->
-<!-- Bug fix (non-breaking change which fixes an issue) -->
-<!-- New feature (non-breaking change which adds functionality) -->
-<!-- Breaking change (fix or feature that would cause existing functionality to not work as expected) -->
+<!--- Write in detail what you did and what issue did you fix with this PR. -->
 
-## Checklist:
-- [ ] My code is tested.
-- [ ] My code follows the code style set by the project.
-- [ ] I've included sniff documentation.
+# Screenshots / Videos
+
+<!--- Show us what you did. -->
+
+# Linked documentation PR
+
+<!--- If this PR has documentation please put the link here. -->
