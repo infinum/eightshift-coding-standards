@@ -5,7 +5,8 @@
   backupGlobals="true"
   bootstrap="./vendor/squizlabs/php_codesniffer/tests/bootstrap.php"
   beStrictAboutTestsThatDoNotTestAnything="false"
-  colors="true">
+  colors="true"
+  forceCoversAnnotation="true">
 
   <testsuites>
     <testsuite name="Eightshift">
