@@ -28,12 +28,12 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Check against minimum WP version. -->
-	<config name="minimum_supported_wp_version" value="5.4"/>
+	<config name="minimum_supported_wp_version" value="6.0"/>
 
 	<!-- Set minimum supported version for deprecated functions. -->
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
-			<property name="minimum_supported_version" value="5.4"/>
+			<property name="minimum_supported_version" value="6.0"/>
 		</properties>
 	</rule>
 
@@ -128,7 +128,8 @@
 	</rule>
 
 	<!-- Ensure proper object instantiation. -->
-	<rule ref="WordPress.Classes.ClassInstantiation"/>
+	<rule ref="PSR12.Classes.ClassInstantiation"/>
+	<rule ref="Universal.Classes.RequireAnonClassParentheses"/>
 
 	<!-- Useful code analysis sniffs. -->
 	<rule ref="WordPress.CodeAnalysis"/>
@@ -158,7 +159,7 @@
 
 	<!-- General WP sniffs. -->
 	<rule ref="WordPress.WP">
-		<exclude name="WordPress.WP.TimezoneChange"/>
+		<exclude name="WordPress.DateTime.RestrictedFunctions"/>
 	</rule>
 
 	<!-- PHPCS Extra standard.
