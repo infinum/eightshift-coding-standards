@@ -18,6 +18,7 @@
 namespace EightshiftCS\Eightshift\Sniffs\Shortcodes;
 
 use PHPCSUtils\Utils\TextStrings;
+use WordPressCS\WordPress\Helpers\ContextHelper;
 use WordPressCS\WordPress\Sniff;
 
 /**
@@ -71,12 +72,12 @@ class DisallowDoShortcodeSniff extends Sniff
 		}
 
 		// Check for namespaced function named do_shortcode.
-		if ($this->is_token_namespaced($stackPtr)) {
+		if (ContextHelper::is_token_namespaced($this->phpcsFile, $stackPtr)) {
 			return;
 		}
 
 		// If the do_shortcode is a static method of some class, it's also ok.
-		if ($this->is_class_object_call($stackPtr)) {
+		if (ContextHelper::has_object_operator_before($this->phpcsFile, $stackPtr)) {
 			return;
 		}
 
