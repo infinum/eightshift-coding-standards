@@ -43,6 +43,16 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	public $overriddenClass = '';
 
 	/**
+	 * List of allowed methods that won't trigger the EscapeOutput error.
+	 *
+	 * @var true[]
+	 */
+	public $allowedMethods = [
+		'render' => 'render',
+		'outputCssVariables' => 'outputCssVariables',
+	];
+
+	/**
 	 * Processes this test, when one of its tokens is encountered.
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
@@ -142,10 +152,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							true
 						);
 
-						if (
-							$tokens[$methodNamePtr]['content'] === 'render' ||
-							$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
-						) {
+						if (in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
@@ -178,10 +185,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							true
 						);
 
-						if (
-							$tokens[$methodNamePtr]['content'] === 'render' ||
-							$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
-						) {
+						if (in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
@@ -211,10 +215,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 						true
 					);
 
-					if (
-						$tokens[$methodNamePtr]['content'] === 'render' ||
-						$tokens[$methodNamePtr]['content'] === 'outputCssVariables'
-					) {
+					if (in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 						return; // Skip sniffing allowed methods.
 					} else {
 						// Not allowed method, continue as usual.
