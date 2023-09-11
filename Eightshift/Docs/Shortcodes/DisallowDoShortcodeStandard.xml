@@ -1,4 +1,7 @@
-<documentation title="Disallow Do Shortcode">
+<?xml version="1.0"?>
+<documentation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpcsstandards.github.io/PHPCSDevTools/phpcsdocs.xsd"
+    title="Disallow Do Shortcode">
     <standard>
     <![CDATA[
       The do_shortcode() WordPress function should not be used inside php source files.
