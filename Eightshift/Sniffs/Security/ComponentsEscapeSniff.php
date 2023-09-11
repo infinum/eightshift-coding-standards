@@ -14,6 +14,7 @@
 
 namespace EightshiftCS\Eightshift\Sniffs\Security;
 
+use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\UseStatements;
 use WordPressCS\WordPress\Sniffs\Security\EscapeOutputSniff;
@@ -90,7 +91,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 
 		if ($tokens[$stackPtr]['code'] === \T_ECHO) {
 			// Check the next token after echo.
-			$elementPtr = $phpcsFile->findNext(\T_WHITESPACE, ($stackPtr + 1), null, true, null, false);
+			$elementPtr = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
 
 			// If it's not the string token, move on, we're only interested in Components string.
 			if ($tokens[$elementPtr]['code'] !== \T_STRING) {
@@ -106,7 +107,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 			}
 
 			// Check for Components string token.
-			$componentsClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Components', false);
+			$componentsClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Components');
 
 			if (!$componentsClassNamePtr) {
 				// If there is no Components down the line, just run the regular sniff.
@@ -152,7 +153,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							true
 						);
 
-						if (in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
+						if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
@@ -185,7 +186,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 							true
 						);
 
-						if (in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
+						if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 							return; // Skip sniffing allowed methods.
 						} else {
 							// Not allowed method, continue as usual.
@@ -215,7 +216,7 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 						true
 					);
 
-					if (in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
+					if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 						return; // Skip sniffing allowed methods.
 					} else {
 						// Not allowed method, continue as usual.
