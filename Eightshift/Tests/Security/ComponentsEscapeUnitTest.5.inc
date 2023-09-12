@@ -157,4 +157,6 @@ if ($formsServerSideRender) {
 	?>
 </div>
 
-// phpcs:set Eightshift.Security.ComponentsEscape overriddenClass
+<?php
+
+// phpcs:set Eightshift.Security.ComponentsEscape overriddenClass ''
