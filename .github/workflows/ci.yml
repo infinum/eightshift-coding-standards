@@ -1,0 +1,270 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+
+name: CI checks
+
+on:
+  push:
+    branches:
+      - "develop"
+      - "main"
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    paths-ignore:
+      - "**.md"
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  composer_validate:
+    name: "Validate the composer.json file"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          coverage: none
+
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      # @link https://getcomposer.org/doc/03-cli.md#validate
+      - name: "Composer validate"
+        run: composer validate --no-check-all --strict
+
+  ruleset_validate:
+    name: "Validate the WordPress rulesets"
+    runs-on: "ubuntu-latest"
+
+    env:
+      XMLLINT_INDENT: '	'
+
+    steps:
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          coverage: none
+
+      - name: "Install xmllint"
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y libxml2-utils
+
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - name: "Install Composer dependencies"
+        uses: ramsey/composer-install@v2
+        with:
+          # Bust the cache at least once a month - output format: YYYY-MM.
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      # Show XML violations inline in the file diff.
+      # @link https://github.com/marketplace/actions/xmllint-problem-matcher
+      - uses: korelstar/xmllint-problem-matcher@v1
+
+       # Validate the Ruleset XML files.
+      # @link http://xmlsoft.org/xmllint.html
+      - name: "Validate the WordPress rulesets"
+        run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
+
+      - name: "Validate the sample ruleset"
+        run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./phpcs.xml.dist.sample
+
+      # Validate the Documentation XML files.
+      - name: "Validate documentation against schema"
+        run: xmllint --noout --schema vendor/phpcsstandards/phpcsdevtools/DocsXsd/phpcsdocs.xsd ./Eightshift/Docs/*/*Standard.xml
+
+      - name: "Check the code-style consistency of the xml files"
+        run: |
+          diff -B --tabsize=4 ./Eightshift/ruleset.xml <(xmllint --format "./Eightshift/ruleset.xml")
+          diff -B --tabsize=4 ./phpcs.xml.dist.sample <(xmllint --format "./phpcs.xml.dist.sample")
+
+
+  feature_completeness:
+    name: "Check sniff feature completeness"
+    needs:
+      - "composer_validate"
+      - "ruleset_validate"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          coverage: none
+
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - name: "Install Composer dependencies"
+        uses: ramsey/composer-install@v2
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: "Check sniff feature completeness"
+        run: composer check:complete
+
+  lint:
+    name: "Lint: PHP ${{ matrix.php }}"
+    needs:
+      - "composer_validate"
+      - "ruleset_validate"
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        php: [ '7.4', '8.0', '8.1', '8.2' ]
+
+    steps:
+      - name: "Set up PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: cs2pr
+
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - name: "Composer: adjust dependencies"
+        # Remove PHPUnit requirement to save some bandwidth.
+        run: composer remove --dev --no-update phpunit/phpunit
+
+      - name: "Install Composer dependencies"
+        uses: ramsey/composer-install@v2
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: Lint against parse errors
+        run: composer lint:ci | cs2pr
+
+  phpstan:
+    name: "PHPStan checks"
+    needs:
+      - "composer_validate"
+      - "ruleset_validate"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Set up PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          coverage: none
+          tools: phpstan
+
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - name: "Install Composer dependencies"
+        uses: "ramsey/composer-install@v2"
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: "Run PHPStan"
+        run: phpstan analyse
+
+  tests:
+    name: "PHP ${{ matrix.php }} with PHPCS ${{ matrix.phpcs_branch }}/WordPressCS ${{ matrix.wpcs_branch }}"
+    needs:
+      - "composer_validate"
+      - "ruleset_validate"
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allowed_failure }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.0', '8.1', '8.2' ]
+        phpcs_branch: [ 'lowest', 'dev-master' ]
+        wpcs_branch: [ '3.0.0', 'dev-develop' ]
+        allowed_failure: [ false ]
+        exclude:
+          # Only run low WordPressCS in combination with low PHPCS and high WordPressCS with high PHPCS.
+          - phpcs_branch: '3.7.2'
+            wpcs_branch: '3.0.0'
+          - phpcs_branch: 'dev-master'
+            wpcs_branch: 'dev-develop'
+        # Allow failure on non-released version of PHP.
+        include:
+          - php: '8.3'
+            phpcs_branch: 'dev-master'
+            wpcs_branch: 'dev-develop'
+            allowed_failure: true
+
+    steps:
+      # On stable PHPCS versions, allow for PHP deprecation notices.
+      # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
+      - name: "Setup ini config"
+        id: set_ini
+        run: |
+          if [ "${{ matrix.phpcs_branch }}" != "dev-master" ]; then
+            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
+          else
+            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
+          fi
+
+      # Setup PHP versions, run checks
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
+          coverage: none
+
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      - name: "Set the minimum stability requirement for develop branch of WordPressCS"
+        if: ${{ matrix.wpcs_branch == 'dev-develop' }}
+        run: composer config minimum-stability dev
+
+      - name: "Install Composer dependencies (PHP < 8.0 )"
+        if: ${{ matrix.php < 8.0 }}
+        uses: ramsey/composer-install@v2
+        with:
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: "Install Composer dependencies (PHP >= 8.0)"
+        if: ${{ matrix.php >= 8.0 }}
+        uses: ramsey/composer-install@v2
+        with:
+          composer-options: --ignore-platform-req=php+
+          custom-cache-suffix: $(date -u "+%Y-%m")
+
+      - name: "Set the required PHPCS and WordPressCS versions"
+        if: ${{ matrix.phpcs_branch != 'lowest' }}
+        env:
+          PHPCS_BRANCH: ${{ matrix.phpcs_branch }}
+          WPCS_BRANCH: ${{ matrix.wpcs_branch }}
+        run: composer require squizlabs/php_codesniffer:${PHPCS_BRANCH} wp-coding-standards/wpcs:${WPCS_BRANCH} --no-update --no-scripts --no-interaction
+
+      - name: "Set PHPCS version (lowest)"
+        if: ${{ matrix.phpcs_version == 'lowest' }}
+        run: composer update squizlabs/php_codesniffer --prefer-lowest --ignore-platform-req=php+ --no-scripts --no-interaction
+
+      - name: "Test the Eightshift ruleset"
+        run: composer tests:checkcs
+
+      # Test for fixer conflicts by running the auto-fixers of the complete WordPressCS over the test case files.
+      # This is not an exhaustive test, but should give an early indication for typical fixer conflicts.
+      # If only fixable errors are found, the exit code will be 1, which can be interpreted as success.
+      - name: "Test for fixer conflicts (fixes expected)"
+        if: ${{ matrix.phpcs_branch == 'dev-master' }}
+        continue-on-error: true
+        run: |
+          $(pwd)/vendor/bin/phpcbf -pq ./Eightshift/Tests/ --standard=Eightshift --extensions=inc --exclude=Generic.PHP.Syntax --report=summary
+          if [ $? -eq 1 ]; then exit 0; fi
+
+      - name: "Run the unit tests - PHP 7.4 - 8.0"
+        if: ${{ matrix.php < '8.1' }}
+        run: composer tests:run
+
+      - name: "Run the unit tests - PHP >= 8.1"
+        if: ${{ matrix.php >= '8.1' }}
+        run: composer tests:run -- --no-configuration --bootstrap=./Tests/bootstrap.php --dont-report-useless-tests
