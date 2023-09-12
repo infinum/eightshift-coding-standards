@@ -60,6 +60,87 @@ for that PHPCS install.
 	die(1);
 }
 
+// Check if phpstan is running.
+$cliArgs = $GLOBALS['argv'];
+
+if (!is_null($cliArgs)) {
+	foreach ($cliArgs as $argument) {
+		if (mb_strpos($argument, 'phpstan') !== false) {
+			// Load the WordPress files.
+			$WPCSFolder = dirname(__DIR__) . $ds . 'vendor' . $ds . 'wp-coding-standards' . $ds . 'wpcs' . $ds . 'WordPress';
+
+			require_once $WPCSFolder . $ds . 'Sniff.php';
+			require_once $WPCSFolder . $ds . 'AbstractFunctionRestrictionsSniff.php';
+			require_once $WPCSFolder . $ds . 'AbstractFunctionParameterSniff.php';
+			require_once $WPCSFolder . $ds . 'AbstractClassRestrictionsSniff.php';
+			require_once $WPCSFolder . $ds . 'AbstractArrayAssignmentRestrictionsSniff.php';
+
+			$helperFiles = glob($WPCSFolder . $ds . 'Helpers' . '/*.php');
+			$arraySniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'Arrays' . '/*.php');
+			$codeAnalysisSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'CodeAnalysis' . '/*.php');
+			$dateTimeSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'DateTime' . '/*.php');
+			$dBSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'DB' . '/*.php');
+			$filesSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'Files' . '/*.php');
+			$namingConventionsSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'NamingConventions' . '/*.php');
+			$pHPSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'PHP' . '/*.php');
+			$securitySniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'Security' . '/*.php');
+			$utilsSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'Utils' . '/*.php');
+			$whiteSpaceSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'WhiteSpace' . '/*.php');
+			$wPSniffFiles = glob($WPCSFolder . $ds . 'Sniffs' . $ds . 'WP' . '/*.php');
+
+			foreach ($helperFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($arraySniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($codeAnalysisSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($dateTimeSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($dBSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($filesSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($namingConventionsSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($pHPSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($securitySniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($utilsSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($whiteSpaceSniffFiles as $file) {
+				require_once $file;
+			}
+
+			foreach ($wPSniffFiles as $file) {
+				require_once $file;
+			}
+
+			unset($file);
+		}
+	}
+}
+
 /*
  * Set the PHPCS_IGNORE_TEST environment variable to ignore tests from other standards.
  */
