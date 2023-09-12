@@ -5,11 +5,9 @@
  *
  * @package EightshiftCS
  *
- * @author  Eightshift <team@eightshift.com>
+ * @author  Eightshift <team.wordpress@infinum.com>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/infinum/eightshift-coding-standards
- *
- * @since 1.4.0
  */
 
 namespace EightshiftCS\Eightshift\Sniffs\Security;
@@ -23,38 +21,45 @@ use WordPressCS\WordPress\Sniffs\Security\EscapeOutputSniff;
  * Override the WordPress.Security.EscapeOutput sniff
  *
  * This sniff will ignore escaping errors whenever it finds the
- * EightshiftLibs\Helpers\Components::render or
- * EightshiftLibs\Helpers\Components::outputCssVariables methods.
+ * EightshiftLibs\Helpers\Components::$allowedMethods, where the $allowedMethods are by default `render` and `outputCssVariables`, but can be extended in the ruleset.
  *
- * These methods are considered safe because the components
- * should be properly escaped on the output.
+ * $allowedMethods are considered safe.
+ *
+ * @since 2.0.0 Add list of allowed static methods that shouldn't trigger the sniff error.
+ * @since 1.4.0
  */
 class ComponentsEscapeSniff extends EscapeOutputSniff
 {
 	/**
-	 * A fully qualified class name for Components class override
+	 * A fully qualified class name for Components class override.
 	 *
 	 * You should put the fully qualified class name of the class you used
 	 * to override the EightshiftLibs\Helpers\Component class.
 	 *
 	 * For Example: namespace\\SomeSubNamespace\\MyComponents.
 	 *
-	 * @var string
+	 * @since 1.4.0
+	 *
+	 * @var string Defaults to empty string.
 	 */
-	public $overriddenClass = '';
+	public string $overriddenClass = '';
 
 	/**
 	 * List of allowed methods that won't trigger the EscapeOutput error.
 	 *
-	 * @var true[]
+	 * @since 2.0.0
+	 *
+	 * @var array<string, string>
 	 */
-	public $allowedMethods = [
+	public array $allowedMethods = [
 		'render' => 'render',
 		'outputCssVariables' => 'outputCssVariables',
 	];
 
 	/**
 	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @since 1.4.0
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
 	 *
@@ -237,7 +242,9 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	}
 
 	/**
-	 * Checks if the import statement exists in the current file, for the given stack pointer
+	 * Checks if the import statement exists in the current file, for the given stack pointer.
+	 *
+	 * @since 1.4.0
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
 	 * @param String[] $importData Import data array.
@@ -283,11 +290,13 @@ class ComponentsEscapeSniff extends EscapeOutputSniff
 	}
 
 	/**
-	 * Return the position of the previous echo pointer
+	 * Return the position of the previous echo pointer.
+	 *
+	 * @since 1.4.0
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
 	 *
-	 * @return int Token pointer number.
+	 * @return int Echo token pointer number.
 	 */
 	private function getEchoToken(int $stackPtr): int
 	{

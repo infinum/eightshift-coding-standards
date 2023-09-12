@@ -5,11 +5,9 @@
  *
  * @package EightshiftCS
  *
- * @author  Eightshift <team@eightshift.com>
+ * @author  Eightshift <team.wordpress@infinum.com>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/infinum/eightshift-coding-standards
- *
- * @since 1.4.0
  */
 
 namespace EightshiftCS\Eightshift\Sniffs\Commenting;
@@ -25,20 +23,26 @@ use PHPCSUtils\Utils\ObjectDeclarations;
  * This sniff will ignore the __invoke method in all the classes
  * that are extending the AbstractCli (or any of the class in the $allowedExtendedClasses list),
  * which is used in the eightshift-libs library to generate WP-CLI commands.
+ *
+ * @since 1.4.0
  */
 class FunctionCommentSniff extends SquizFunctionComment
 {
 	/**
 	 * List of allowed classes that can be extended.
 	 *
+	 * @since 1.4.0
+	 *
 	 * @var string[]
 	 */
-	public $allowedExtendedClasses = [
+	public array $allowedExtendedClasses = [
 		'AbstractCli',
 	];
 
 	/**
 	 * Processes this test, when one of its tokens is encountered.
+	 *
+	 * @since 1.4.0
 	 *
 	 * @param File $phpcsFile The file being scanned.
 	 * @param int  $stackPtr  The position of the current token
