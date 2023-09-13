@@ -10,6 +10,29 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [2.0.0](https://github.com/infinum/eightshift-coding-standards/compare/1.6.0...2.0.0) - 2023-09-XX
+
+### Added
+
+- Add a public property `$allowedMethods`, which contains a list of safe methods to the `Eightshift.Security.ComponentsEscape` sniff. Developers can now extend this list in their rulesets.
+- Add a test bootstrap file for easier testing, both for PHPUnit, and PHPStan checks.
+- Add PHPStan as a part of the CI check.
+
+### Changed
+
+- Update the dependencies to WordPressCS 3.1.0, which will allow the standards to be used with PHP8+.
+- Removed old CI checks into one, consolidated CI check.
+- Updated the documentation of the sniffs to pass the [validation](https://phpcsstandards.github.io/PHPCSDevTools/#documentation-xsd-validation) according to the [schema](https://phpcsstandards.github.io/PHPCSDevTools/phpcsdocs.xsd).
+- Updated sniffs to use more [PHPCSUtils](https://github.com/PHPCSStandards/PHPCSUtils) helpers.
+- Update ruleset with all the WordPressCS v3.0.0 changes.
+
+### Fixed
+
+- Update the sniffs to work with newer WordPressCS helpers.
+- Update docblocks to be more acurate and pass the PHPStan checks.
+- Update tests - the `overriddenClass` wasn't being re-set after one test case which caused failures.
+
+
 ## [1.6.0](https://github.com/infinum/eightshift-coding-standards/compare/1.5.1...1.6.0) - 2022-07-05
 
 ### Changed
@@ -17,10 +40,12 @@ _No documentation available about unreleased changes yet._
   - This way we can add a list of specific extending CLI classes which won't trigger
     phpcs error on the __invoke() method.
 
+
 ## [1.5.1](https://github.com/infinum/eightshift-coding-standards/compare/1.5.0...1.5.1) - 2022-05-10
 
 ### Fixed
 - CI/CD check fixes
+
 
 ## [1.5.0](https://github.com/infinum/eightshift-coding-standards/compare/1.4.2...1.5.0) - 2022-03-16
 
@@ -35,10 +60,12 @@ _No documentation available about unreleased changes yet._
 ### Changed
 - Code cleanup in EightShift ComponentsEscape sniff
 
+
 ## [1.4.2](https://github.com/infinum/eightshift-coding-standards/compare/1.4.1...1.4.2) - 2022-03-10
 
 ### Fixed
 - Exclude the native `WordPress.Security.EscapeOutput.OutputNotEscaped` sniff, because we are overloading it
+
 
 ## [1.4.1](https://github.com/infinum/eightshift-coding-standards/compare/1.4.0...1.4.1) - 2022-03-10
 
@@ -46,6 +73,7 @@ _No documentation available about unreleased changes yet._
 - Fixed `Eightshift.Security.ComponentsEscape` sniff
   - There was a case where the next string token caused issue because there was no guard clause 
     to check if the string is actually a Components class or not.
+
 
 ## [1.4.0](https://github.com/infinum/eightshift-coding-standards/compare/1.3.0...1.4.0) - 2022-03-09
 
@@ -96,6 +124,7 @@ _No documentation available about unreleased changes yet._
 
 A huge thanks to Juliette Reinders Folmer (@jrfnl) for amazing help in fixing tons of issues with the ruleset and sniffs.
 
+
 ## [1.3.0](https://github.com/infinum/eightshift-coding-standards/compare/1.2.0...1.3.0) - 2020-05-04
 
 ### Removed
@@ -109,6 +138,7 @@ A huge thanks to Juliette Reinders Folmer (@jrfnl) for amazing help in fixing to
 
 ### Changed
 - Update minimum supported WP version to 5.4
+
 
 ## [1.2.0](https://github.com/infinum/eightshift-coding-standards/compare/1.1.0...1.2.0) - 2020-04-15
 
@@ -126,16 +156,19 @@ A huge thanks to Juliette Reinders Folmer (@jrfnl) for amazing help in fixing to
 ### Fixed
 - Fix docblocks in the sniffs
 
+
 ## [1.1.0](https://github.com/infinum/eightshift-coding-standards/compare/1.0.1...1.1.0) - 2020-11-30
 
 ### Package renaming
 
 We renamed the package from `infinum/coding-standards-wp` to `infinum/eightshift-coding-standards`.
 
+
 ## [1.1.0](https://github.com/infinum/eightshift-coding-standards/compare/1.0.0...1.0.1) - 2020-09-24
 
 ### Added
 - Added a rule to prevent underscores denoting the private methods/properties
+
 
 ## [1.0.0](https://github.com/infinum/eightshift-coding-standards/compare/0.4.1...1.0.0) - 2020-09-18
 
@@ -163,6 +196,7 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 - Replaced WordPress naming standards to modified PSR standards
 - Changed the namespace of the WPCS core classes
 
+
 ## [0.4.1](https://github.com/infinum/eightshift-coding-standards/compare/0.3.1...0.4.1) - 2018-11-15
 
 ### Added
@@ -175,6 +209,7 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 ### Changed
 - Reorganized sniff rules
 - Raised the minimum supported PHP version to PHP 7.1
+
 
 ## [0.4.0](https://github.com/infinum/eightshift-coding-standards/compare/0.3.1...0.4.0) - 2018-10-24
 
@@ -206,10 +241,12 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 - Minor coding standard fix in the DisallowDoShortcode sniff
 - Fix the array indentation issue
 
+
 ## [0.3.1](https://github.com/infinum/eightshift-coding-standards/compare/0.3.0...0.3.1) - 2018-07-27
 
 ### Changed
 - Set the WPCS dependency to >= 1.0.0
+
 
 ## [0.3.0](https://github.com/infinum/eightshift-coding-standards/compare/0.2.8...0.3.0) - 2018-07-26
 
@@ -226,6 +263,7 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 
 ### Fixed
 - Updated the DisallowDoShortcodeSniff to match phpcs 3.0.0 and latest WPCS
+
 
 ## [0.2.8](https://github.com/infinum/eightshift-coding-standards/compare/0.2.6...0.2.8) - 2018-06-21
 
@@ -245,10 +283,12 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 ### Removed
 - Removed PSR1.Classes.ClassDeclaration exclusion
 
+
 ## [0.2.6](https://github.com/infinum/eightshift-coding-standards/compare/0.2.5...0.2.6) - 2017-10-28
 
 ### Fixed
 - Composer installed paths
+
 
 ## [0.2.5](https://github.com/infinum/eightshift-coding-standards/compare/0.2.4...0.2.5) - 2017-10-28
 
@@ -259,10 +299,12 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 ### Removed
 - Removed default report since it conflicted with VSCode
 
+
 ## [0.2.4](https://github.com/infinum/eightshift-coding-standards/compare/0.2.3...0.2.4) - 2017-10-28
 
 ### Fixed
 - Composer scripts - fixed installed paths set
+
 
 ## [0.2.3](https://github.com/infinum/eightshift-coding-standards/compare/0.2.2...0.2.3) - 2017-09-19
 
@@ -275,11 +317,13 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 ### Changed
 - Corrected the indentation in the ruleset
 
+
 ## [0.2.2](https://github.com/infinum/eightshift-coding-standards/compare/0.2.1...0.2.2) - 2017-07-25
 
 ### Changed
 - Updated DisallowDoShortcodeSniff regex - from multiline check to just case insensitive check
 - Increased dependencu on WPCS 0.12.0
+
 
 ## [0.2.1](https://github.com/infinum/eightshift-coding-standards/compare/0.2.1...main) - 2017-07-18
 
