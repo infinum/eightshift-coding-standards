@@ -30,7 +30,7 @@ jobs:
           coverage: none
 
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # @link https://getcomposer.org/doc/03-cli.md#validate
       - name: "Composer validate"
@@ -56,7 +56,7 @@ jobs:
           sudo apt-get install --no-install-recommends -y libxml2-utils
 
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Install Composer dependencies"
         uses: ramsey/composer-install@v2
@@ -101,7 +101,7 @@ jobs:
           coverage: none
 
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Install Composer dependencies"
         uses: ramsey/composer-install@v2
@@ -130,7 +130,7 @@ jobs:
           tools: cs2pr
 
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Composer: adjust dependencies"
         # Remove PHPUnit requirement to save some bandwidth.
@@ -160,7 +160,7 @@ jobs:
           tools: phpstan
 
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Install Composer dependencies"
         uses: "ramsey/composer-install@v2"
@@ -218,7 +218,7 @@ jobs:
           coverage: none
 
       - name: "Checkout code"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Set the minimum stability requirement for develop branch of WordPressCS"
         if: ${{ matrix.wpcs_branch == 'dev-develop' }}
