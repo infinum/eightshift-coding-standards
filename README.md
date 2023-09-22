@@ -1,11 +1,15 @@
 ![image](https://repository-images.githubusercontent.com/96307889/1ff5645a-63b3-476f-925a-5f37c2599f6e)
 
-[![Packagist downloads](https://img.shields.io/packagist/dt/infinum/eightshift-coding-standards.svg?style=for-the-badge
-)](https://packagist.org/packages/infinum/eightshift-coding-standards)
-[![Travis Build Status](https://img.shields.io/travis/:user/:repo.svg?style=for-the-badge)](https://travis-ci.org/infinum/eightshift-coding-standards)
-[![GitHub tag](https://img.shields.io/github/tag/infinum/eightshift-coding-standards.svg?style=for-the-badge)](https://github.com/infinum/eightshift-coding-standards)
-[![GitHub stars](https://img.shields.io/github/stars/infinum/eightshift-coding-standards.svg?style=for-the-badge&label=Stars)](https://github.com/infinum/eightshift-coding-standards/)
-[![License](https://img.shields.io/github/license/infinum/eightshift-coding-standards.svg?style=for-the-badge)](https://github.com/infinum/eightshift-coding-standards)
+[![Latest Stable Version](https://poser.pugx.org/infinum/eightshift-coding-standards/v/stable)](https://packagist.org/packages/infinum/eightshift-coding-standards)
+[![Release Date of the Latest Version](https://img.shields.io/github/release-date/infinum/eightshift-coding-standards.svg?maxAge=1800)](https://github.com/infinum/eightshift-coding-standards/releases)
+
+[![CI checks](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml/badge.svg)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
+
+[![Minimum PHP Version](https://img.shields.io/packagist/php-v/infinum/eightshift-coding-standards.svg?maxAge=3600)](https://packagist.org/packages/infinum/eightshift-coding-standards)
+[![Tested on PHP 7.4 to 8.3](https://img.shields.io/badge/tested%20on-%207.4%20|%208.0%20|%208.1%20|%208.2%20|%208.3-green.svg?maxAge=2419200)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
+
+[![License: MIT](https://poser.pugx.org/infinum/eightshift-coding-standards/license)](https://github.com/WordPress/WordPress-Coding-Standards/blob/develop/LICENSE)
+[![Total Downloads](https://poser.pugx.org/infinum/eightshift-coding-standards/downloads)](https://packagist.org/packages/infinum/eightshift-coding-standards/stats)
 
 # Eightshift Coding Standards for WordPress
 
@@ -25,7 +29,7 @@ or add to your `composer.json`
 
 ```json
 "require-dev": {
-  "infinum/eightshift-coding-standards": "^1.4"
+  "infinum/eightshift-coding-standards": "^2.0"
 }
 ```
 
@@ -45,12 +49,9 @@ You can also selectively check files or directories by specifying them.
 
 ### Recommendation
 
-It's recommended that you install a Composer plugin that will handle the registration of standards with PHP_CodeSniffer. The two actively maintained are
+It's recommended that you install a Composer plugin that will handle the registration of standards with PHP_CodeSniffer.
 
-* [composer-phpcodesniffer-standards-plugin](https://github.com/higidi/composer-phpcodesniffer-standards-plugin)
-* [phpcodesniffer-composer-installer](https://github.com/DealerDirect/phpcodesniffer-composer-installer)
-
-We suggest using the `dealerdirect/phpcodesniffer-composer-installer` when including our standards, so that you avoid any possible issues.
+* [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer)
 
 ## Working in IDE
 
@@ -155,5 +156,5 @@ Eightshift WordPress Coding Standards are maintained and sponsored by [Infinum](
 
 ## License
 
-Eightshift WordPress Coding Standards are Copyright © 2022 Infinum.
+Eightshift WordPress Coding Standards are Copyright © 2023 Infinum.
 This is free software, and may be redistributed under the terms specified in the LICENSE file.

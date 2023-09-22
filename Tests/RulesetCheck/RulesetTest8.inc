@@ -45,7 +45,7 @@ class Components
 		} elseif (\is_string($variable)) {
 			$output = $variable;
 		} else {
-			throw ComponentException::throwNotStringOrArray($variable);
+			throw ComponentException::throwNotStringOrArray(\esc_html($variable));
 		}
 
 		return $output;
@@ -118,7 +118,7 @@ class Components
 		}
 
 		if (!\file_exists($componentPath)) {
-			throw ComponentException::throwUnableToLocateComponent($componentPath);
+			throw ComponentException::throwUnableToLocateComponent(\esc_html($componentPath));
 		}
 
 		if ($useComponentDefaults && isset($manifest['attributes'])) {
@@ -177,7 +177,7 @@ class Components
 		$manifest = "{$path}/manifest.json";
 
 		if (!\file_exists($manifest)) {
-			throw ComponentException::throwUnableToLocateComponent($manifest);
+			throw ComponentException::throwUnableToLocateComponent(\esc_html($manifest));
 		}
 
 		return \json_decode(\implode(' ', (array)\file($manifest)), true);
@@ -240,11 +240,11 @@ class Components
 			$manifestKey = $manifest['attributes'][$key] ?? null;
 
 			if ($manifestKey === null) {
-				throw new Exception(
+				throw new Exception(\esc_html(
 					"{$key} key does not exist in the {$componentName} component.
 					Please check your implementation.
 					Check if your {$key} attribut exists in the component's manifest.json"
-				);
+				));
 			}
 
 			$defaultType = $manifestKey['type'];

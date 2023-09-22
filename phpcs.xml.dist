@@ -29,4 +29,8 @@
 	<rule ref="PHPCompatibility">
 		<severity>5</severity>
 	</rule>
+
+	<rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+		<exclude-pattern>*/Tests/bootstrap.php</exclude-pattern>
+	</rule>
 </ruleset>

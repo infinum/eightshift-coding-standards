@@ -5,19 +5,15 @@
  *
  * @package EightshiftCS
  *
- * @author  Eightshift <team@eightshift.com>
+ * @author  Eightshift <team.wordpress@infinum.com>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/infinum/eightshift-coding-standards
- *
- * @since 1.0.0 Removed the Tokens util. Modified the warning code
- * @since 0.4.2 Renamed the WPCS namespace - changed in v2.0.0 of WPCS
- * @since 0.3.0 Updated sniff to be compatible with latest PHPCS and WPCS
- * @since 0.1.0
  */
 
 namespace EightshiftCS\Eightshift\Sniffs\Shortcodes;
 
 use PHPCSUtils\Utils\TextStrings;
+use WordPressCS\WordPress\Helpers\ContextHelper;
 use WordPressCS\WordPress\Sniff;
 
 /**
@@ -32,6 +28,9 @@ use WordPressCS\WordPress\Sniff;
  *              have been a false positives in the old sniff.
  *              The native WPCS Sniff class has two useful helper methods
  *              for detecting this.
+ * @since 1.0.0 Removed the Tokens util. Modified the warning code.
+ * @since 0.4.2 Renamed the WPCS namespace - changed in v2.0.0 of WPCS.
+ * @since 0.3.0 Updated sniff to be compatible with latest PHPCS and WPCS.
  * @since 0.1.0
  *
  * @link https://konstantin.blog/2013/dont-do_shortcode/
@@ -40,6 +39,8 @@ class DisallowDoShortcodeSniff extends Sniff
 {
 	/**
 	 * Returns an array of tokens this test wants to listen for.
+	 *
+	 * @since 0.1.0
 	 *
 	 * @return array
 	 */
@@ -56,7 +57,7 @@ class DisallowDoShortcodeSniff extends Sniff
 	/**
 	 * Processes a sniff when one of its tokens is encountered.
 	 *
-	 * @since 1.4.0
+	 * @since 0.1.0
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
 	 *
@@ -71,12 +72,12 @@ class DisallowDoShortcodeSniff extends Sniff
 		}
 
 		// Check for namespaced function named do_shortcode.
-		if ($this->is_token_namespaced($stackPtr)) {
+		if (ContextHelper::is_token_namespaced($this->phpcsFile, $stackPtr)) {
 			return;
 		}
 
 		// If the do_shortcode is a static method of some class, it's also ok.
-		if ($this->is_class_object_call($stackPtr)) {
+		if (ContextHelper::has_object_operator_before($this->phpcsFile, $stackPtr)) {
 			return;
 		}
 

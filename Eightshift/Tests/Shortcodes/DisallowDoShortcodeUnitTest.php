@@ -5,7 +5,7 @@
  *
  * @package EightshiftCS
  *
- * @author  Eightshift <team@eightshift.com>
+ * @author  Eightshift <team.wordpress@infinum.com>
  * @license https://opensource.org/licenses/MIT MIT
  * @link    https://github.com/infinum/eightshift-coding-standards
  */
@@ -19,7 +19,7 @@ use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
  *
  * @covers \EightshiftCS\Eightshift\Sniffs\Shortcodes\DisallowDoShortcodeSniff
  *
- * @since 1.0.0 Added $testFile parameter.
+ * @since 1.0.0 Improve on the test warning list.
  * @since 0.4.0
  */
 class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
@@ -27,7 +27,7 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 	/**
 	 * Returns the lines where errors should occur.
 	 *
-	 * @return array <int line number> => <int number of errors>
+	 * @return array<int, int> Key is the line number, value is the number of expected errors.
 	 */
 	public function getErrorList(): array
 	{
@@ -37,7 +37,7 @@ class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
 	/**
 	 * Returns the lines where warnings should occur.
 	 *
-	 * @return array <int line number> => <int number of warnings>
+	 * @return array<int, int> Key is the line number, value is the number of expected warnings.
 	 */
 	public function getWarningList(): array
 	{
