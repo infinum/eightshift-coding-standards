@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Unit test class for ComponentsEscape sniff.
+ * Unit test class for HelpersEscape sniff.
  *
  * @package EightshiftCS
  *
@@ -17,11 +17,11 @@ use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 /**
  * Unit test class for the FunctionCommentUnitTest sniff.
  *
- * @covers \EightshiftCS\Eightshift\Sniffs\Security\ComponentsEscapeSniff
+ * @covers \EightshiftCS\Eightshift\Sniffs\Security\HelpersEscapeSniff
  *
  * @since 1.4.0 Added $testFile parameter.
  */
-class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
+class HelpersEscapeUnitTest extends AbstractSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.
@@ -33,33 +33,33 @@ class ComponentsEscapeUnitTest extends AbstractSniffUnitTest
 	public function getErrorList(string $testFile = ''): array
 	{
 		switch ($testFile) {
-			case 'ComponentsEscapeUnitTest.1.inc':
+			case 'HelpersEscapeUnitTest.1.inc':
 				return [
 					21 => 1,
 					23 => 1,
 				];
-			case 'ComponentsEscapeUnitTest.2.inc':
+			case 'HelpersEscapeUnitTest.2.inc':
 				return [
 					3 => 1,
 					10 => 1,
 					17 => 1
 				];
-			case 'ComponentsEscapeUnitTest.3.inc':
+			case 'HelpersEscapeUnitTest.3.inc':
 				return [
 					12 => 1,
 					19 => 1,
 					24 => 1,
 				];
-			case 'ComponentsEscapeUnitTest.4.inc':
+			case 'HelpersEscapeUnitTest.4.inc':
 				return [
 					102 => 1,
 				];
-			case 'ComponentsEscapeUnitTest.5.inc':
+			case 'HelpersEscapeUnitTest.5.inc':
 				return [
 					25 => 1,
 					149 => 1,
 				];
-			case 'ComponentsEscapeUnitTest.6.inc':
+			case 'HelpersEscapeUnitTest.6.inc':
 				return [
 					5 => 1,
 				];

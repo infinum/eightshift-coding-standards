@@ -6,19 +6,19 @@
  * @package EightshiftBoilerplate
  */
 
-use EightshiftBoilerplateVendor\EightshiftLibs\Helpers\Components;
+use EightshiftBoilerplateVendor\EightshiftLibs\Helpers\Helpers;
 
-$manifest = Components::getManifest(__DIR__);
+$manifest = Helpers::getManifest(__DIR__);
 
 // Used to add or remove wrapper.
-$wrapperUse = Components::checkAttr('wrapperUse', $attributes, $manifest);
-$wrapperUseSimple = Components::checkAttr('wrapperUseSimple', $attributes, $manifest);
-$wrapperDisable = Components::checkAttr('wrapperDisable', $attributes, $manifest);
-$wrapperParentClass = Components::checkAttr('wrapperParentClass', $attributes, $manifest);
-$className = Components::checkAttr('className', $attributes, $manifest);
+$wrapperUse = Helpers::checkAttr('wrapperUse', $attributes, $manifest);
+$wrapperUseSimple = Helpers::checkAttr('wrapperUseSimple', $attributes, $manifest);
+$wrapperDisable = Helpers::checkAttr('wrapperDisable', $attributes, $manifest);
+$wrapperParentClass = Helpers::checkAttr('wrapperParentClass', $attributes, $manifest);
+$className = Helpers::checkAttr('className', $attributes, $manifest);
 
-$wrapperParentClassItemClass = Components::selector($wrapperParentClass, $wrapperParentClass, 'item');
-$wrapperParentClassItemInnerClass = Components::selector($wrapperParentClass, $wrapperParentClass, 'item-inner');
+$wrapperParentClassItemClass = Helpers::selector($wrapperParentClass, $wrapperParentClass, 'item');
+$wrapperParentClassItemInnerClass = Helpers::selector($wrapperParentClass, $wrapperParentClass, 'item-inner');
 
 if (!$wrapperUse || $wrapperDisable) {
 	if ($wrapperParentClass) {
@@ -44,50 +44,50 @@ if (!$wrapperUse || $wrapperDisable) {
 	return;
 }
 
-$wrapperId = Components::checkAttr('wrapperId', $attributes, $manifest);
-$wrapperAnchorId = Components::checkAttr('wrapperAnchorId', $attributes, $manifest);
-$wrapperBackgroundColor = Components::checkAttr('wrapperBackgroundColor', $attributes, $manifest);
+$wrapperId = Helpers::checkAttr('wrapperId', $attributes, $manifest);
+$wrapperAnchorId = Helpers::checkAttr('wrapperAnchorId', $attributes, $manifest);
+$wrapperBackgroundColor = Helpers::checkAttr('wrapperBackgroundColor', $attributes, $manifest);
 
-$wrapperHide = Components::checkAttrResponsive('wrapperHide', $attributes, $manifest);
-$wrapperSpacingTop = Components::checkAttrResponsive('wrapperSpacingTop', $attributes, $manifest);
-$wrapperSpacingBottom = Components::checkAttrResponsive('wrapperSpacingBottom', $attributes, $manifest);
-$wrapperSpacingTopIn = Components::checkAttrResponsive('wrapperSpacingTopIn', $attributes, $manifest);
-$wrapperSpacingBottomIn = Components::checkAttrResponsive('wrapperSpacingBottomIn', $attributes, $manifest);
-$wrapperDividerTop = Components::checkAttrResponsive('wrapperDividerTop', $attributes, $manifest);
-$wrapperDividerBottom = Components::checkAttrResponsive('wrapperDividerBottom', $attributes, $manifest);
-$wrapperContainerWidth = Components::checkAttrResponsive('wrapperContainerWidth', $attributes, $manifest);
-$wrapperGutter = Components::checkAttrResponsive('wrapperGutter', $attributes, $manifest);
-$wrapperWidth = Components::checkAttrResponsive('wrapperWidth', $attributes, $manifest);
-$wrapperOffset = Components::checkAttrResponsive('wrapperOffset', $attributes, $manifest);
+$wrapperHide = Helpers::checkAttrResponsive('wrapperHide', $attributes, $manifest);
+$wrapperSpacingTop = Helpers::checkAttrResponsive('wrapperSpacingTop', $attributes, $manifest);
+$wrapperSpacingBottom = Helpers::checkAttrResponsive('wrapperSpacingBottom', $attributes, $manifest);
+$wrapperSpacingTopIn = Helpers::checkAttrResponsive('wrapperSpacingTopIn', $attributes, $manifest);
+$wrapperSpacingBottomIn = Helpers::checkAttrResponsive('wrapperSpacingBottomIn', $attributes, $manifest);
+$wrapperDividerTop = Helpers::checkAttrResponsive('wrapperDividerTop', $attributes, $manifest);
+$wrapperDividerBottom = Helpers::checkAttrResponsive('wrapperDividerBottom', $attributes, $manifest);
+$wrapperContainerWidth = Helpers::checkAttrResponsive('wrapperContainerWidth', $attributes, $manifest);
+$wrapperGutter = Helpers::checkAttrResponsive('wrapperGutter', $attributes, $manifest);
+$wrapperWidth = Helpers::checkAttrResponsive('wrapperWidth', $attributes, $manifest);
+$wrapperOffset = Helpers::checkAttrResponsive('wrapperOffset', $attributes, $manifest);
 
 $componentClass = 'wrapper';
 
-$wrapperClass = Components::classnames([
+$wrapperClass = Helpers::classnames([
 	$componentClass,
-	Components::selector($componentClass, $componentClass, 'bg-color', $wrapperBackgroundColor), // @phpstan-ignore-line
-	Components::responsiveSelectors($wrapperSpacingTop, 'spacing-top', $componentClass),
-	Components::responsiveSelectors($wrapperSpacingBottom, 'spacing-bottom', $componentClass),
-	Components::responsiveSelectors($wrapperSpacingTopIn, 'spacing-top-in', $componentClass),
-	Components::responsiveSelectors($wrapperSpacingBottomIn, 'spacing-bottom-in', $componentClass),
-	Components::responsiveSelectors($wrapperDividerTop, 'divider-top', $componentClass, false),
-	Components::responsiveSelectors($wrapperDividerBottom, 'divider-bottom', $componentClass, false),
-	Components::responsiveSelectors($wrapperHide, 'hide', $componentClass, false),
+	Helpers::selector($componentClass, $componentClass, 'bg-color', $wrapperBackgroundColor), // @phpstan-ignore-line
+	Helpers::responsiveSelectors($wrapperSpacingTop, 'spacing-top', $componentClass),
+	Helpers::responsiveSelectors($wrapperSpacingBottom, 'spacing-bottom', $componentClass),
+	Helpers::responsiveSelectors($wrapperSpacingTopIn, 'spacing-top-in', $componentClass),
+	Helpers::responsiveSelectors($wrapperSpacingBottomIn, 'spacing-bottom-in', $componentClass),
+	Helpers::responsiveSelectors($wrapperDividerTop, 'divider-top', $componentClass, false),
+	Helpers::responsiveSelectors($wrapperDividerBottom, 'divider-bottom', $componentClass, false),
+	Helpers::responsiveSelectors($wrapperHide, 'hide', $componentClass, false),
 	$className,
 ]);
 
-$wrapperContainerClass = Components::classnames([
-	Components::selector($componentClass, $componentClass, 'container'), // @phpstan-ignore-line
-	Components::responsiveSelectors($wrapperContainerWidth, 'container-width', $componentClass),
-	Components::responsiveSelectors($wrapperGutter, 'gutter', $componentClass),
+$wrapperContainerClass = Helpers::classnames([
+	Helpers::selector($componentClass, $componentClass, 'container'), // @phpstan-ignore-line
+	Helpers::responsiveSelectors($wrapperContainerWidth, 'container-width', $componentClass),
+	Helpers::responsiveSelectors($wrapperGutter, 'gutter', $componentClass),
 ]);
 
-$wrapperInnerClass = Components::classnames([
-	Components::selector($componentClass, $componentClass, 'inner'), // @phpstan-ignore-line
-	Components::responsiveSelectors($wrapperWidth, 'width', $componentClass),
-	Components::responsiveSelectors($wrapperOffset, 'offset', $componentClass),
+$wrapperInnerClass = Helpers::classnames([
+	Helpers::selector($componentClass, $componentClass, 'inner'), // @phpstan-ignore-line
+	Helpers::responsiveSelectors($wrapperWidth, 'width', $componentClass),
+	Helpers::responsiveSelectors($wrapperOffset, 'offset', $componentClass),
 ]);
 
-$wrapperMainAnchorClass = Components::selector($componentClass, $componentClass, 'anchor'); // @phpstan-ignore-line
+$wrapperMainAnchorClass = Helpers::selector($componentClass, $componentClass, 'anchor'); // @phpstan-ignore-line
 
 $idOutput = '';
 

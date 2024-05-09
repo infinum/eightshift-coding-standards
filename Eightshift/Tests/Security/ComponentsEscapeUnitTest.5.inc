@@ -6,44 +6,44 @@
  * @package EightshiftForms
  */
 
-// phpcs:set Eightshift.Security.ComponentsEscape overriddenClass EightshiftForms\\Helpers\\Components
+// phpcs:set Eightshift.Security.HelpersEscape overriddenClass EightshiftForms\\Helpers\\Helpers
 
 use EightshiftForms\AdminMenus\FormSettingsAdminSubMenu;
 use EightshiftForms\CustomPostType\Forms;
 use EightshiftForms\Geolocation\Geolocation;
 use EightshiftForms\Geolocation\SettingsGeolocation;
-use EightshiftForms\Helpers\Components;
+use EightshiftForms\Helpers\Helpers;
 use EightshiftForms\Helpers\Helper;
 use EightshiftForms\Manifest\Manifest;
 use EightshiftForms\Settings\Settings\SettingsGeneral;
 
-$manifest = Components::getManifest(__DIR__);
-$globalManifest = Components::getManifest(dirname(__DIR__, 2));
-$manifestInvalid = Components::getManifest(dirname(__DIR__, 2) . '/components/invalid');
+$manifest = Helpers::getManifest(__DIR__);
+$globalManifest = Helpers::getManifest(dirname(__DIR__, 2));
+$manifestInvalid = Helpers::getManifest(dirname(__DIR__, 2) . '/components/invalid');
 
 if (!$this->isCheckboxOptionChecked(SettingsGeneral::SETTINGS_GENERAL_DISABLE_DEFAULT_ENQUEUE_SCRIPT_KEY, SettingsGeneral::SETTINGS_GENERAL_DISABLE_DEFAULT_ENQUEUE_KEY)) {
-	echo Components::outputCssVariablesGlobal($globalManifest); // Bad.
+	echo Helpers::outputCssVariablesGlobal($globalManifest); // Bad.
 }
 
 $blockClass = $attributes['blockClass'] ?? '';
 $invalidClass = $manifestInvalid['componentClass'] ?? '';
 
 // Check formPost ID prop.
-$formsFormPostId = Components::checkAttr('formsFormPostId', $attributes, $manifest);
-$formsStyle = Components::checkAttr('formsStyle', $attributes, $manifest);
-$formsServerSideRender = Components::checkAttr('formsServerSideRender', $attributes, $manifest);
-$formsFormDataTypeSelector = Components::checkAttr('formsFormDataTypeSelector', $attributes, $manifest);
-$formsFormGeolocation = Components::checkAttr('formsFormGeolocation', $attributes, $manifest);
-$formsFormGeolocationAlternatives = Components::checkAttr('formsFormGeolocationAlternatives', $attributes, $manifest);
+$formsFormPostId = Helpers::checkAttr('formsFormPostId', $attributes, $manifest);
+$formsStyle = Helpers::checkAttr('formsStyle', $attributes, $manifest);
+$formsServerSideRender = Helpers::checkAttr('formsServerSideRender', $attributes, $manifest);
+$formsFormDataTypeSelector = Helpers::checkAttr('formsFormDataTypeSelector', $attributes, $manifest);
+$formsFormGeolocation = Helpers::checkAttr('formsFormGeolocation', $attributes, $manifest);
+$formsFormGeolocationAlternatives = Helpers::checkAttr('formsFormGeolocationAlternatives', $attributes, $manifest);
 
 // Override form ID in case we use geolocation but use this feature only on frontend.
 if (!$formsServerSideRender) {
 	$formsFormPostId = \apply_filters(Geolocation::GEOLOCATION_IS_USER_LOCATED, $formsFormPostId, $formsFormGeolocation, $formsFormGeolocationAlternatives);
 }
 
-$formsClass = Components::classnames([
-	Components::selector($blockClass, $blockClass),
-	Components::selector($formsStyle, $blockClass, '', $formsStyle),
+$formsClass = Helpers::classnames([
+	Helpers::selector($blockClass, $blockClass),
+	Helpers::selector($formsStyle, $blockClass, '', $formsStyle),
 	$attributes['className'] ?? '',
 ]);
 
@@ -56,7 +56,7 @@ if (!$formsServerSideRender && (!$formsFormPostId || get_post_status($formsFormP
 if ($formsServerSideRender) {
 	// Missing form ID.
 	if (!$formsFormPostId) {
-		$formsClassNotSet = Components::selector($blockClass, $blockClass, '', 'not-set');
+		$formsClassNotSet = Helpers::selector($blockClass, $blockClass, '', 'not-set');
 		?>
 			<div class="<?php echo esc_attr($formsClass); ?> <?php echo esc_attr($formsClassNotSet); ?>">
 				<img class="<?php echo esc_attr("{$blockClass}__image") ?>" src="<?php echo esc_url(\apply_filters(Manifest::MANIFEST_ITEM, 'cover.png')); ?>" />
@@ -69,7 +69,7 @@ if ($formsServerSideRender) {
 
 	// Not published or removed at somepoint.
 	if (get_post_status($formsFormPostId) !== 'publish') {
-		$formsClassNotPublished = Components::selector($blockClass, $invalidClass);
+		$formsClassNotPublished = Helpers::selector($blockClass, $invalidClass);
 		?>
 			<div class="<?php echo esc_attr($formsClass); ?> <?php echo esc_attr($formsClassNotPublished); ?>">
 				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,14 +125,14 @@ if ($formsServerSideRender) {
 
 			if (isset($block['innerBlocks'])) {
 				foreach ($block['innerBlocks'] as $innerKey => $innerBlock) {
-					$blockName = Components::kebabToCamelCase(explode('/', $innerBlock['blockName'])[1]);
+					$blockName = Helpers::kebabToCamelCase(explode('/', $innerBlock['blockName'])[1]);
 					$blocks[$key]['innerBlocks'][$innerKey]['attrs']["{$blockName}FormPostId"] = $formsFormPostId;
 					$blocks[$key]['innerBlocks'][$innerKey]['attrs']["{$blockName}FormDataTypeSelector"] = $formsFormDataTypeSelector;
 					$blocks[$key]['innerBlocks'][$innerKey]['attrs']["{$blockName}FormServerSideRender"] = $formsServerSideRender;
 
 					if (isset($innerBlock['innerBlocks'])) {
 						foreach ($innerBlock['innerBlocks'] as $inKey => $inBlock) {
-							$name = Components::kebabToCamelCase(explode('/', $inBlock['blockName'])[1]);
+							$name = Helpers::kebabToCamelCase(explode('/', $inBlock['blockName'])[1]);
 
 							if ($name === 'submit') {
 								$blocks[$key]['innerBlocks'][$innerKey]['innerBlocks'][$inKey]['attrs']["{$name}SubmitServerSideRender"] = $formsServerSideRender;
@@ -147,9 +147,9 @@ if ($formsServerSideRender) {
 	// Render blocks.
 	foreach ($blocks as $block) {
 		echo \apply_filters('the_content', \render_block($block)); // Bad.
-        echo Components::render( // Ok.
+        echo Helpers::render( // Ok.
             'accordion',
-            Components::props('accordion', $attributes, [
+            Helpers::props('accordion', $attributes, [
                 'accordionContent' => $innerBlockContent
             ])
         );
@@ -159,4 +159,4 @@ if ($formsServerSideRender) {
 
 <?php
 
-// phpcs:set Eightshift.Security.ComponentsEscape overriddenClass ''
+// phpcs:set Eightshift.Security.HelpersEscape overriddenClass ''

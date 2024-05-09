@@ -8,20 +8,20 @@
 
 namespace Project;
 
-use ProjectVendor\EightshiftLibs\Helpers\Components;
+use ProjectVendor\EightshiftLibs\Helpers\Helpers;
 
-$manifest = Components::getManifest(__DIR__);
+$manifest = Helpers::getManifest(__DIR__);
 $componentName = $attributes['componentName'] ?? $manifest['componentName'];
 
-$mainTitle = Components::checkAttr('title', $attributes, $manifest, $componentName);
-$nonceField = Components::checkAttr('nonceField', $attributes, $manifest, $componentName);
+$mainTitle = Helpers::checkAttr('title', $attributes, $manifest, $componentName);
+$nonceField = Helpers::checkAttr('nonceField', $attributes, $manifest, $componentName);
 
-$classname = Components::classnames([
+$classname = Helpers::classnames([
 	'some-class',
 	'other-class-name'
 ]);
 
-echo Components::classnames([ // phpcs:ignore
+echo Helpers::classnames([ // phpcs:ignore
 	'some-class',
 	'other-class-name'
 ]);
@@ -30,11 +30,11 @@ echo Components::classnames([ // phpcs:ignore
 <div class="wrap bulk-email js-bulk-mail-send">
 	<div class="bulk-email__wrapper">
 		<?php
-		echo Components::render('heading', [ // phpcs:ignore
+		echo Helpers::render('heading', [ // phpcs:ignore
 			'headingLevel' => 1,
 			'headingContent' => $mainTitle
 		]),
-		Components::render('paragraph', [ // phpcs:ignore
+		Helpers::render('paragraph', [ // phpcs:ignore
 			'paragraphContent' => \esc_html__(
 				'Use the form below to send the bulk emails to conference attendees.',
 				'project'
