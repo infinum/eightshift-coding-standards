@@ -1,23 +1,23 @@
 <?php
 
-use ProjectVendor\EightshiftLibs\Helpers\Components;
+use ProjectVendor\EightshiftLibs\Helpers\Helpers;
 
-echo Components::render( // OK (imported method)
+echo Helpers::render( // OK (imported method)
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo ProjectVendor\EightshiftLibs\Helpers\Components::render( // OK (FQCN)
+echo ProjectVendor\EightshiftLibs\Helpers\Helpers::render( // OK (FQCN)
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo Components::outputCssVariables($attributes, $manifest, $unique, $globalManifest); // OK (import)
+echo Helpers::outputCssVariables($attributes, $manifest, $unique, $globalManifest); // OK (import)
 
-echo \Components::outputCssVariables($attributes, $manifest, $unique, $globalManifest); // Bad (global namespaced class)
+echo \Helpers::outputCssVariables($attributes, $manifest, $unique, $globalManifest); // Bad (global namespaced class)
 
-echo Components::getManifest($attributes, $manifest, $unique, $globalManifest); // Bad (Not on the safe method list)
+echo Helpers::getManifest($attributes, $manifest, $unique, $globalManifest); // Bad (Not on the safe method list)

@@ -10,6 +10,11 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [3.0.0](https://github.com/infinum/eightshift-coding-standards/compare/2.0.0...3.0.0)
+
+### Changed
+- Components helpers in the new eightshift-libs@8.0.0 is deprecated and removed. Instead `Helpers` is used. The `Eightshift.Security.ComponentsEscape` sniff is updated and renamed to `Eightshift.Security.HelpersEscape` to reflect this change.
+
 ## [2.0.0](https://github.com/infinum/eightshift-coding-standards/compare/1.6.0...2.0.0) - 2023-09-XX
 
 ### Added

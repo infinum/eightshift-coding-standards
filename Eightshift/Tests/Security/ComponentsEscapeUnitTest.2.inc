@@ -1,26 +1,26 @@
 <?php
 
-echo Components::render( // Bad. Not the lib's helper, no import.
+echo Helpers::render( // Bad. Not the lib's helper, no import.
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo MyClass\Components::render( // Bad. Not the lib's helper.
+echo MyClass\Helpers::render( // Bad. Not the lib's helper.
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo Components::props('accordion', $attributes, [ // Bad. Not safe method.
+echo Helpers::props('accordion', $attributes, [ // Bad. Not safe method.
 	'accordionContent' => $innerBlockContent
 ]);
 
-echo ProjectVendor\EightshiftLibs\Helpers\Components::render( // OK (FQCN)
+echo ProjectVendor\EightshiftLibs\Helpers\Helpers::render( // OK (FQCN)
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );

@@ -2,21 +2,21 @@
 
 use ProjectVendor\EightshiftLibs\Helpers;
 
-echo Helpers\Components::render( // OK (imported method, even though not correctly, it's still valid)
+echo Helpers\Helpers::render( // OK (imported method, even though not correctly, it's still valid)
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo Components::render( // Bad (Not correctly imported)
+echo Helpers::render( // Bad (Not correctly imported)
 	'accordion',
-	Components::props('accordion', $attributes, [
+	Helpers::props('accordion', $attributes, [
 		'accordionContent' => $innerBlockContent
 	])
 );
 
-echo (new Components())->render( // Bad
+echo (new Helpers())->render( // Bad
 	'accordion',
 	[]
 );

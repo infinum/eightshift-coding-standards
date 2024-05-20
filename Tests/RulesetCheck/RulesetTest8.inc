@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Helpers for components
+ * Helpers for helpers
  *
  * @package EightshiftLibs\Helpers
  */
@@ -14,12 +14,12 @@ use EightshiftLibs\Exception\ComponentException;
 use Exception;
 
 /**
- * Helpers for components
+ * Helpers for helpers
  */
-class Components
+class Helpers
 {
 	/**
-	 * Makes sure the output is string. Useful for converting an array of components into a string.
+	 * Makes sure the output is string. Useful for converting an array of helpers into a string.
 	 * If you pass an associative array it will output strings with keys,
 	 * used for generating data-attributes from array.
 	 *
@@ -64,7 +64,7 @@ class Components
 	}
 
 	/**
-	 * Renders a components and (optionally) passes some attributes to it.
+	 * Renders a helpers and (optionally) passes some attributes to it.
 	 *
 	 * Note about "parentClass" attribute: If provided, the component will be wrapped with a
 	 * parent BEM selector. For example, if $attributes['parentClass'] === 'header' and $component === 'logo'
@@ -187,7 +187,7 @@ class Components
 	 * Create responsive selectors used for responsive attributes.
 	 *
 	 * Example:
-	 * Components::responsiveSelectors($attributes['width'], 'width', $block_class);
+	 * Helpers::responsiveSelectors($attributes['width'], 'width', $block_class);
 	 *
 	 * Output:
 	 * block-column__width-large--4
