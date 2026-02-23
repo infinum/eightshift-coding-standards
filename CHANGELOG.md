@@ -16,6 +16,7 @@ _No documentation available about unreleased changes yet._
 - Updated dependencies. PHPUnit had a security vulnerability that needed to be addressed. More recent versions of PHPUnit (v10+) introduced breaking changes that would require a major version bump. Priority of this release was to fix the security vulnerability.
 - Added exclude to deprecated ruleset since WordPressCS v3.3.0. Covered by PHPCompatibilityWP.
 - Renamed tests.
+- CI updates.
 
 ## [3.0.0](https://github.com/infinum/eightshift-coding-standards/compare/2.0.0...3.0.0)
 
@@ -186,9 +187,7 @@ We renamed the package from `infinum/coding-standards-wp` to `infinum/eightshift
 
 ### Official release of the Eightshift coding standards for WordPress projects
 
-This is the official release of the Eightshift coding standards for WordPress. It contains breaking changes, mostly in
- regard
- of the naming scheme.
+This is the official release of the Eightshift coding standards for WordPress. It contains breaking changes, mostly in regard of the naming scheme.
 To equate the way we write our PHP and JS we opted to follow a modified PSR standards.
 What this means is that we will remove liberal spacing, add some PSR12 modifications regarding arguments placing in closures, change snake_case with CamelCase for classes (for autoload puropses) and some other minor changes that will be documented below.
 If you wish to use the old standards, be sure to modify your projects `composer.json` file with the appropriate version.

@@ -26,7 +26,7 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: "8.4"
           coverage: none
 
       - name: "Checkout code"
@@ -47,7 +47,7 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: "8.4"
           coverage: none
 
       - name: "Install xmllint"
@@ -97,7 +97,7 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: "8.4"
           coverage: none
 
       - name: "Checkout code"
@@ -119,7 +119,7 @@ jobs:
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        php: [ '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
 
     steps:
       - name: "Set up PHP"
@@ -139,6 +139,7 @@ jobs:
       - name: "Install Composer dependencies"
         uses: ramsey/composer-install@v2
         with:
+          composer-options: --ignore-platform-req=php+
           custom-cache-suffix: $(date -u "+%Y-%m")
 
       - name: Lint against parse errors
@@ -155,7 +156,7 @@ jobs:
       - name: "Set up PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: "8.4"
           coverage: none
           tools: phpstan
 
@@ -171,43 +172,22 @@ jobs:
         run: phpstan analyse
 
   tests:
-    name: "PHP ${{ matrix.php }} with PHPCS ${{ matrix.phpcs_branch }}/WordPressCS ${{ matrix.wpcs_branch }}"
+    name: "Tests: PHP ${{ matrix.php }}"
     needs:
       - "composer_validate"
       - "ruleset_validate"
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.allowed_failure }}
     strategy:
       fail-fast: false
       matrix:
-        php: [ '7.4', '8.0', '8.1', '8.2' ]
-        phpcs_branch: [ 'lowest', 'dev-master' ]
-        wpcs_branch: [ '3.0.0', 'dev-develop' ]
-        allowed_failure: [ false ]
-        exclude:
-          # Only run low WordPressCS in combination with low PHPCS and high WordPressCS with high PHPCS.
-          - phpcs_branch: '3.7.2'
-            wpcs_branch: '3.0.0'
-          - phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-develop'
-        # Allow failure on non-released version of PHP.
-        include:
-          - php: '8.3'
-            phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-develop'
-            allowed_failure: true
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
 
     steps:
       # On stable PHPCS versions, allow for PHP deprecation notices.
       # Unit tests don't need to fail on those for stable releases where those issues won't get fixed anymore.
       - name: "Setup ini config"
         id: set_ini
-        run: |
-          if [ "${{ matrix.phpcs_branch }}" != "dev-master" ]; then
-            echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
-          else
-            echo 'PHP_INI=error_reporting=-1, display_errors=On' >> $GITHUB_OUTPUT
-          fi
+        run: echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
 
       # Setup PHP versions, run checks
       - name: "Setup PHP"
@@ -220,11 +200,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
 
-      - name: "Set the minimum stability requirement for develop branch of WordPressCS"
-        if: ${{ matrix.wpcs_branch == 'dev-develop' }}
-        run: composer config minimum-stability dev
-
-      - name: "Install Composer dependencies (PHP < 8.0 )"
+      - name: "Install Composer dependencies (PHP < 8.0)"
         if: ${{ matrix.php < 8.0 }}
         uses: ramsey/composer-install@v2
         with:
@@ -237,17 +213,6 @@ jobs:
           composer-options: --ignore-platform-req=php+
           custom-cache-suffix: $(date -u "+%Y-%m")
 
-      - name: "Set the required PHPCS and WordPressCS versions"
-        if: ${{ matrix.phpcs_branch != 'lowest' }}
-        env:
-          PHPCS_BRANCH: ${{ matrix.phpcs_branch }}
-          WPCS_BRANCH: ${{ matrix.wpcs_branch }}
-        run: composer require squizlabs/php_codesniffer:${PHPCS_BRANCH} wp-coding-standards/wpcs:${WPCS_BRANCH} --no-update --no-scripts --no-interaction
-
-      - name: "Set PHPCS version (lowest)"
-        if: ${{ matrix.phpcs_version == 'lowest' }}
-        run: composer update squizlabs/php_codesniffer --prefer-lowest --ignore-platform-req=php+ --no-scripts --no-interaction
-
       - name: "Test the Eightshift ruleset"
         run: composer tests:checkcs
 
@@ -255,7 +220,6 @@ jobs:
       # This is not an exhaustive test, but should give an early indication for typical fixer conflicts.
       # If only fixable errors are found, the exit code will be 1, which can be interpreted as success.
       - name: "Test for fixer conflicts (fixes expected)"
-        if: ${{ matrix.phpcs_branch == 'dev-master' }}
         continue-on-error: true
         run: |
           $(pwd)/vendor/bin/phpcbf -pq ./Eightshift/Tests/ --standard=Eightshift --extensions=inc --exclude=Generic.PHP.Syntax --report=summary
