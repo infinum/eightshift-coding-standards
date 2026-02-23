@@ -147,6 +147,8 @@
 	<!-- PHP sniffs are useful. Except Yoda conditions -->
 	<rule ref="WordPress.PHP">
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+		<!-- Deprecated since WordPressCS v3.3.0. Covered by PHPCompatibilityWP. -->
+		<exclude name="WordPress.PHP.POSIXFunctions"/>
 	</rule>
 
 	<!-- Exclude the WP escape output sniff, because we are overloading it. -->

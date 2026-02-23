@@ -16,6 +16,8 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
+use PHP_CodeSniffer\Util\Standards;
+
 if (!defined('PHP_CODESNIFFER_IN_TESTS')) {
 	define('PHP_CODESNIFFER_IN_TESTS', true);
 }
@@ -148,7 +150,7 @@ $eightshiftStandards = [
 	'Eightshift' => true,
 ];
 
-$allStandards = PHP_CodeSniffer\Util\Standards::getInstalledStandards();
+$allStandards = Standards::getInstalledStandards();
 $allStandards[] = 'Generic';
 
 $standardsToIgnore = [];

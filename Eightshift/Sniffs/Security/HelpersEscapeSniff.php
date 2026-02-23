@@ -111,8 +111,17 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 				}
 			}
 
-			// Check for Helpers string token.
-			$helpersClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Helpers');
+			// Check for Helpers string token that is followed by the double colon (static method call).
+			// We need the class name "Helpers", not a namespace segment "Helpers".
+			$helpersClassNamePtr = false;
+			$searchPtr = $stackPtr;
+
+			while (($searchPtr = $phpcsFile->findNext(\T_STRING, ($searchPtr + 1), null, false, 'Helpers')) !== false) {
+				if (isset($tokens[$searchPtr + 1]) && $tokens[$searchPtr + 1]['code'] === \T_DOUBLE_COLON) {
+					$helpersClassNamePtr = $searchPtr;
+					break;
+				}
+			}
 
 			if (!$helpersClassNamePtr) {
 				// If there is no Helpers down the line, just run the regular sniff.
@@ -180,7 +189,10 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 					$checkedClassName = \explode('\\', $className);
 					$firstNamespacePart = $checkedClassName[0];
 
-					if ($lastNamespacePart === $firstNamespacePart) {
+					// For partial imports, the className must contain multiple parts (e.g. Helpers\Helpers::method())
+					// A single-part className like Helpers::method() with a partial import to the namespace
+					// would resolve to the namespace, not the class.
+					if ($lastNamespacePart === $firstNamespacePart && \count($checkedClassName) > 1) {
 						// Correctly used class name.
 						$methodNamePtr = $phpcsFile->findNext(
 							\T_STRING,
