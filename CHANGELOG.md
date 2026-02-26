@@ -10,6 +10,11 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [3.0.1](https://github.com/infinum/eightshift-coding-standards/compare/3.0.0...3.0.1)
+
+### Changed
+- updated PHPUnit to resolve the vulnerability issue with the package.
+
 ## [3.0.0](https://github.com/infinum/eightshift-coding-standards/compare/2.0.0...3.0.0)
 
 ### Changed
@@ -60,7 +65,7 @@ _No documentation available about unreleased changes yet._
 - Add ignoreComments property for the line length sniff
 
 ### Fixed
-- Fixed the edge case with overwriting libs classes. 
+- Fixed the edge case with overwriting libs classes.
 
 ### Changed
 - Code cleanup in EightShift ComponentsEscape sniff
@@ -76,14 +81,14 @@ _No documentation available about unreleased changes yet._
 
 ### Fixed
 - Fixed `Eightshift.Security.ComponentsEscape` sniff
-  - There was a case where the next string token caused issue because there was no guard clause 
+  - There was a case where the next string token caused issue because there was no guard clause
     to check if the string is actually a Components class or not.
 
 
 ## [1.4.0](https://github.com/infinum/eightshift-coding-standards/compare/1.3.0...1.4.0) - 2022-03-09
 
 ### Added
-- EightShift ruleset: add rules for use statements 
+- EightShift ruleset: add rules for use statements
   - Adds a new dependency on the Slevomat Coding Standard library.
   - Adds four sniffs from this coding standard to the ruleset:
       1. Forbidding unused `use` statements.
@@ -91,7 +96,7 @@ _No documentation available about unreleased changes yet._
       3. Enforcing import `use` statements for everything else.
   - Includes fixing up the EightShift coding standards code base for these new rules.
   - Ref: https://github.com/slevomat/coding-standard
-- Add new EightShift FunctionComment sniff 
+- Add new EightShift FunctionComment sniff
   - This sniff overloads the `Squiz.Commenting.FunctionComment` sniff which normally comes included via the `WordPress-Docs` ruleset and makes an allowance for the `__invoke` method in the CLI classes.
   - Includes:
     - Unit tests.
@@ -157,7 +162,7 @@ A huge thanks to Juliette Reinders Folmer (@jrfnl) for amazing help in fixing to
 
 ### Changed
 - Updated sniffs namespace
-  
+
 ### Fixed
 - Fix docblocks in the sniffs
 
@@ -179,9 +184,7 @@ We renamed the package from `infinum/coding-standards-wp` to `infinum/eightshift
 
 ### Official release of the Eightshift coding standards for WordPress projects
 
-This is the official release of the Eightshift coding standards for WordPress. It contains breaking changes, mostly in
- regard
- of the naming scheme. 
+This is the official release of the Eightshift coding standards for WordPress. It contains breaking changes, mostly in regard of the naming scheme.
 To equate the way we write our PHP and JS we opted to follow a modified PSR standards.
 What this means is that we will remove liberal spacing, add some PSR12 modifications regarding arguments placing in closures, change snake_case with CamelCase for classes (for autoload puropses) and some other minor changes that will be documented below.
 If you wish to use the old standards, be sure to modify your projects `composer.json` file with the appropriate version.
