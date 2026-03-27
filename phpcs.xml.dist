@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Eightshift Coding Standards for WordPress"
-		 xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+		 xsi:noNamespaceSchemaLocation="https://schema.phpcodesniffer.com/phpcs.xsd">
 
 	<description>The coding standards used when writing Eightshift Coding Standards itself</description>
 
