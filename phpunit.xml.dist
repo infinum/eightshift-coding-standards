@@ -10,7 +10,7 @@
 
   <testsuites>
     <testsuite name="Eightshift">
-      <directory suffix="UnitTest.php">./Eightshift/Tests/</directory>
+      <file>vendor/squizlabs/php_codesniffer/tests/Standards/AllSniffs.php</file>
     </testsuite>
   </testsuites>
 </phpunit>
