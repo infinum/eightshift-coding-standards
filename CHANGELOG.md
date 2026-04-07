@@ -17,6 +17,7 @@ _No documentation available about unreleased changes yet._
 
 ### Fixed
 - PHPUnit test suite bootstrap — changed `phpunit.xml.dist` to use `AllSniffs.php` as entry point so `PHP_CODESNIFFER_STANDARD_DIRS` globals are properly populated.
+- Renamed `ComponentsEscapeUnitTest` files to `HelpersEscapeUnitTest` to match the `HelpersEscapeSniff` name and satisfy sniff feature completeness checks.
 
 ## [3.0.1](https://github.com/infinum/eightshift-coding-standards/compare/3.0.0...3.0.1)
 
