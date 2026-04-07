@@ -65,6 +65,9 @@
 		<exclude name="Eightshift.Commenting.FunctionComment.SpacingAfterParamType"/>
 	</rule>
 
+	<!-- Disallow alternative control structure syntax (endif, endforeach, etc.). Use curly braces. -->
+	<rule ref="Eightshift.ControlStructures.DisallowAlternativeSyntax"/>
+
 	<!-- Use tabs, not spaces. -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 

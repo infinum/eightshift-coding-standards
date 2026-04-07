@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<documentation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpcsstandards.github.io/PHPCSDevTools/phpcsdocs.xsd"
+    title="Disallow Alternative Control Structure Syntax">
+    <standard>
+    <![CDATA[
+      Alternative control structure syntax (endif, endforeach, endfor, endwhile, endswitch)
+      is not allowed. Use curly braces for all control structures.
+    ]]>
+    </standard>
+    <code_comparison>
+        <code title="Valid: Using curly braces for foreach">
+        <![CDATA[
+foreach ( $items as $item ) {
+    echo $item;
+}
+        ]]>
+        </code>
+        <code title="Invalid: Using alternative syntax for foreach">
+        <![CDATA[
+foreach ( $items as $item ) :
+    echo $item;
+endforeach;
+        ]]>
+        </code>
+    </code_comparison>
+    <code_comparison>
+        <code title="Valid: Using curly braces for if/else">
+        <![CDATA[
+if ( $condition ) {
+    echo 'yes';
+} else {
+    echo 'no';
+}
+        ]]>
+        </code>
+        <code title="Invalid: Using alternative syntax for if/else">
+        <![CDATA[
+if ( $condition ) :
+    echo 'yes';
+else :
+    echo 'no';
+endif;
+        ]]>
+        </code>
+    </code_comparison>
+</documentation>
