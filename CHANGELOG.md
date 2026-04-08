@@ -10,6 +10,19 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [3.1.0](https://github.com/infinum/eightshift-coding-standards/compare/3.0.1...3.1.0)
+
+### Added
+- Enabled `Universal.ControlStructures.DisallowAlternativeSyntax` from PHPCSExtra (already a transitive dependency via WPCS) to enforce curly braces for all control structures; disallows `endif`, `endforeach`, `endfor`, `endwhile`, and `endswitch`. `allowWithInlineHTML` is set to `false` to disallow alternative syntax even when inline HTML is present. Includes auto-fixer support.
+
+### Changed
+- Updated PHP_CodeSniffer repository link in README from `squizlabs/PHP_CodeSniffer` to `PHPCSStandards/PHP_CodeSniffer`.
+- Updated `xsi:noNamespaceSchemaLocation` schema URL in `Eightshift/ruleset.xml`, `phpcs.xml.dist`, and `phpcs.xml.dist.sample` to use the canonical `https://schema.phpcodesniffer.com/phpcs.xsd` permalink.
+
+### Fixed
+- PHPUnit test suite bootstrap — changed `phpunit.xml.dist` to use `AllSniffs.php` as entry point so `PHP_CODESNIFFER_STANDARD_DIRS` globals are properly populated.
+- Renamed `ComponentsEscapeUnitTest` files to `HelpersEscapeUnitTest` to match the `HelpersEscapeSniff` name and satisfy sniff feature completeness checks.
+
 ## [3.0.1](https://github.com/infinum/eightshift-coding-standards/compare/3.0.0...3.0.1)
 
 ### Changed

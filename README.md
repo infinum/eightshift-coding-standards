@@ -14,7 +14,7 @@
 # Eightshift Coding Standards for WordPress
 
 This package contains [Eightshift Coding Standards for WordPress](https://handbook.infinum.co/books/wordpress) for
- [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/). The intention of this package is to have a unified
+ [PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/). The intention of this package is to have a unified
   code across the WordPress projects we do at Eightshift, and to help with the code review.
 
 ## Installation

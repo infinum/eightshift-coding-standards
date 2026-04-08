@@ -15,7 +15,7 @@ namespace EightshiftCS\Eightshift\Tests\Security;
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 
 /**
- * Unit test class for the FunctionCommentUnitTest sniff.
+ * Unit test class for the HelpersEscape sniff.
  *
  * @covers \EightshiftCS\Eightshift\Sniffs\Security\HelpersEscapeSniff
  *
