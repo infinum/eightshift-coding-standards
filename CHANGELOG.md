@@ -13,7 +13,7 @@ _No documentation available about unreleased changes yet._
 ## [3.1.0](https://github.com/infinum/eightshift-coding-standards/compare/3.0.1...3.1.0)
 
 ### Added
-- `Eightshift.ControlStructures.DisallowAlternativeSyntax` sniff — enforces curly braces for all control structures; disallows `endif`, `endforeach`, `endfor`, `endwhile`, and `endswitch`.
+- Enabled `Universal.ControlStructures.DisallowAlternativeSyntax` from PHPCSExtra (already a transitive dependency via WPCS) to enforce curly braces for all control structures; disallows `endif`, `endforeach`, `endfor`, `endwhile`, and `endswitch`. `allowWithInlineHTML` is set to `false` to disallow alternative syntax even when inline HTML is present. Includes auto-fixer support.
 
 ### Changed
 - Updated PHP_CodeSniffer repository link in README from `squizlabs/PHP_CodeSniffer` to `PHPCSStandards/PHP_CodeSniffer`.

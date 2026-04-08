@@ -65,8 +65,14 @@
 		<exclude name="Eightshift.Commenting.FunctionComment.SpacingAfterParamType"/>
 	</rule>
 
-	<!-- Disallow alternative control structure syntax (endif, endforeach, etc.). Use curly braces. -->
-	<rule ref="Eightshift.ControlStructures.DisallowAlternativeSyntax"/>
+	<!-- Disallow alternative control structure syntax (endif, endforeach, etc.). Use curly braces.
+		 allowWithInlineHTML=false: disallow even when inline HTML is present between the control structure tags.
+		 This sniff is provided by PHPCSExtra, which is already a transitive dependency via WPCS. -->
+	<rule ref="Universal.ControlStructures.DisallowAlternativeSyntax">
+		<properties>
+			<property name="allowWithInlineHTML" value="false"/>
+		</properties>
+	</rule>
 
 	<!-- Use tabs, not spaces. -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
