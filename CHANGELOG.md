@@ -10,6 +10,15 @@ The semantic versioning started from version 0.2.1.
 
 _No documentation available about unreleased changes yet._
 
+## [3.1.0](https://github.com/infinum/eightshift-coding-standards/compare/3.0.1...3.1.0)
+
+### Added
+- `Eightshift.ControlStructures.DisallowAlternativeSyntax` sniff — enforces curly braces for all control structures; disallows `endif`, `endforeach`, `endfor`, `endwhile`, and `endswitch`.
+
+### Fixed
+- PHPUnit test suite bootstrap — changed `phpunit.xml.dist` to use `AllSniffs.php` as entry point so `PHP_CODESNIFFER_STANDARD_DIRS` globals are properly populated.
+- Renamed `ComponentsEscapeUnitTest` files to `HelpersEscapeUnitTest` to match the `HelpersEscapeSniff` name and satisfy sniff feature completeness checks.
+
 ## [3.0.1](https://github.com/infinum/eightshift-coding-standards/compare/3.0.0...3.0.1)
 
 ### Changed
