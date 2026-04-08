@@ -15,6 +15,10 @@ _No documentation available about unreleased changes yet._
 ### Added
 - `Eightshift.ControlStructures.DisallowAlternativeSyntax` sniff — enforces curly braces for all control structures; disallows `endif`, `endforeach`, `endfor`, `endwhile`, and `endswitch`.
 
+### Changed
+- Updated PHP_CodeSniffer repository link in README from `squizlabs/PHP_CodeSniffer` to `PHPCSStandards/PHP_CodeSniffer`.
+- Updated `xsi:noNamespaceSchemaLocation` schema URL in `Eightshift/ruleset.xml`, `phpcs.xml.dist`, and `phpcs.xml.dist.sample` to use the canonical `https://schema.phpcodesniffer.com/phpcs.xsd` permalink.
+
 ### Fixed
 - PHPUnit test suite bootstrap — changed `phpunit.xml.dist` to use `AllSniffs.php` as entry point so `PHP_CODESNIFFER_STANDARD_DIRS` globals are properly populated.
 - Renamed `ComponentsEscapeUnitTest` files to `HelpersEscapeUnitTest` to match the `HelpersEscapeSniff` name and satisfy sniff feature completeness checks.
