@@ -41,7 +41,7 @@ jobs:
     runs-on: "ubuntu-latest"
 
     env:
-      XMLLINT_INDENT: '	'
+      XMLLINT_INDENT: "	"
 
     steps:
       - name: "Setup PHP"
@@ -68,7 +68,7 @@ jobs:
       # @link https://github.com/marketplace/actions/xmllint-problem-matcher
       - uses: korelstar/xmllint-problem-matcher@v1
 
-       # Validate the Ruleset XML files.
+        # Validate the Ruleset XML files.
       # @link http://xmlsoft.org/xmllint.html
       - name: "Validate the WordPress rulesets"
         run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
@@ -84,7 +84,6 @@ jobs:
         run: |
           diff -B --tabsize=4 ./Eightshift/ruleset.xml <(xmllint --format "./Eightshift/ruleset.xml")
           diff -B --tabsize=4 ./phpcs.xml.dist.sample <(xmllint --format "./phpcs.xml.dist.sample")
-
 
   feature_completeness:
     name: "Check sniff feature completeness"
@@ -119,7 +118,7 @@ jobs:
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        php: [ '7.4', '8.0', '8.1', '8.2' ]
+        php: ["8.2", "8.3", "8.4"]
 
     steps:
       - name: "Set up PHP"
@@ -155,7 +154,7 @@ jobs:
       - name: "Set up PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "7.4"
+          php-version: "8.2"
           coverage: none
           tools: phpstan
 
@@ -180,22 +179,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [ '7.4', '8.0', '8.1', '8.2' ]
-        phpcs_branch: [ 'lowest', 'dev-master' ]
-        wpcs_branch: [ '3.0.0', 'dev-develop' ]
-        allowed_failure: [ false ]
+        php: ["8.2", "8.3", "8.4"]
+        phpcs_branch: ["lowest", "dev-master"]
+        wpcs_branch: ["3.0.0", "dev-develop"]
+        allowed_failure: [false]
         exclude:
           # Only run low WordPressCS in combination with low PHPCS and high WordPressCS with high PHPCS.
-          - phpcs_branch: '3.7.2'
-            wpcs_branch: '3.0.0'
-          - phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-develop'
-        # Allow failure on non-released version of PHP.
-        include:
-          - php: '8.3'
-            phpcs_branch: 'dev-master'
-            wpcs_branch: 'dev-develop'
-            allowed_failure: true
+          - phpcs_branch: "lowest"
+            wpcs_branch: "dev-develop"
+          - phpcs_branch: "dev-master"
+            wpcs_branch: "3.0.0"
 
     steps:
       # On stable PHPCS versions, allow for PHP deprecation notices.
@@ -224,14 +217,7 @@ jobs:
         if: ${{ matrix.wpcs_branch == 'dev-develop' }}
         run: composer config minimum-stability dev
 
-      - name: "Install Composer dependencies (PHP < 8.0 )"
-        if: ${{ matrix.php < 8.0 }}
-        uses: ramsey/composer-install@v2
-        with:
-          custom-cache-suffix: $(date -u "+%Y-%m")
-
-      - name: "Install Composer dependencies (PHP >= 8.0)"
-        if: ${{ matrix.php >= 8.0 }}
+      - name: "Install Composer dependencies"
         uses: ramsey/composer-install@v2
         with:
           composer-options: --ignore-platform-req=php+
@@ -261,10 +247,5 @@ jobs:
           $(pwd)/vendor/bin/phpcbf -pq ./Eightshift/Tests/ --standard=Eightshift --extensions=inc --exclude=Generic.PHP.Syntax --report=summary
           if [ $? -eq 1 ]; then exit 0; fi
 
-      - name: "Run the unit tests - PHP 7.4 - 8.0"
-        if: ${{ matrix.php < '8.1' }}
+      - name: "Run the unit tests"
         run: composer tests:run
-
-      - name: "Run the unit tests - PHP >= 8.1"
-        if: ${{ matrix.php >= '8.1' }}
-        run: composer tests:run -- --no-configuration --bootstrap=./Tests/bootstrap.php --dont-report-useless-tests

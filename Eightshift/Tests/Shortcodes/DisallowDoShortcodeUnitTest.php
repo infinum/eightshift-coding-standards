@@ -12,17 +12,17 @@
 
 namespace EightshiftCS\Eightshift\Tests\Shortcodes;
 
-use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+use EightshiftCS\Eightshift\Tests\AbstractEightshiftSniffUnitTest;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 
 /**
  * Unit test class for the DisallowDoShortcode sniff.
  *
- * @covers \EightshiftCS\Eightshift\Sniffs\Shortcodes\DisallowDoShortcodeSniff
- *
  * @since 1.0.0 Improve on the test warning list.
  * @since 0.4.0
  */
-class DisallowDoShortcodeUnitTest extends AbstractSniffUnitTest
+#[DoesNotPerformAssertions]
+class DisallowDoShortcodeUnitTest extends AbstractEightshiftSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.

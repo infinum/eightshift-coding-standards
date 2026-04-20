@@ -12,16 +12,16 @@
 
 namespace EightshiftCS\Eightshift\Tests\Commenting;
 
-use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+use EightshiftCS\Eightshift\Tests\AbstractEightshiftSniffUnitTest;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 
 /**
  * Unit test class for the FunctionCommentUnitTest sniff.
  *
- * @covers \EightshiftCS\Eightshift\Sniffs\Commenting\FunctionCommentSniff
- *
  * @since 1.4.0
  */
-class FunctionCommentUnitTest extends AbstractSniffUnitTest
+#[DoesNotPerformAssertions]
+class FunctionCommentUnitTest extends AbstractEightshiftSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.

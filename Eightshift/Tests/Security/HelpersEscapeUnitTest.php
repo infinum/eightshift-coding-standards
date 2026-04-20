@@ -12,16 +12,16 @@
 
 namespace EightshiftCS\Eightshift\Tests\Security;
 
-use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+use EightshiftCS\Eightshift\Tests\AbstractEightshiftSniffUnitTest;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 
 /**
  * Unit test class for the HelpersEscape sniff.
  *
- * @covers \EightshiftCS\Eightshift\Sniffs\Security\HelpersEscapeSniff
- *
  * @since 1.4.0 Added $testFile parameter.
  */
-class HelpersEscapeUnitTest extends AbstractSniffUnitTest
+#[DoesNotPerformAssertions]
+class HelpersEscapeUnitTest extends AbstractEightshiftSniffUnitTest
 {
 	/**
 	 * Returns the lines where errors should occur.

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
-  backupGlobals="true"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.5/phpunit.xsd"
   bootstrap="./Tests/bootstrap.php"
-  beStrictAboutTestsThatDoNotTestAnything="false"
-  colors="true"
-  forceCoversAnnotation="true">
+  colors="true">
 
   <testsuites>
     <testsuite name="Eightshift">
-      <file>vendor/squizlabs/php_codesniffer/tests/Standards/AllSniffs.php</file>
+      <directory suffix="UnitTest.php">./Eightshift/Tests/</directory>
+      <exclude>./Eightshift/Tests/AbstractEightshiftSniffUnitTest.php</exclude>
     </testsuite>
   </testsuites>
 </phpunit>

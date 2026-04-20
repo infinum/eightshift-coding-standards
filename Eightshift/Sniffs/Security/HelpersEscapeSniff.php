@@ -111,19 +111,27 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 				}
 			}
 
-			// Check for Helpers string token.
-			$helpersClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Helpers');
-
-			if (!$helpersClassNamePtr) {
-				// If there is no Helpers down the line, just run the regular sniff.
-				return parent::process_token($stackPtr);
+			// Find the Helpers string token immediately before ::. FQCNs like
+			// ProjectVendor\EightshiftLibs\Helpers\Helpers:: contain multiple
+			// "Helpers" strings; we need the last one (the class name, not a
+			// namespace segment), so loop until we find one followed by T_DOUBLE_COLON.
+			$helpersClassNamePtr = false;
+			$searchFrom = ($stackPtr + 1);
+			while (true) {
+				$ptr = $phpcsFile->findNext(\T_STRING, $searchFrom, null, false, 'Helpers');
+				if ($ptr === false) {
+					break;
+				}
+				if ($tokens[$ptr + 1]['code'] === \T_DOUBLE_COLON) {
+					$helpersClassNamePtr = $ptr;
+					break;
+				}
+				$searchFrom = ($ptr + 1);
 			}
 
-			// Check if the next token is double colon. We are interested in static methods.
-			if ($tokens[$helpersClassNamePtr + 1]['code'] !== \T_DOUBLE_COLON) {
-				$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($helpersClassNamePtr - 1), null, false, null, true);
-
-				return parent::process_token($echoPtr);
+			if ($helpersClassNamePtr === false) {
+				// No Helpers:: call found; run the regular sniff.
+				return parent::process_token($stackPtr);
 			}
 
 			// If it is, check, if the class is imported or fully qualified.
@@ -180,8 +188,8 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 					$checkedClassName = \explode('\\', $className);
 					$firstNamespacePart = $checkedClassName[0];
 
-					if ($lastNamespacePart === $firstNamespacePart) {
-						// Correctly used class name.
+					if ($lastNamespacePart === $firstNamespacePart && \count($checkedClassName) > 1) {
+						// Correctly used class name (e.g. Helpers\Helpers with import of EightshiftLibs\Helpers).
 						$methodNamePtr = $phpcsFile->findNext(
 							\T_STRING,
 							($helpersClassNamePtr + 1),

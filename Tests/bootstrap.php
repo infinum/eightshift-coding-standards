@@ -16,6 +16,9 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
+use PHP_CodeSniffer\Util\Standards;
+use PHP_CodeSniffer\Autoload;
+
 if (!defined('PHP_CODESNIFFER_IN_TESTS')) {
 	define('PHP_CODESNIFFER_IN_TESTS', true);
 }
@@ -47,7 +50,52 @@ if (
 	&& file_exists($phpcsDir . $ds . 'tests' . $ds . 'bootstrap.php')
 ) {
 	require_once $phpcsDir . $ds . 'autoload.php';
-	require_once $phpcsDir . $ds . 'tests' . $ds . 'bootstrap.php'; // PHPUnit 6.x+ support.
+	require_once $phpcsDir . $ds . 'tests' . $ds . 'bootstrap.php';
+
+	// Initialize globals required by AbstractSniffUnitTest (previously set by AllSniffs.php).
+	$GLOBALS['PHP_CODESNIFFER_SNIFF_CODES']      = [];
+	$GLOBALS['PHP_CODESNIFFER_FIXABLE_CODES']    = [];
+	$GLOBALS['PHP_CODESNIFFER_SNIFF_CASE_FILES'] = [];
+	$GLOBALS['PHP_CODESNIFFER_STANDARD_DIRS']    = [];
+	$GLOBALS['PHP_CODESNIFFER_TEST_DIRS']        = [];
+
+	// Register Eightshift test class paths so AbstractSniffUnitTest::setUpPrerequisites()
+	// can resolve $standardsDir and $testsDir. This replicates what AllSniffs::suite() did
+	// without the PHPUnit\TextUI\TestRunner dependency removed in PHPUnit 10.
+	$installedStandards = Standards::getInstalledStandardDetails(true);
+
+	foreach ($installedStandards as $standardDetails) {
+		$standardPath = $standardDetails['path'];
+
+		// Register ALL installed standards for autoloading so cross-standard sniff
+		// dependencies (e.g. Eightshift extending WPCS sniff classes) can resolve.
+		Autoload::addSearchPath($standardPath, $standardDetails['namespace']);
+
+		$standardTestsDir = $standardPath . $ds . 'Tests' . $ds;
+		if (!is_dir($standardTestsDir)) {
+			continue;
+		}
+
+		$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($standardTestsDir));
+		foreach ($iterator as $testFile) {
+			// Only register concrete *UnitTest.php files. Abstract base classes (whose
+			// filenames start with "Abstract") are loaded on demand by the PHPCS autoloader
+			// and must not be passed to PHPUnit or it will emit an "is abstract" warning.
+			$filename = $testFile->getFilename();
+			if (!str_ends_with($filename, 'UnitTest.php') || str_starts_with($filename, 'Abstract')) {
+				continue;
+			}
+			$className = Autoload::loadFile($testFile->getPathname());
+			if ($className !== false) {
+				$GLOBALS['PHP_CODESNIFFER_STANDARD_DIRS'][$className] = $standardPath;
+				$GLOBALS['PHP_CODESNIFFER_TEST_DIRS'][$className]     = $standardTestsDir;
+			}
+		}
+
+		unset($standardPath, $standardTestsDir, $iterator, $testFile, $className);
+	}
+
+	unset($installedStandards, $standardDetails);
 } else {
 	echo 'Uh oh... can\'t find PHPCS.
 
@@ -141,29 +189,5 @@ if (!is_null($cliArgs)) {
 	}
 }
 
-/*
- * Set the PHPCS_IGNORE_TEST environment variable to ignore tests from other standards.
- */
-$eightshiftStandards = [
-	'Eightshift' => true,
-];
-
-$allStandards = PHP_CodeSniffer\Util\Standards::getInstalledStandards();
-$allStandards[] = 'Generic';
-
-$standardsToIgnore = [];
-foreach ($allStandards as $standard) {
-	if (isset($eightshiftStandards[$standard]) === true) {
-		continue;
-	}
-
-	$standardsToIgnore[] = $standard;
-}
-
-$standardsToIgnoreString = implode(',', $standardsToIgnore);
-
-// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv -- This is not production, but test code.
-putenv("PHPCS_IGNORE_TESTS={$standardsToIgnoreString}");
-
 // Clean up.
-unset($ds, $phpcsDir, $composerPHPCSPath, $allStandards, $standardsToIgnore, $standard, $standardsToIgnoreString);
+unset($ds, $phpcsDir, $composerPHPCSPath);
