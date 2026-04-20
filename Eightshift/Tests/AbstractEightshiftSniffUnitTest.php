@@ -19,8 +19,12 @@ use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 
-// testSniff() calls $this->fail() on sniff violations rather than $this->assert*(), so
-// PHPUnit 12 marks passing tests as "risky". This class-level attribute suppresses that.
+/**
+ * Suppresses PHPUnit 12 "risky" marking for tests that pass with zero assertions.
+ *
+ * TestSniff() calls $this->fail() on sniff violations rather than $this->assert*(), so
+ * PHPUnit 12 marks passing tests as risky. This class-level attribute suppresses that.
+ */
 #[DoesNotPerformAssertions]
 abstract class AbstractEightshiftSniffUnitTest extends AbstractSniffUnitTest
 {
