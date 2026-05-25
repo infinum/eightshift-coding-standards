@@ -1,12 +1,12 @@
 includes:
 	- vendor/szepeviktor/phpstan-wordpress/extension.neon
 parameters:
-    level: 6
-    paths:
-        - Eightshift
-    bootstrapFiles:
-        - Tests/bootstrap.php
-    treatPhpDocTypesAsCertain: false
-    ignoreErrors:
-        # Level 0
-        - '#^Result of method \S+ \(void\) is used\.$#'
+	level: 6
+	paths:
+		- Eightshift
+	bootstrapFiles:
+		- Tests/bootstrap.php
+	treatPhpDocTypesAsCertain: false
+	ignoreErrors:
+		# Level 0
+		- '#^Result of method \S+ \(void\) is used\.$#'
