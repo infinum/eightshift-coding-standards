@@ -35,6 +35,7 @@ class HelpersEscapeUnitTest extends AbstractSniffUnitTest
 		switch ($testFile) {
 			case 'HelpersEscapeUnitTest.1.inc':
 				return [
+					12 => 1,
 					21 => 1,
 					23 => 1,
 				];
@@ -42,11 +43,12 @@ class HelpersEscapeUnitTest extends AbstractSniffUnitTest
 				return [
 					3 => 1,
 					10 => 1,
-					17 => 1
+					17 => 1,
+					21 => 1,
 				];
 			case 'HelpersEscapeUnitTest.3.inc':
 				return [
-					12 => 1,
+					5 => 1,
 					19 => 1,
 					24 => 1,
 				];

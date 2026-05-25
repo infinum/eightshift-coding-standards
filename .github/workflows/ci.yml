@@ -175,18 +175,33 @@ jobs:
       - "composer_validate"
       - "ruleset_validate"
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allowed_failure }}
     strategy:
       fail-fast: false
       matrix:
         php: ["8.3", "8.4"]
         phpcs_branch: ["lowest", "dev-master"]
         wpcs_branch: ["3.0.0", "dev-develop"]
+        allowed_failure: [false]
         exclude:
           # Only run low WordPressCS in combination with low PHPCS and high WordPressCS with high PHPCS.
           - phpcs_branch: "lowest"
             wpcs_branch: "dev-develop"
           - phpcs_branch: "dev-master"
             wpcs_branch: "3.0.0"
+          # dev-master + dev-develop is a bleeding-edge canary; promoted via include below with allow-fail.
+          - phpcs_branch: "dev-master"
+            wpcs_branch: "dev-develop"
+        include:
+          # Run upstream dev branches as canaries; failures here don't block CI.
+          - php: "8.3"
+            phpcs_branch: "dev-master"
+            wpcs_branch: "dev-develop"
+            allowed_failure: true
+          - php: "8.4"
+            phpcs_branch: "dev-master"
+            wpcs_branch: "dev-develop"
+            allowed_failure: true
 
     steps:
       # On stable PHPCS versions, allow for PHP deprecation notices.
