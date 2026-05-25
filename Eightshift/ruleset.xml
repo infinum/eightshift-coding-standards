@@ -81,7 +81,7 @@
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
 	</rule>
 
-	<!-- Warn about lines longer than 120 chars, and never error. -->
+	<!-- Warn about lines longer than 300 chars, and never error. -->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
 			<property name="lineLimit" value="300"/>
