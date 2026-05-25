@@ -12,13 +12,10 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Denis Žoljom",
-      "homepage": "https://github.com/dingo-d",
-      "role": "Lead developer"
-    },
-    {
-      "name": "Contributors",
-      "homepage": "https://github.com/infinum/eightshift-coding-standards/graphs/contributors"
+      "name": "Eightshift team",
+      "email": "team@eightshift.com",
+      "homepage": "https://eightshift.com/",
+      "role": "Developer / IT Manager"
     }
   ],
   "require": {
@@ -61,8 +58,13 @@
     "source": "https://github.com/infinum/eightshift-coding-standards"
   },
   "config": {
+    "lock": false,
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "process-timeout": 2000,
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "composer/installers": true
     }
   }
 }
