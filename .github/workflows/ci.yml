@@ -103,14 +103,11 @@ jobs:
     name: "Lint: PHP ${{ matrix.php }}"
     needs: [composer-validate, ruleset-validate]
     runs-on: "ubuntu-latest"
-    strategy:
-      matrix:
-        php: ["8.4"]
     steps:
       - name: "Set up PHP"
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: ${{ matrix.php }}
+          php-version: "8.4"
           coverage: none
           tools: cs2pr, composer:v2
 
@@ -152,7 +149,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ["8.4"]
         allowed_failure: [false]
     steps:
       - name: "Setup ini config"
@@ -163,7 +159,7 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: ${{ matrix.php }}
+          php-version: "8.4"
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
           tools: composer:v2
