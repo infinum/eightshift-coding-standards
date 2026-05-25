@@ -42,7 +42,7 @@ class DisallowDoShortcodeSniff extends Sniff
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array
+	 * @return array<int|string>
 	 */
 	public function register()
 	{
