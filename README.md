@@ -6,7 +6,7 @@
 [![CI checks](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml/badge.svg)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
 
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/infinum/eightshift-coding-standards.svg?maxAge=3600)](https://packagist.org/packages/infinum/eightshift-coding-standards)
-[![Tested on PHP 8.3 to 8.4](https://img.shields.io/badge/tested%20on-%208.3%20|%208.4-green.svg?maxAge=2419200)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
+[![Tested on PHP 8.4](https://img.shields.io/badge/tested%20on-%208.4-green.svg?maxAge=2419200)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
 
 [![License: MIT](https://poser.pugx.org/infinum/eightshift-coding-standards/license)](https://github.com/WordPress/WordPress-Coding-Standards/blob/develop/LICENSE)
 [![Total Downloads](https://poser.pugx.org/infinum/eightshift-coding-standards/downloads)](https://packagist.org/packages/infinum/eightshift-coding-standards/stats)
