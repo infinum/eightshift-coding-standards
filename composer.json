@@ -22,7 +22,7 @@
     }
   ],
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.4",
     "phpcompatibility/phpcompatibility-wp": "^2.1.8",
     "wp-coding-standards/wpcs": "3.3.0",
     "slevomat/coding-standard": "^8.22.1"
@@ -38,16 +38,13 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "scripts": {
-    "lint": "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git --exclude .github",
-    "lint:ci": "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude .git --exclude .github --checkstyle",
-    "standards:list": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -i",
-    "standards:check": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
-    "standards:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
-    "tests:run": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
-    "tests:checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -ps ./Tests/RulesetCheck/ --standard=Eightshift",
     "test:types": "@php ./vendor/bin/phpstan analyze",
-    "check:complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
-    "check:complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift"
+    "test:standards": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 8.4-",
+    "test:unit": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
+    "test:unit-checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -ps ./Tests/RulesetCheck/ --standard=Eightshift",
+    "test:check-complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
+    "test:check-complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift",
+    "fix:standards": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --runtime-set testVersion 8.4-"
   },
   "support": {
     "issues": "https://github.com/infinum/eightshift-coding-standards/issues",

@@ -5,7 +5,7 @@
 	<config name="encoding" value="utf-8"/>
 
 	<!-- Check code for cross-version PHP compatibility. -->
-	<config name="testVersion" value="8.3-"/>
+	<config name="testVersion" value="8.4-"/>
 	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Exclude certain patterns. -->
