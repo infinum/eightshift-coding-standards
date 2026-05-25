@@ -100,7 +100,7 @@ jobs:
         run: composer test:check-complete
 
   lint:
-    name: "Lint: PHP ${{ matrix.php }}"
+    name: "Lint: PHP 8.4"
     needs: [composer-validate, ruleset-validate]
     runs-on: "ubuntu-latest"
     steps:
