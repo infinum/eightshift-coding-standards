@@ -22,7 +22,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4",
+		"php": ">=8.3",
 		"phpcompatibility/phpcompatibility-wp": "^2.1.4",
 		"wp-coding-standards/wpcs": "dev-hotifx/escape-output-sniff",
 		"slevomat/coding-standard": "^8.13.0"
