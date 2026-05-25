@@ -36,19 +36,30 @@ class HelpersEscapeUnitTest extends AbstractSniffUnitTest
 			case 'HelpersEscapeUnitTest.1.inc':
 				return [
 					12 => 1,
-					21 => 1,
-					23 => 1,
+					14 => 2,
+					15 => 1,
+					21 => 4,
+					23 => 4,
 				];
 			case 'HelpersEscapeUnitTest.2.inc':
 				return [
 					3 => 1,
+					5 => 2,
+					6 => 1,
 					10 => 1,
-					17 => 1,
+					12 => 2,
+					13 => 1,
+					17 => 2,
+					18 => 1,
 					21 => 1,
+					23 => 2,
+					24 => 1,
 				];
 			case 'HelpersEscapeUnitTest.3.inc':
 				return [
 					5 => 1,
+					7 => 2,
+					8 => 1,
 					19 => 1,
 					24 => 1,
 				];
@@ -64,6 +75,8 @@ class HelpersEscapeUnitTest extends AbstractSniffUnitTest
 			case 'HelpersEscapeUnitTest.6.inc':
 				return [
 					5 => 1,
+					7 => 2,
+					8 => 1,
 				];
 			default:
 				return [];

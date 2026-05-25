@@ -156,6 +156,8 @@
 	<!-- PHP sniffs are useful. Except Yoda conditions -->
 	<rule ref="WordPress.PHP">
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+		<!-- Deprecated in WPCS 3.3.0, removed in WPCS 4.0.0. POSIX regex extension was removed in PHP 7. -->
+		<exclude name="WordPress.PHP.POSIXFunctions"/>
 	</rule>
 
 	<!-- Exclude the WP escape output sniff, because we are overloading it. -->
