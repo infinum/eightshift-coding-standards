@@ -10,17 +10,35 @@ The semantic versioning started from version 0.2.1.
 
 ### Changed
 
-- **BREAKING:** Raised the minimum supported PHP version to 8.3. Consumers on PHP < 8.3 must stay on the 3.x line.
-- CI test matrix narrowed to PHP 8.3 and 8.4 (latest stable).
-- PHPCompatibility `testVersion` in `Eightshift/ruleset.xml` raised to `8.3-`.
-- Sample ruleset `phpcs.xml.dist.sample` `testVersion` raised to `8.3-` to match the new minimum.
+- **BREAKING:** Raised the minimum supported PHP version to 8.4. Consumers on PHP < 8.4 must stay on the 3.x line.
+- **BREAKING:** Composer scripts renamed and restructured around `test:*` / `fix:*` namespaces. Mapping: `standards:check` → `test:standards`, `standards:fix` → `fix:standards`, `tests:run` → `test:unit`, `tests:checkcs` → `test:unit-checkcs`, `check:complete` → `test:check-complete`, `check:complete-strict` → `test:check-complete-strict`. Added `test:types` (PHPStan), `test:rector` (dry-run), `fix:rector`, and an aggregate `test` script that runs the whole suite. Removed `lint`, `lint:ci`, and `standards:list`.
+- PHPCompatibility `testVersion` in `Eightshift/ruleset.xml` and `phpcs.xml.dist.sample` raised to `8.4-`.
+- Pinned `wp-coding-standards/wpcs` to stable `3.3.0` (was a dev branch).
+- Bumped `slevomat/coding-standard` (`^8.13.0` → `^8.22.1`), `phpcompatibility/phpcompatibility-wp` (`^2.1.4` → `^2.1.8`), `phpcsstandards/phpcsdevtools` (`^1.2.0` → `^1.2.3`), and `phpunit/phpunit` (`^8.5.52` → `^9.6.34`).
+- PHPStan analysis level raised from `5` to `6`.
+- `Generic.Files.LineLength` `lineLimit` raised from `125` to `300` to align with the line length the rest of our standards effectively tolerate.
+- CI test matrix narrowed to PHP 8.4 (single supported runtime). The PHPCS × WPCS cross-matrix was removed entirely; PHPCS and WPCS versions are now pinned via Composer.
 - Pinned `shivammathur/setup-php` GitHub Action to `2.37.1` to address Dependabot alert [GHSA-5wxr-w449-57cm](https://github.com/advisories/GHSA-5wxr-w449-57cm).
-- Fixed a long-standing CI red status: the `tests` job matrix `exclude:` previously referenced a non-existent `phpcs_branch: '3.7.2'`, so the stated "only low+low and high+high" combination policy never took effect and every cross-combination ran (and failed). The excludes now reference the actual matrix values.
-- Promoted `dev-master + dev-develop` (upstream development branches) to an explicit allow-fail canary on each PHP version. Failures on bleeding-edge upstream branches no longer block CI.
+- Bumped CI actions: `actions/checkout@v4` → `v6`, `ramsey/composer-install@v2` → `4.0.0`.
+- `phpunit.xml.dist` schema reference updated from PHPUnit 6.3 to 9.6.
+- Refreshed `LICENSE` copyright year to 2026.
+
+### Added
+
+- Rector 2.x integration: `rector.php` config (PHP 8.4 level set + CODE_QUALITY, DEAD_CODE, TYPE_DECLARATION, EARLY_RETURN sets), `test:rector` / `fix:rector` Composer scripts, and a dedicated `rector` CI job.
+- `szepeviktor/phpstan-wordpress` 2.0.3 PHPStan extension as a dev dependency for WordPress-aware static analysis.
+- Excluded `WordPress.PHP.POSIXFunctions` from the ruleset — deprecated in WPCS 3.3.0, slated for removal in WPCS 4.0.0, and the POSIX regex extension was removed in PHP 7.
+
+### Removed
+
+- `php-parallel-lint/php-parallel-lint` and `php-parallel-lint/php-console-highlighter` dev dependencies. PHPCS reports parse errors on PHP 8+; the separate lint step was redundant.
+- `SECURITY.md` — security policy is now handled via the GitHub repository settings.
 
 ### Fixed
 
 - `HelpersEscapeUnitTest` expected error lists for fixture files 1, 2, and 3 now match current sniff output (the sniff treats fully-qualified namespace usage and shorthand `Helpers\Helpers::*` calls differently than the prior test snapshots assumed). The tests had been failing on every CI run since 3.1.0.
+- `DisallowDoShortcodeSniff` and `Tests/bootstrap.php` PHPStan type errors: correct generic `array<int|string>` return on `register()`, explicit `void` return on `process_token`, and explicit `(string)` casts on values whose type PHPStan could not infer through PHPCS internals.
+- Long-standing inconsistency from 3.0.0: renamed `Eightshift/Docs/Security/ComponentsEscapeStandard.xml` → `HelpersEscapeStandard.xml` to match the `HelpersEscapeSniff` it documents (the sniff was renamed in 3.0.0 but the doc file was missed).
 
 ### Internal
 
