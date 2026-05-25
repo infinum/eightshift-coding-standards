@@ -106,7 +106,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 			// Check the next string token content.
 			if ($importExists) {
 				$fullyQualifiedImport = $importData['importName'];
-				if (!\str_contains($fullyQualifiedImport, $tokens[$elementPtr]['content'])) {
+				if (!\str_contains($fullyQualifiedImport, (string) $tokens[$elementPtr]['content'])) {
 					return parent::process_token($stackPtr);
 				}
 			}
@@ -146,7 +146,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 					if (
 						$className === 'Helpers'
 						|| \str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
-						|| (! empty($this->overriddenClass) && \str_contains($className, $this->overriddenClass))
+						|| ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))
 					) {
 						// Check the static method name.
 						$methodNamePtr = $phpcsFile->findNext(
@@ -206,34 +206,31 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 						return parent::process_token($echoPtr);
 					}
 				}
-			} else {
+			} elseif (
+				\str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
+				|| ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))
+			) {
 				// Check if the class name is fully qualified and contains the helper part.
-				if (
-					\str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
-					|| (! empty($this->overriddenClass) && \str_contains($className, $this->overriddenClass))
-				) {
-					$methodNamePtr = $phpcsFile->findNext(
-						\T_STRING,
-						($helpersClassNamePtr + 1),
-						null,
-						false,
-						null,
-						true
-					);
-
-					if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
-						return; // Skip sniffing allowed methods.
-					} else {
-						// Not allowed method, continue as usual.
-						$echoPtr = $this->getEchoToken($helpersClassNamePtr);
-
-						return parent::process_token($echoPtr);
-					}
+				$methodNamePtr = $phpcsFile->findNext(
+					\T_STRING,
+					($helpersClassNamePtr + 1),
+					null,
+					false,
+					null,
+					true
+				);
+				if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
+					return; // Skip sniffing allowed methods.
 				} else {
+					// Not allowed method, continue as usual.
 					$echoPtr = $this->getEchoToken($helpersClassNamePtr);
 
 					return parent::process_token($echoPtr);
 				}
+			} else {
+				$echoPtr = $this->getEchoToken($helpersClassNamePtr);
+
+				return parent::process_token($echoPtr);
 			}
 		}
 
