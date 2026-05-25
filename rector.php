@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\SafeDeclareStrictTypesRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -27,5 +28,10 @@ return RectorConfig::configure()
 		SetList::DEAD_CODE,
 		SetList::TYPE_DECLARATION,
 		SetList::EARLY_RETURN,
+	])
+	->withSkip([
+		SafeDeclareStrictTypesRector::class => [
+			__DIR__ . '/Eightshift/Tests',
+		],
 	])
 	->withIndent('tabs', indentSize: 2);

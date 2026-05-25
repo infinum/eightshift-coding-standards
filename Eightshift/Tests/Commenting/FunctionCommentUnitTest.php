@@ -10,8 +10,6 @@
  * @link    https://github.com/infinum/eightshift-coding-standards
  */
 
-declare(strict_types=1);
-
 namespace EightshiftCS\Eightshift\Tests\Commenting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
