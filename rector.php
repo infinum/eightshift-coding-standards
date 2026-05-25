@@ -3,7 +3,7 @@
 /**
  * Rector bootstrap.
  *
- * @package Redesign
+ * @package EightshiftCS
  */
 
 declare(strict_types=1);
