@@ -5,7 +5,7 @@
 	<config name="encoding" value="utf-8"/>
 
 	<!-- Check code for cross-version PHP compatibility. -->
-	<config name="testVersion" value="7.4-"/>
+	<config name="testVersion" value="8.4-"/>
 	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Exclude certain patterns. -->
@@ -81,10 +81,10 @@
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
 	</rule>
 
-	<!-- Warn about lines longer than 120 chars, and never error. -->
+	<!-- Warn about lines longer than 300 chars, and never error. -->
 	<rule ref="Generic.Files.LineLength">
 		<properties>
-			<property name="lineLimit" value="125"/>
+			<property name="lineLimit" value="300"/>
 			<property name="absoluteLineLimit" value="0"/>
 			<property name="ignoreComments" value="true"/>
 		</properties>
@@ -156,6 +156,8 @@
 	<!-- PHP sniffs are useful. Except Yoda conditions -->
 	<rule ref="WordPress.PHP">
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+		<!-- Deprecated in WPCS 3.3.0, removed in WPCS 4.0.0. POSIX regex extension was removed in PHP 7. -->
+		<exclude name="WordPress.PHP.POSIXFunctions"/>
 	</rule>
 
 	<!-- Exclude the WP escape output sniff, because we are overloading it. -->

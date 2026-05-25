@@ -42,7 +42,7 @@ class DisallowDoShortcodeSniff extends Sniff
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return array
+	 * @return array<int|string>
 	 */
 	public function register()
 	{
@@ -60,13 +60,10 @@ class DisallowDoShortcodeSniff extends Sniff
 	 * @since 0.1.0
 	 *
 	 * @param int $stackPtr The position of the current token in the stack.
-	 *
-	 * @return int|void Integer stack pointer to skip forward or void to continue
-	 *                  normal file processing.
 	 */
-	public function process_token($stackPtr)
+	public function process_token($stackPtr): void
 	{
-		$content = \strtolower($this->tokens[$stackPtr]['content']);
+		$content = \strtolower((string) $this->tokens[$stackPtr]['content']);
 		if ($this->tokens[$stackPtr]['code'] === \T_CONSTANT_ENCAPSED_STRING) {
 			$content = TextStrings::stripQuotes($content);
 		}

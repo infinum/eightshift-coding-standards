@@ -106,7 +106,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 			// Check the next string token content.
 			if ($importExists) {
 				$fullyQualifiedImport = $importData['importName'];
-				if (\strpos($fullyQualifiedImport, $tokens[$elementPtr]['content']) === false) {
+				if (!\str_contains($fullyQualifiedImport, (string) $tokens[$elementPtr]['content'])) {
 					return parent::process_token($stackPtr);
 				}
 			}
@@ -145,8 +145,8 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 					// Helpers name is ok, \Helpers is not ok, \Anything\Helpers is not ok FQCN is ok.
 					if (
 						$className === 'Helpers'
-						|| \strpos($className, 'EightshiftLibs\\Helpers\\Helpers') !== false
-						|| (! empty($this->overriddenClass) && \strpos($className, $this->overriddenClass) !== false)
+						|| \str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
+						|| ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))
 					) {
 						// Check the static method name.
 						$methodNamePtr = $phpcsFile->findNext(
@@ -206,34 +206,31 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 						return parent::process_token($echoPtr);
 					}
 				}
-			} else {
+			} elseif (
+				\str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
+				|| ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))
+			) {
 				// Check if the class name is fully qualified and contains the helper part.
-				if (
-					\strpos($className, 'EightshiftLibs\\Helpers\\Helpers') !== false
-					|| (! empty($this->overriddenClass) && \strpos($className, $this->overriddenClass) !== false)
-				) {
-					$methodNamePtr = $phpcsFile->findNext(
-						\T_STRING,
-						($helpersClassNamePtr + 1),
-						null,
-						false,
-						null,
-						true
-					);
-
-					if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
-						return; // Skip sniffing allowed methods.
-					} else {
-						// Not allowed method, continue as usual.
-						$echoPtr = $this->getEchoToken($helpersClassNamePtr);
-
-						return parent::process_token($echoPtr);
-					}
+				$methodNamePtr = $phpcsFile->findNext(
+					\T_STRING,
+					($helpersClassNamePtr + 1),
+					null,
+					false,
+					null,
+					true
+				);
+				if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
+					return; // Skip sniffing allowed methods.
 				} else {
+					// Not allowed method, continue as usual.
 					$echoPtr = $this->getEchoToken($helpersClassNamePtr);
 
 					return parent::process_token($echoPtr);
 				}
+			} else {
+				$echoPtr = $this->getEchoToken($helpersClassNamePtr);
+
+				return parent::process_token($echoPtr);
 			}
 		}
 
@@ -263,16 +260,16 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 			if (!empty($importInfo)) {
 				foreach ($importInfo['name'] as $fullyQualifiedClassNameImport) {
 					if (
-						\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers') !== false
-						|| (! empty($overriddenClass) && \strpos($fullyQualifiedClassNameImport, $overriddenClass) !== false)
+						\str_contains($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers')
+						|| (! empty($overriddenClass) && \str_contains($fullyQualifiedClassNameImport, $overriddenClass))
 					) {
 						$importData['importExists'] = true;
 						$importData['importName'] = $fullyQualifiedClassNameImport;
 
 						// Check for fully qualified import.
 						if (
-							\strpos($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Helpers') !== false
-							|| (! empty($overriddenClass) && \strpos($fullyQualifiedClassNameImport, $overriddenClass) !== false) // phpcs:ignore Generic.Files.LineLength.TooLong
+							\str_contains($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Helpers')
+							|| (! empty($overriddenClass) && \str_contains($fullyQualifiedClassNameImport, $overriddenClass)) // phpcs:ignore Generic.Files.LineLength.TooLong
 						) {
 							$importData['fullImportExists'] = true;
 							$importData['importName'] = $fullyQualifiedClassNameImport;

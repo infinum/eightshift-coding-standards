@@ -6,7 +6,7 @@
 [![CI checks](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml/badge.svg)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
 
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/infinum/eightshift-coding-standards.svg?maxAge=3600)](https://packagist.org/packages/infinum/eightshift-coding-standards)
-[![Tested on PHP 7.4 to 8.3](https://img.shields.io/badge/tested%20on-%207.4%20|%208.0%20|%208.1%20|%208.2%20|%208.3-green.svg?maxAge=2419200)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
+[![Tested on PHP 8.4](https://img.shields.io/badge/tested%20on-%208.4-green.svg?maxAge=2419200)](https://github.com/infinum/eightshift-coding-standards/actions/workflows/ci.yml)
 
 [![License: MIT](https://poser.pugx.org/infinum/eightshift-coding-standards/license)](https://github.com/WordPress/WordPress-Coding-Standards/blob/develop/LICENSE)
 [![Total Downloads](https://poser.pugx.org/infinum/eightshift-coding-standards/downloads)](https://packagist.org/packages/infinum/eightshift-coding-standards/stats)
@@ -14,8 +14,8 @@
 # Eightshift Coding Standards for WordPress
 
 This package contains [Eightshift Coding Standards for WordPress](https://handbook.infinum.co/books/wordpress) for
- [PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/). The intention of this package is to have a unified
-  code across the WordPress projects we do at Eightshift, and to help with the code review.
+[PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/). The intention of this package is to have a unified
+code across the WordPress projects we do at Eightshift, and to help with the code review.
 
 ## Installation
 
@@ -29,15 +29,15 @@ or add to your `composer.json`
 
 ```json
 "require-dev": {
-  "infinum/eightshift-coding-standards": "^2.0"
+  "infinum/eightshift-coding-standards": "^4.0"
 }
 ```
 
 Copy and modify the configuration file into your project (from the project root)
 
 ```bash
-cp vendor/infinum/eightshift-coding-standards/phpcs.xml.dist.sample phpcs.xml.dist 
-``` 
+cp vendor/infinum/eightshift-coding-standards/phpcs.xml.dist.sample phpcs.xml.dist
+```
 
 Then, run the following command to run the standards checks in your project:
 
@@ -51,7 +51,7 @@ You can also selectively check files or directories by specifying them.
 
 It's recommended that you install a Composer plugin that will handle the registration of standards with PHP_CodeSniffer.
 
-* [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer)
+- [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer)
 
 ## Working in IDE
 
@@ -97,8 +97,7 @@ Or set the `standard` to point to the phpcs.xml.dist in your root folder (**pref
 #### Note about global installation
 
 In your `wpcs` folder, when adding Eightshift folder. You can clone this repository there, be sure to comment out the
- `<config
- name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>` part, so that your sniffer won't go looking for that folder.
+`<config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>` part, so that your sniffer won't go looking for that folder.
 
 ### Visual Studio Code
 
@@ -110,20 +109,20 @@ To set up phpcs in your VSCode, use [vscode-phpcs](https://github.com/ikappas/vs
 ```
 
 This will look in your project's vendor folder for the Eightshift's WordPress Coding Standards, and run the sniffs on
- every
- save. You can see the issues in the Problems tab at the bottom.
+every
+save. You can see the issues in the Problems tab at the bottom.
 
 ### Atom
 
 To set up phpcs in the Atom editor, you need to install a couple of packages. First install the base linter package for Atom: [linter](https://atom.io/packages/linter). Upon completion you will be prompted to install its dependency [linter-ui-default](https://atom.io/packages/linter-ui-default). After that install [linter-phpcs](https://atom.io/packages/linter-phpcs).
 
 In `linter-phpcs` package settings you can set the path to previously installed `phpcs` or allow the package to
- search for `phpcs` executable inside your project. Also, you must set the name of the standard: `"Eightshift"` or
-  path to
-  the
-  `ruleset.xml` of Eightshift's WordPress Coding Standards. We recommend you to disable searching for configuration
-   files
-   because that can cause some other standards to be used instead.
+search for `phpcs` executable inside your project. Also, you must set the name of the standard: `"Eightshift"` or
+path to
+the
+`ruleset.xml` of Eightshift's WordPress Coding Standards. We recommend you to disable searching for configuration
+files
+because that can cause some other standards to be used instead.
 
 In config.cson linter-phpcs settings can look like this:
 

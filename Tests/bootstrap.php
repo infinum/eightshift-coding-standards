@@ -16,6 +16,8 @@
  * @license https://opensource.org/licenses/MIT MIT
  */
 
+use PHP_CodeSniffer\Util\Standards;
+
 if (!defined('PHP_CODESNIFFER_IN_TESTS')) {
 	define('PHP_CODESNIFFER_IN_TESTS', true);
 }
@@ -65,7 +67,7 @@ $cliArgs = $GLOBALS['argv'];
 
 if (!is_null($cliArgs)) {
 	foreach ($cliArgs as $argument) {
-		if (mb_strpos($argument, 'phpstan') !== false) {
+		if (mb_strpos((string) $argument, 'phpstan') !== false) {
 			// Load the WordPress files.
 			$WPCSFolder = dirname(__DIR__) . $ds . 'vendor' . $ds . 'wp-coding-standards' . $ds . 'wpcs' . $ds . 'WordPress';
 
@@ -148,12 +150,12 @@ $eightshiftStandards = [
 	'Eightshift' => true,
 ];
 
-$allStandards = PHP_CodeSniffer\Util\Standards::getInstalledStandards();
+$allStandards = Standards::getInstalledStandards();
 $allStandards[] = 'Generic';
 
 $standardsToIgnore = [];
 foreach ($allStandards as $standard) {
-	if (isset($eightshiftStandards[$standard]) === true) {
+	if (isset($eightshiftStandards[$standard])) {
 		continue;
 	}
 
