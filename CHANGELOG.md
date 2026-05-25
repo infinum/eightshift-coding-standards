@@ -26,6 +26,10 @@ _No documentation available about unreleased changes yet._
 
 - `HelpersEscapeUnitTest` expected error lists for fixture files 1, 2, and 3 now match current sniff output (the sniff treats fully-qualified namespace usage and shorthand `Helpers\Helpers::*` calls differently than the prior test snapshots assumed). The tests had been failing on every CI run since 3.1.0.
 
+### Internal
+
+- Modernized `HelpersEscapeSniff` to PHP 8 idioms (`str_contains` in place of `strpos(...) !== false`). No behavioural change. The other two sniffs (`FunctionCommentSniff`, `DisallowDoShortcodeSniff`) were inventoried for modernization and required no changes — they were already PHP 8-idiomatic.
+
 ## [3.1.0](https://github.com/infinum/eightshift-coding-standards/compare/3.0.1...3.1.0)
 
 ### Added
