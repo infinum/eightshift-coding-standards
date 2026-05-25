@@ -97,8 +97,7 @@ Or set the `standard` to point to the phpcs.xml.dist in your root folder (**pref
 #### Note about global installation
 
 In your `wpcs` folder, when adding Eightshift folder. You can clone this repository there, be sure to comment out the
-`<config
- name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>` part, so that your sniffer won't go looking for that folder.
+`<config name="installed_paths" value="vendor/wp-coding-standards/wpcs"/>` part, so that your sniffer won't go looking for that folder.
 
 ### Visual Studio Code
 
