@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/) and [Keep a C
 
 The semantic versioning started from version 0.2.1.
 
+## [4.0.1]
+
+### Added
+
+- Prettier check and husky check.
+
 ## [4.0.0]
 
 ### Changed

@@ -27,7 +27,7 @@ Also, test that your code isn't breaking anything by running
 composer tests:run
 ```
 
-If you want to add a new sniff, please add a documentation for it as well. If you forget to add it the 
+If you want to add a new sniff, please add a documentation for it as well. If you forget to add it the
 
 ```bash
 composer check:complete-strict
