@@ -1,5 +1,6 @@
 composer.phar
 /vendor
+/node_modules
 phpcs-report.xml
 composer.lock
 .phpunit.result.cache

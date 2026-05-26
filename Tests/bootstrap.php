@@ -43,11 +43,7 @@ if ($phpcsDir === false && is_dir($composerPHPCSPath)) {
 }
 
 // Try and load the PHPCS autoloader.
-if (
-	$phpcsDir !== false
-	&& file_exists($phpcsDir . $ds . 'autoload.php')
-	&& file_exists($phpcsDir . $ds . 'tests' . $ds . 'bootstrap.php')
-) {
+if ($phpcsDir !== false && file_exists($phpcsDir . $ds . 'autoload.php') && file_exists($phpcsDir . $ds . 'tests' . $ds . 'bootstrap.php')) {
 	require_once $phpcsDir . $ds . 'autoload.php';
 	require_once $phpcsDir . $ds . 'tests' . $ds . 'bootstrap.php'; // PHPUnit 6.x+ support.
 } else {

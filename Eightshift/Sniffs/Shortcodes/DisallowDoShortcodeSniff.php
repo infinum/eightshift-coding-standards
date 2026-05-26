@@ -46,12 +46,7 @@ class DisallowDoShortcodeSniff extends Sniff
 	 */
 	public function register()
 	{
-		return [
-			\T_STRING,
-			\T_CONSTANT_ENCAPSED_STRING,
-			\T_DOUBLE_COLON,
-			\T_NS_SEPARATOR
-		];
+		return [\T_STRING, \T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_COLON, \T_NS_SEPARATOR];
 	}
 
 	/**
@@ -79,11 +74,7 @@ class DisallowDoShortcodeSniff extends Sniff
 		}
 
 		if ($content === 'do_shortcode') {
-			$this->phpcsFile->addWarning(
-				'Do not include do_shortcode() function in theme files. Use shortcode callback function instead.',
-				$stackPtr,
-				'shortcodeUsageDetected'
-			);
+			$this->phpcsFile->addWarning('Do not include do_shortcode() function in theme files. Use shortcode callback function instead.', $stackPtr, 'shortcodeUsageDetected');
 		}
 	}
 }

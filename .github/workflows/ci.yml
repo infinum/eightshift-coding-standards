@@ -3,58 +3,58 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - "develop"
-      - "main"
+      - 'develop'
+      - 'main'
     paths-ignore:
-      - "**.md"
+      - '**.md'
   pull_request:
     paths-ignore:
-      - "**.md"
+      - '**.md'
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.ref }}"
+  group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
   composer-validate:
-    name: "Validate the composer.json file"
-    runs-on: "ubuntu-latest"
+    name: 'Validate the composer.json file'
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Setup PHP"
+      - name: 'Setup PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           coverage: none
           tools: composer:v2
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Composer validate"
+      - name: 'Composer validate'
         run: composer validate --no-check-all --strict
 
   ruleset-validate:
-    name: "Validate the WordPress rulesets"
-    runs-on: "ubuntu-latest"
+    name: 'Validate the WordPress rulesets'
+    runs-on: 'ubuntu-latest'
     env:
-      XMLLINT_INDENT: "	"
+      XMLLINT_INDENT: '	'
     steps:
-      - name: "Setup PHP"
+      - name: 'Setup PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           coverage: none
           tools: composer:v2
 
-      - name: "Install xmllint"
+      - name: 'Install xmllint'
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y libxml2-utils
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Install Composer dependencies"
+      - name: 'Install Composer dependencies'
         uses: ramsey/composer-install@4.0.0
 
       # Show XML violations inline in the file diff.
@@ -63,107 +63,107 @@ jobs:
 
         # Validate the Ruleset XML files.
       # @link http://xmlsoft.org/xmllint.html
-      - name: "Validate the WordPress rulesets"
+      - name: 'Validate the WordPress rulesets'
         run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
 
-      - name: "Validate the sample ruleset"
+      - name: 'Validate the sample ruleset'
         run: xmllint --noout --schema vendor/squizlabs/php_codesniffer/phpcs.xsd ./phpcs.xml.dist.sample
 
       # Validate the Documentation XML files.
-      - name: "Validate documentation against schema"
+      - name: 'Validate documentation against schema'
         run: xmllint --noout --schema vendor/phpcsstandards/phpcsdevtools/DocsXsd/phpcsdocs.xsd ./Eightshift/Docs/*/*Standard.xml
 
-      - name: "Check the code-style consistency of the xml files"
+      - name: 'Check the code-style consistency of the xml files'
         run: |
           diff -B --tabsize=4 ./Eightshift/ruleset.xml <(xmllint --format "./Eightshift/ruleset.xml")
           diff -B --tabsize=4 ./phpcs.xml.dist.sample <(xmllint --format "./phpcs.xml.dist.sample")
 
   feature-completeness:
-    name: "Check sniff feature completeness"
+    name: 'Check sniff feature completeness'
     needs: [composer-validate, ruleset-validate]
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Setup PHP"
+      - name: 'Setup PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           coverage: none
           tools: composer:v2
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Install Composer dependencies"
+      - name: 'Install Composer dependencies'
         uses: ramsey/composer-install@4.0.0
 
-      - name: "Check sniff feature completeness"
+      - name: 'Check sniff feature completeness'
         run: composer test:check-complete
 
   lint:
-    name: "Lint: PHP 8.4"
+    name: 'Lint: PHP 8.4'
     needs: [composer-validate, ruleset-validate]
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Set up PHP"
+      - name: 'Set up PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           coverage: none
           tools: cs2pr, composer:v2
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Install Composer dependencies"
+      - name: 'Install Composer dependencies'
         uses: ramsey/composer-install@4.0.0
 
       - name: Lint against parse errors
         run: composer test:standards
 
   phpstan:
-    name: "PHPStan checks"
+    name: 'PHPStan checks'
     needs: [composer-validate, ruleset-validate]
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Set up PHP"
+      - name: 'Set up PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           coverage: none
           tools: phpstan, composer:v2
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Install Composer dependencies"
-        uses: "ramsey/composer-install@4.0.0"
+      - name: 'Install Composer dependencies'
+        uses: 'ramsey/composer-install@4.0.0'
 
-      - name: "Run PHPStan"
+      - name: 'Run PHPStan'
         run: composer test:types
 
   rector:
-    name: "Rector checks"
+    name: 'Rector checks'
     needs: [composer-validate, ruleset-validate]
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     steps:
-      - name: "Set up PHP"
+      - name: 'Set up PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           coverage: none
           tools: composer:v2
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Install Composer dependencies"
+      - name: 'Install Composer dependencies'
         uses: ramsey/composer-install@4.0.0
 
-      - name: "Run Rector"
+      - name: 'Run Rector'
         run: composer test:rector
 
   tests:
-    name: "Unit tests"
+    name: 'Unit tests'
     needs: [composer-validate, ruleset-validate]
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.allowed_failure }}
@@ -172,27 +172,27 @@ jobs:
       matrix:
         allowed_failure: [false]
     steps:
-      - name: "Setup ini config"
+      - name: 'Setup ini config'
         id: set_ini
         run: |
           echo 'PHP_INI=error_reporting=E_ALL & ~E_DEPRECATED, display_errors=On' >> $GITHUB_OUTPUT
 
-      - name: "Setup PHP"
+      - name: 'Setup PHP'
         uses: shivammathur/setup-php@2.37.1
         with:
-          php-version: "8.4"
+          php-version: '8.4'
           ini-values: ${{ steps.set_ini.outputs.PHP_INI }}
           coverage: none
           tools: composer:v2
 
-      - name: "Checkout code"
+      - name: 'Checkout code'
         uses: actions/checkout@v6
 
-      - name: "Install Composer dependencies"
+      - name: 'Install Composer dependencies'
         uses: ramsey/composer-install@4.0.0
 
-      - name: "Test the Eightshift ruleset"
+      - name: 'Test the Eightshift ruleset'
         run: composer test:unit-checkcs
 
-      - name: "Run the unit tests"
+      - name: 'Run the unit tests'
         run: composer test:unit

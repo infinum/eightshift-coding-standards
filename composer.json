@@ -1,70 +1,74 @@
 {
-  "name": "infinum/eightshift-coding-standards",
-  "type": "phpcodesniffer-standard",
-  "description": "Eightshift WordPress Coding Standards",
-  "keywords": [
-    "phpcs",
-    "standards",
-    "WordPress",
-    "Eightshift"
-  ],
-  "homepage": "https://github.com/infinum/eightshift-coding-standards",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Eightshift team",
-      "email": "team@eightshift.com",
-      "homepage": "https://eightshift.com/",
-      "role": "Developer / IT Manager"
-    }
-  ],
-  "require": {
-    "php": ">=8.4",
-    "phpcompatibility/phpcompatibility-wp": "^2.1.8",
-    "wp-coding-standards/wpcs": "3.3.0",
-    "slevomat/coding-standard": "^8.22.1"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.6.34",
-    "phpcsstandards/phpcsdevtools": "^1.2.3",
-    "roave/security-advisories": "dev-master",
-    "szepeviktor/phpstan-wordpress": "2.0.3",
-    "rector/rector": "^2.4.4"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "test:types": "@php ./vendor/bin/phpstan analyze",
-    "test:standards": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 8.4-",
-    "test:unit": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
-    "test:unit-checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -ps ./Tests/RulesetCheck/ --standard=Eightshift",
-    "test:check-complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
-    "test:check-complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift",
-    "test:rector": "@php ./vendor/bin/rector process --dry-run",
-    "fix:standards": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --runtime-set testVersion 8.4-",
-    "fix:rector": "@php ./vendor/bin/rector process",
-    "test": [
-      "@test:rector",
-      "@test:standards",
-      "@test:types",
-      "@test:unit",
-      "@test:unit-checkcs",
-      "@test:check-complete",
-      "@test:check-complete-strict"
-    ]
-  },
-  "support": {
-    "issues": "https://github.com/infinum/eightshift-coding-standards/issues",
-    "source": "https://github.com/infinum/eightshift-coding-standards"
-  },
-  "config": {
-    "lock": false,
-    "sort-packages": true,
-    "optimize-autoloader": true,
-    "process-timeout": 2000,
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "composer/installers": true
-    }
-  }
+	"name": "infinum/eightshift-coding-standards",
+	"type": "phpcodesniffer-standard",
+	"description": "Eightshift WordPress Coding Standards",
+	"keywords": [
+		"phpcs",
+		"standards",
+		"WordPress",
+		"Eightshift"
+	],
+	"homepage": "https://github.com/infinum/eightshift-coding-standards",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Eightshift team",
+			"email": "team@eightshift.com",
+			"homepage": "https://eightshift.com/",
+			"role": "Developer / IT Manager"
+		}
+	],
+	"require": {
+		"php": ">=8.4",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.8",
+		"wp-coding-standards/wpcs": "3.3.0",
+		"slevomat/coding-standard": "^8.22.1"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.6.34",
+		"phpcsstandards/phpcsdevtools": "^1.2.3",
+		"roave/security-advisories": "dev-master",
+		"szepeviktor/phpstan-wordpress": "2.0.3",
+		"phpstan/phpstan-deprecation-rules": "^2.0.4",
+		"rector/rector": "^2.4.4"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"scripts": {
+		"test:types": "@php ./vendor/bin/phpstan analyze",
+		"test:standards": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 8.4-",
+		"test:unit": "@php ./vendor/phpunit/phpunit/phpunit --filter Eightshift ./vendor/squizlabs/php_codesniffer/tests/AllTests.php",
+		"test:unit-checkcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs -ps ./Tests/RulesetCheck/ --standard=Eightshift",
+		"test:check-complete": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness -q ./Eightshift",
+		"test:check-complete-strict": "@php ./vendor/phpcsstandards/phpcsdevtools/bin/phpcs-check-feature-completeness ./Eightshift",
+		"test:rector": "@php ./vendor/bin/rector process --dry-run",
+		"test:prettier": "prettier . --check",
+		"fix:standards": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --runtime-set testVersion 8.4-",
+		"fix:rector": "@php ./vendor/bin/rector process",
+		"fix:prettier": "prettier . --write",
+		"test": [
+			"@test:rector",
+			"@test:prettier",
+			"@test:standards",
+			"@test:types",
+			"@test:unit",
+			"@test:unit-checkcs",
+			"@test:check-complete",
+			"@test:check-complete-strict"
+		]
+	},
+	"support": {
+		"issues": "https://github.com/infinum/eightshift-coding-standards/issues",
+		"source": "https://github.com/infinum/eightshift-coding-standards"
+	},
+	"config": {
+		"lock": false,
+		"sort-packages": true,
+		"optimize-autoloader": true,
+		"process-timeout": 2000,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"composer/installers": true
+		}
+	}
 }

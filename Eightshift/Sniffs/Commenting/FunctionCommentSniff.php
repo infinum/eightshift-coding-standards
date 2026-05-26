@@ -35,9 +35,7 @@ class FunctionCommentSniff extends SquizFunctionComment
 	 *
 	 * @var string[]
 	 */
-	public array $allowedExtendedClasses = [
-		'AbstractCli',
-	];
+	public array $allowedExtendedClasses = ['AbstractCli'];
 
 	/**
 	 * Processes this test, when one of its tokens is encountered.
@@ -64,10 +62,7 @@ class FunctionCommentSniff extends SquizFunctionComment
 			return parent::process($phpcsFile, $stackPtr);
 		}
 
-		$classPtr = Conditions::getLastCondition($phpcsFile, $stackPtr, [
-			\T_CLASS,
-			\T_ANON_CLASS
-		]);
+		$classPtr = Conditions::getLastCondition($phpcsFile, $stackPtr, [\T_CLASS, \T_ANON_CLASS]);
 
 		if ($classPtr === false) {
 			return parent::process($phpcsFile, $stackPtr);

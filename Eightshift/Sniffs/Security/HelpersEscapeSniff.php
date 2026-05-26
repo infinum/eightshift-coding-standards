@@ -72,12 +72,12 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 		$phpcsFile = $this->phpcsFile;
 		$importData = [
 			'importExists' => false,
-			'fullImportExists' => false
+			'fullImportExists' => false,
 		];
 		$importExists = false;
 
 		// Check if the current token is a part of the import, if it is, skip the check.
-		$useToken = $phpcsFile->findPrevious(\T_USE, ($stackPtr - 1), null, false, null, false);
+		$useToken = $phpcsFile->findPrevious(\T_USE, $stackPtr - 1, null, false, null, false);
 
 		if ($useToken) {
 			// Find all use tokens.
@@ -96,7 +96,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 
 		if ($tokens[$stackPtr]['code'] === \T_ECHO) {
 			// Check the next token after echo.
-			$elementPtr = $phpcsFile->findNext(Tokens::$emptyTokens, ($stackPtr + 1), null, true);
+			$elementPtr = $phpcsFile->findNext(Tokens::$emptyTokens, $stackPtr + 1, null, true);
 
 			// If it's not the string token, move on, we're only interested in Helpers string.
 			if ($tokens[$elementPtr]['code'] !== \T_STRING) {
@@ -112,7 +112,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 			}
 
 			// Check for Helpers string token.
-			$helpersClassNamePtr = $phpcsFile->findNext(\T_STRING, ($stackPtr + 1), null, false, 'Helpers');
+			$helpersClassNamePtr = $phpcsFile->findNext(\T_STRING, $stackPtr + 1, null, false, 'Helpers');
 
 			if (!$helpersClassNamePtr) {
 				// If there is no Helpers down the line, just run the regular sniff.
@@ -121,21 +121,14 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 
 			// Check if the next token is double colon. We are interested in static methods.
 			if ($tokens[$helpersClassNamePtr + 1]['code'] !== \T_DOUBLE_COLON) {
-				$echoPtr = $phpcsFile->findPrevious(\T_ECHO, ($helpersClassNamePtr - 1), null, false, null, true);
+				$echoPtr = $phpcsFile->findPrevious(\T_ECHO, $helpersClassNamePtr - 1, null, false, null, true);
 
 				return parent::process_token($echoPtr);
 			}
 
 			// If it is, check, if the class is imported or fully qualified.
-			$nameEnd = $phpcsFile->findPrevious(\T_STRING, ($helpersClassNamePtr + 1));
-			$nameStart = ($phpcsFile->findPrevious(
-				[\T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE],
-				($nameEnd - 1),
-				null,
-				true,
-				null,
-				true
-			) + 1);
+			$nameEnd = $phpcsFile->findPrevious(\T_STRING, $helpersClassNamePtr + 1);
+			$nameStart = $phpcsFile->findPrevious([\T_STRING, \T_NS_SEPARATOR, \T_NAMESPACE], $nameEnd - 1, null, true, null, true) + 1;
 
 			$className = GetTokensAsString::normal($phpcsFile, $nameStart, $nameEnd);
 
@@ -143,20 +136,9 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 				// Fully qualified import, i.e. EightshiftLibs\Helpers\Helpers.
 				if ($importData['fullImportExists']) {
 					// Helpers name is ok, \Helpers is not ok, \Anything\Helpers is not ok FQCN is ok.
-					if (
-						$className === 'Helpers'
-						|| \str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
-						|| ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))
-					) {
+					if ($className === 'Helpers' || \str_contains($className, 'EightshiftLibs\\Helpers\\Helpers') || ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))) {
 						// Check the static method name.
-						$methodNamePtr = $phpcsFile->findNext(
-							\T_STRING,
-							($helpersClassNamePtr + 1),
-							null,
-							false,
-							null,
-							true
-						);
+						$methodNamePtr = $phpcsFile->findNext(\T_STRING, $helpersClassNamePtr + 1, null, false, null, true);
 
 						if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 							return; // Skip sniffing allowed methods.
@@ -182,14 +164,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 
 					if ($lastNamespacePart === $firstNamespacePart) {
 						// Correctly used class name.
-						$methodNamePtr = $phpcsFile->findNext(
-							\T_STRING,
-							($helpersClassNamePtr + 1),
-							null,
-							false,
-							null,
-							true
-						);
+						$methodNamePtr = $phpcsFile->findNext(\T_STRING, $helpersClassNamePtr + 1, null, false, null, true);
 
 						if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 							return; // Skip sniffing allowed methods.
@@ -206,19 +181,9 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 						return parent::process_token($echoPtr);
 					}
 				}
-			} elseif (
-				\str_contains($className, 'EightshiftLibs\\Helpers\\Helpers')
-				|| ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))
-			) {
+			} elseif (\str_contains($className, 'EightshiftLibs\\Helpers\\Helpers') || ($this->overriddenClass !== '' && $this->overriddenClass !== '0' && \str_contains($className, $this->overriddenClass))) {
 				// Check if the class name is fully qualified and contains the helper part.
-				$methodNamePtr = $phpcsFile->findNext(
-					\T_STRING,
-					($helpersClassNamePtr + 1),
-					null,
-					false,
-					null,
-					true
-				);
+				$methodNamePtr = $phpcsFile->findNext(\T_STRING, $helpersClassNamePtr + 1, null, false, null, true);
 				if (\in_array($tokens[$methodNamePtr]['content'], $this->allowedMethods, true)) {
 					return; // Skip sniffing allowed methods.
 				} else {
@@ -259,17 +224,14 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 
 			if (!empty($importInfo)) {
 				foreach ($importInfo['name'] as $fullyQualifiedClassNameImport) {
-					if (
-						\str_contains($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers')
-						|| (! empty($overriddenClass) && \str_contains($fullyQualifiedClassNameImport, $overriddenClass))
-					) {
+					if (\str_contains($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers') || (!empty($overriddenClass) && \str_contains($fullyQualifiedClassNameImport, $overriddenClass))) {
 						$importData['importExists'] = true;
 						$importData['importName'] = $fullyQualifiedClassNameImport;
 
 						// Check for fully qualified import.
 						if (
-							\str_contains($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Helpers')
-							|| (! empty($overriddenClass) && \str_contains($fullyQualifiedClassNameImport, $overriddenClass)) // phpcs:ignore Generic.Files.LineLength.TooLong
+							\str_contains($fullyQualifiedClassNameImport, 'EightshiftLibs\\Helpers\\Helpers') ||
+							(!empty($overriddenClass) && \str_contains($fullyQualifiedClassNameImport, $overriddenClass)) // phpcs:ignore Generic.Files.LineLength.TooLong
 						) {
 							$importData['fullImportExists'] = true;
 							$importData['importName'] = $fullyQualifiedClassNameImport;
@@ -297,6 +259,6 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 	 */
 	private function getEchoToken(int $stackPtr): int
 	{
-		return $this->phpcsFile->findPrevious(\T_ECHO, ($stackPtr - 1), null, false, null, true);
+		return $this->phpcsFile->findPrevious(\T_ECHO, $stackPtr - 1, null, false, null, true);
 	}
 }

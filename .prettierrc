@@ -1,0 +1,12 @@
+{
+	"plugins": ["@prettier/plugin-php"],
+	"useTabs": true,
+	"jsxSingleQuote": true,
+	"singleQuote": true,
+	"singleAttributePerLine": true,
+	"printWidth": 300,
+	"arrowParens": "always",
+	"bracketSpacing": true,
+	"semi": true,
+	"trailingComma": "all"
+}
