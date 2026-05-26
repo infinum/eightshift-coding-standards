@@ -416,6 +416,7 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 
 Initial release
 
+[4.0.1]: https://github.com/infinum/eightshift-coding-standards/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/infinum/eightshift-coding-standards/compare/3.1.0...4.0.0
 [3.1.0]: https://github.com/infinum/eightshift-coding-standards/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/infinum/eightshift-coding-standards/compare/3.0.0...3.0.1
