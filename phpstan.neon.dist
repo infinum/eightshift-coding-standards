@@ -3,8 +3,15 @@ includes:
 	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
 parameters:
 	level: 6
+	excludePaths:
+		- */vendor/*
+		- */vendor-prefixed/*
+		- */node_modules/*
+		- */eightshift/*
+		- */public/*
+		- */tests/*
 	paths:
-		- Eightshift
+		- .
 	bootstrapFiles:
 		- Tests/bootstrap.php
 	treatPhpDocTypesAsCertain: false
