@@ -6,6 +6,23 @@ This project adheres to [Semantic Versioning](https://semver.org/) and [Keep a C
 
 The semantic versioning started from version 0.2.1.
 
+## [4.0.2]
+
+### Changed
+
+- Updated `rector/rector` dev dependency to `^2.4.5`.
+- Updated Rector and PHPStan configuration to scan the whole project (with explicit excludes for `vendor`, `vendor-prefixed`, `node_modules`, `eightshift`, `public`, and `tests`) instead of only the `Eightshift` directory.
+- Updated Rector config to drop `RemoveUselessVarTagRector` and enable `withImportNames(importShortClasses: false, removeUnusedImports: true)`.
+- Updated `phpcs.xml.dist.sample` `minimum_supported_wp_version` example value to align with the supported PHP runtime.
+
+### Added
+
+- Added `#[Override]` attributes to `FunctionCommentSniff::process()` and `HelpersEscapeSniff::process_token()` to make parent overrides explicit on PHP 8.4.
+
+### Removed
+
+- Removed Prettier setup (`.prettierrc`, `@prettier/plugin-php`, `prettier` dev dependencies, and `test:prettier` / `fix:prettier` Composer scripts). The Prettier check added in 4.0.1 was reverted as it did not fit the PHPCS-driven workflow.
+
 ## [4.0.1]
 
 ### Added
@@ -416,6 +433,7 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 
 Initial release
 
+[4.0.2]: https://github.com/infinum/eightshift-coding-standards/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/infinum/eightshift-coding-standards/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/infinum/eightshift-coding-standards/compare/3.1.0...4.0.0
 [3.1.0]: https://github.com/infinum/eightshift-coding-standards/compare/3.0.1...3.1.0

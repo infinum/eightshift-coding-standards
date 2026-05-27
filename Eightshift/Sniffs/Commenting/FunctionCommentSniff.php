@@ -16,6 +16,7 @@ use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\FunctionCommentSniff as SquizFunctionComment;
 use PHPCSUtils\Utils\Conditions;
 use PHPCSUtils\Utils\ObjectDeclarations;
+use Override;
 
 /**
  * Override the Squiz.Commenting.FunctionComment sniff
@@ -51,6 +52,7 @@ class FunctionCommentSniff extends SquizFunctionComment
 	 *                  pointer is reached. Return (count($tokens) + 1) to skip
 	 *                  the rest of the file.
 	 */
+	#[Override]
 	public function process(File $phpcsFile, $stackPtr)
 	{
 		// If the function is the called __invoke, and is inside the class

@@ -16,6 +16,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PHPCSUtils\Utils\GetTokensAsString;
 use PHPCSUtils\Utils\UseStatements;
 use WordPressCS\WordPress\Sniffs\Security\EscapeOutputSniff;
+use Override;
 
 /**
  * Override the WordPress.Security.EscapeOutput sniff
@@ -66,6 +67,7 @@ class HelpersEscapeSniff extends EscapeOutputSniff
 	 * @return int|void Integer stack pointer to skip forward or void to continue
 	 *                  normal file processing.
 	 */
+	#[Override]
 	public function process_token($stackPtr)
 	{
 		$tokens = $this->tokens;

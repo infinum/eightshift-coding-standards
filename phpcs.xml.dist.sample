@@ -36,7 +36,7 @@
 	the wiki:
 	https://github.com/WordPress/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
 	-->
-	<config name="minimum_supported_wp_version" value="4.9"/>
+	<config name="minimum_supported_wp_version" value="8.4"/>
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
