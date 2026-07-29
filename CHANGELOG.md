@@ -6,6 +6,15 @@ This project adheres to [Semantic Versioning](https://semver.org/) and [Keep a C
 
 The semantic versioning started from version 0.2.1.
 
+## [4.0.3]
+
+### Changed
+
+- Updated `phpcompatibility/phpcompatibility-wp` from `^2.1.8` to `3.0.0-alpha2` for newer PHP compatibility coverage.
+- Pinned `slevomat/coding-standard` to `8.22.1`, the latest release compatible with the PHP_CodeSniffer 3 requirement from WPCS 3.4.1.
+- Updated development dependencies: `phpunit/phpunit` to `^9.6.35`, `phpstan/phpstan-deprecation-rules` to `^2.0.5`, and `rector/rector` to `^2.5.8`.
+- Updated `wp-coding-standards/wpcs` from `3.3.0` to `3.4.1` to address [CVE-2026-45293](https://github.com/advisories/GHSA-3pwp-g2mj-5p3v).
+
 ## [4.0.2]
 
 ### Changed
@@ -433,6 +442,7 @@ If you wish to use the old standards, be sure to modify your projects `composer.
 
 Initial release
 
+[4.0.3]: https://github.com/infinum/eightshift-coding-standards/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/infinum/eightshift-coding-standards/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/infinum/eightshift-coding-standards/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/infinum/eightshift-coding-standards/compare/3.1.0...4.0.0
