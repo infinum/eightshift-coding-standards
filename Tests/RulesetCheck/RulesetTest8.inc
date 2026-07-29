@@ -457,7 +457,7 @@ class Helpers
 					$internalKey = self::camelToKebabCase($key);
 					$internalCustomKey = self::camelToKebabCase($customKey);
 
-					$customOutput .= "--{$internalKey}-{$internalCustomKey}: ${customValue};\n";
+					$customOutput .= "--{$internalKey}-{$internalCustomKey}: {$customValue};\n";
 				}
 			}
 
@@ -529,8 +529,8 @@ class Helpers
 	public static function props(
 		array $attributes,
 		string $realName,
-		string $newName = '',
-		bool $isBlock = false,
+		string $newName = '', // phpcs:ignore PHPCompatibility.FunctionDeclarations.RemovedOptionalBeforeRequiredParam.Deprecated80 -- Keep parity with the real library API.
+		bool $isBlock = false, // phpcs:ignore PHPCompatibility.FunctionDeclarations.RemovedOptionalBeforeRequiredParam.Deprecated80 -- Keep parity with the real library API.
 		array $globalData // phpcs:ignore PEAR.Functions.ValidDefaultValue.NotAtEnd
 	): array {
 		$newNameInternal = $newName;

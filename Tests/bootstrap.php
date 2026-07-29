@@ -63,7 +63,7 @@ $cliArgs = $GLOBALS['argv'];
 
 if (!is_null($cliArgs)) {
 	foreach ($cliArgs as $argument) {
-		if (mb_strpos((string) $argument, 'phpstan') !== false) {
+		if (str_contains((string) $argument, 'phpstan')) {
 			// Load the WordPress files.
 			$WPCSFolder = dirname(__DIR__) . $ds . 'vendor' . $ds . 'wp-coding-standards' . $ds . 'wpcs' . $ds . 'WordPress';
 
