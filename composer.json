@@ -28,9 +28,9 @@
 		"phpunit/phpunit": "^9.6.35",
 		"phpcsstandards/phpcsdevtools": "^1.2.3",
 		"roave/security-advisories": "dev-master",
-		"szepeviktor/phpstan-wordpress": "2.0.3",
+		"szepeviktor/phpstan-wordpress": "2.0.4",
 		"phpstan/phpstan-deprecation-rules": "^2.0.5",
-		"rector/rector": "^2.5.8"
+		"rector/rector": "^2.8.3"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
